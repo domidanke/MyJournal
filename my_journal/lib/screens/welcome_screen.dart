@@ -21,20 +21,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Container(
-                  child: Image.asset('images/logo.png'),
-                  height: 60,
-                ),
-                Text(
-                  'myJournal',
-                  style: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ],
+            Text(
+              'myJournal',
+              style: TextStyle(
+                fontSize: 45.0,
+                fontWeight: FontWeight.w900,
+              ),
             ),
             SizedBox(
               height: 48.0,
