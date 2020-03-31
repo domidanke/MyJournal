@@ -26,7 +26,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.all(10.0),
-                  child: FaIcon(
+                  child: Icon(
                     FontAwesomeIcons.book,
                     size: 50.0,
                   ),

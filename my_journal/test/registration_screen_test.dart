@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_journal/screens/registration_screen.dart';
+import 'package:my_journal/widgets/rounded_button.dart';
 
 void main() {
   testWidgets('RegistrationScreen is properly rendered',
@@ -24,8 +25,16 @@ void main() {
 
     // Create Finders
     final widgetFinder = find.byWidget(registrationScreen);
+    final roundedButtonFinder = find.byType(RoundedButton(
+      onPressed: () {},
+    ).runtimeType);
+    final registerFinder = find.text('Register');
+    final textFieldFinder = find.byType(TextField().runtimeType);
 
     // Verify that RegistrationScreen exists and is properly rendered
     expect(widgetFinder, findsOneWidget);
+    expect(roundedButtonFinder, findsOneWidget);
+    expect(registerFinder, findsOneWidget);
+    expect(textFieldFinder, findsNWidgets(2));
   });
 }
