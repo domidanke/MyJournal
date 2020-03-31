@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_journal/screens/my_journal_screen.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
+import 'package:my_journal/constants.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registration_screen';
@@ -26,6 +27,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             TextField(
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
+              decoration: kTextFieldInputDecoration.copyWith(
+                hintText: 'Enter your email',
+              ),
               onChanged: (value) {
                 //Do something with the user input.
                 email = value;
@@ -37,6 +41,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             TextField(
               obscureText: true,
               textAlign: TextAlign.center,
+              decoration: kTextFieldInputDecoration.copyWith(
+                hintText: 'Enter your password',
+              ),
               onChanged: (value) {
                 //Do something with the user input.
                 password = value;

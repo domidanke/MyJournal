@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_journal/constants.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
 import 'my_journal_screen.dart';
@@ -27,6 +28,9 @@ class _LoginScreenState extends State<LoginScreen> {
             TextField(
               keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
+              decoration: kTextFieldInputDecoration.copyWith(
+                hintText: 'Enter your email',
+              ),
               onChanged: (value) {
                 //Do something with the user input.
                 email = value;
@@ -38,6 +42,9 @@ class _LoginScreenState extends State<LoginScreen> {
             TextField(
               obscureText: true,
               textAlign: TextAlign.center,
+              decoration: kTextFieldInputDecoration.copyWith(
+                hintText: 'Enter your password',
+              ),
               onChanged: (value) {
                 //Do something with the user input.
                 password = value;
