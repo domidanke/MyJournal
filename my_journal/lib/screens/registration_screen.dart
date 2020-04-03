@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journal/screens/my_journal_screen.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
@@ -11,6 +12,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _auth = FirebaseAuth.instance;
   String email;
   String password;
 
@@ -55,8 +57,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             RoundedButton(
               text: 'Register',
               color: Colors.blueAccent,
-              onPressed: () {
-                Navigator.pushNamed(context, MyJournalScreen.id);
+              onPressed: () async {
+                try {
+                  final newUser = await _auth.createUserWithEmailAndPassword(
+                      email: email, password: password);
+                  if (newUser != null) {
+                    Navigator.pushNamed(context, MyJournalScreen.id);
+                  }
+                } catch (e) {
+                  print(e);
+                }
               },
             ),
           ],
