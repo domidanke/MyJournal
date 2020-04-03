@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "615739146215",
+    "firebase_url": "https://myjournal-2942d.firebaseio.com",
+    "project_id": "myjournal-2942d",
+    "storage_bucket": "myjournal-2942d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615739146215:android:3d05f69f7ae6e47cfe4742",
+        "android_client_info": {
+          "package_name": "de.lukastajak.my_journal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "615739146215-rrjoflqqlstaleb8j5ufq1ka3dj7qn0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoWd1ah-UAjjkT5C7Aaz3rDKacuqBq-E4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "615739146215-rrjoflqqlstaleb8j5ufq1ka3dj7qn0s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "615739146215-gib4b11321n7e89mgfdr2jes1f57lfj3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.lukastajak.myJournal"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
