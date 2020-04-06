@@ -18,6 +18,34 @@ class _LoginScreenState extends State<LoginScreen> {
   String email;
   String password;
 
+  void alertUser() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Rewind and remember'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('You will never be satisfied.'),
+                Text('You\’re like me. I’m never satisfied.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Regret'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +110,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                     // TODO: Show error message to user
                     print(e);
+                    switch (e) {
+                      case 'ERROR_INVALID_EMAIL':
+                        {
+                          alertUser();
+                        }
+                        break;
+                      case 'ERROR_USER_NOT_FOUND':
+                        {
+                          alertUser();
+                        }
+                        break;
+                      case 'ERROR_WRONG_PASSWORD':
+                        {
+                          alertUser();
+                        }
+                        break;
+                    }
                   }
                 },
               ),
