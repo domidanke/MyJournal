@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 import 'login_screen.dart';
-import 'register_screen.dart';
+import 'registration_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static String id = 'welcome_screen';
@@ -21,12 +22,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text(
-              'myJournal',
-              style: TextStyle(
-                fontSize: 45.0,
-                fontWeight: FontWeight.w900,
-              ),
+            Row(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Icon(
+                    FontAwesomeIcons.book,
+                    size: 50.0,
+                  ),
+                ),
+                Text(
+                  'myJournal',
+                  style: TextStyle(
+                    fontSize: 45.0,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 48.0,
