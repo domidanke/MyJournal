@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/constants.dart';
@@ -18,30 +19,44 @@ class _LoginScreenState extends State<LoginScreen> {
   String email;
   String password;
 
-  void alertUser() async {
+  void alertUser(String alertTitle, String alertMessage) {
     showDialog(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Rewind and remember'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('You will never be satisfied.'),
-                Text('You\’re like me. I’m never satisfied.'),
-              ],
+        if (Theme.of(context).platform == TargetPlatform.android) {
+          return AlertDialog(
+            title: Text(alertTitle),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text(alertMessage),
+                ],
+              ),
             ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Regret'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
+            actions: <Widget>[
+              FlatButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        } else {
+          return CupertinoAlertDialog(
+            title: Text(alertTitle),
+            content: Text(alertMessage),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
       },
     );
   }
@@ -110,22 +125,38 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                     // TODO: Show error message to user
                     print(e);
-                    switch (e) {
+                    switch (e.code) {
                       case 'ERROR_INVALID_EMAIL':
                         {
-                          alertUser();
+                          alertUser(
+                            'Login Failed',
+                            'Please enter a valid email address.',
+                          );
                         }
                         break;
                       case 'ERROR_USER_NOT_FOUND':
                         {
-                          alertUser();
+                          alertUser(
+                            'Login Failed',
+                            'Sorry, we can\'t find an account with this email address.',
+                          );
                         }
                         break;
                       case 'ERROR_WRONG_PASSWORD':
                         {
-                          alertUser();
+                          alertUser(
+                            'Login Failed',
+                            'Username or password is invalid. Please try again.',
+                          );
                         }
                         break;
+                      default:
+                        {
+                          alertUser(
+                            'Login Failed',
+                            'Something went wrong. Please try again later',
+                          );
+                        }
                     }
                   }
                 },
