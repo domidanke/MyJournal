@@ -26,9 +26,7 @@ void main() {
 
     // Create Finders
     final widgetFinder = find.byWidget(welcomeScreen);
-    final roundedButtonFinder = find.byType(RoundedButton(
-      onPressed: () {},
-    ).runtimeType);
+    final roundedButtonFinder = find.byType(RoundedButton);
     final faIconFinder = find.byIcon(FontAwesomeIcons.book);
     final titleFinder = find.text('myJournal');
     final registerFinder = find.text('Register');

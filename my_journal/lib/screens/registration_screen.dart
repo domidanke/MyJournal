@@ -74,6 +74,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               TextField(
+                key: Key('email'),
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
@@ -88,6 +89,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 8.0,
               ),
               TextField(
+                key: Key('password'),
                 obscureText: true,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
@@ -105,58 +107,65 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 text: 'Register',
                 color: Colors.blueAccent,
                 onPressed: () async {
-                  setState(() {
-                    showSpinner = true;
-                  });
-                  try {
-                    final newUser = await _auth.createUserWithEmailAndPassword(
-                        email: email, password: password);
+                  if (password == null || email == null) {
+                    alertUser(
+                      'Registration failed',
+                      'Email and password cannot be blank.',
+                    );
+                  } else {
+                    setState(() {
+                      showSpinner = true;
+                    });
+                    try {
+                      final newUser =
+                          await _auth.createUserWithEmailAndPassword(
+                              email: email, password: password);
 
-                    if (newUser != null) {
+                      if (newUser != null) {
+                        setState(() {
+                          showSpinner = false;
+                        });
+
+                        Navigator.pushNamed(context, MyJournalScreen.id);
+                      }
+                    } catch (e) {
                       setState(() {
                         showSpinner = false;
                       });
-
-                      Navigator.pushNamed(context, MyJournalScreen.id);
-                    }
-                  } catch (e) {
-                    setState(() {
-                      showSpinner = false;
-                    });
-                    // TODO: Show error message to user
-                    print(e);
-                    switch (e.code) {
-                      case 'ERROR_INVALID_EMAIL':
-                        {
-                          alertUser(
-                            'Registration failed',
-                            'Please enter a valid email address.',
-                          );
-                        }
-                        break;
-                      case 'ERROR_WEAK_PASSWORD':
-                        {
-                          alertUser(
-                            'Registration failed',
-                            'The password must be at least 6 characters long.',
-                          );
-                        }
-                        break;
-                      case 'ERROR_EMAIL_ALREADY_IN_USE':
-                        {
-                          alertUser(
-                            'Registration failed',
-                            'The email address is already in use by another account.',
-                          );
-                        }
-                        break;
-                      default:
-                        {
-                          alertUser(
-                            'Registration failed',
-                            'Something went wrong. Please try again later.',
-                          );
-                        }
+                      print('Something went wrong: $e');
+                      switch (e.code) {
+                        case 'ERROR_INVALID_EMAIL':
+                          {
+                            alertUser(
+                              'Registration failed',
+                              'Please enter a valid email address.',
+                            );
+                          }
+                          break;
+                        case 'ERROR_WEAK_PASSWORD':
+                          {
+                            alertUser(
+                              'Registration failed',
+                              'The password must be at least 6 characters long.',
+                            );
+                          }
+                          break;
+                        case 'ERROR_EMAIL_ALREADY_IN_USE':
+                          {
+                            alertUser(
+                              'Registration failed',
+                              'The email address is already in use by another account.',
+                            );
+                          }
+                          break;
+                        default:
+                          {
+                            alertUser(
+                              'Registration failed',
+                              'Something went wrong. Please try again later.',
+                            );
+                          }
+                      }
                     }
                   }
                 },
