@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/screens/my_journal_screen.dart';
+import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 import 'package:my_journal/constants.dart';
 
@@ -19,44 +22,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   String email;
   String password;
 
-  void alertUser(String alertTitle, String alertMessage) {
+  void alertUser(String alertMessage) {
     showDialog(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        if (Theme.of(context).platform == TargetPlatform.android) {
-          return AlertDialog(
-            title: Text(alertTitle),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text(alertMessage),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        } else {
-          return CupertinoAlertDialog(
-            title: Text(alertTitle),
-            content: Text(alertMessage),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        }
+        return CustomAlert(
+          alertTitle: 'Registration failed',
+          alertMessage: alertMessage,
+        );
       },
     );
   }
@@ -108,10 +82,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 color: Colors.blueAccent,
                 onPressed: () async {
                   if (password == null || email == null) {
-                    alertUser(
-                      'Registration failed',
-                      'Email and password cannot be blank.',
-                    );
+                    alertUser('Email and password cannot be blank.');
                   } else {
                     setState(() {
                       showSpinner = true;
@@ -132,38 +103,28 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       setState(() {
                         showSpinner = false;
                       });
-                      print('Something went wrong: $e');
                       switch (e.code) {
                         case 'ERROR_INVALID_EMAIL':
                           {
-                            alertUser(
-                              'Registration failed',
-                              'Please enter a valid email address.',
-                            );
+                            alertUser('Please enter a valid email address.');
                           }
                           break;
                         case 'ERROR_WEAK_PASSWORD':
                           {
                             alertUser(
-                              'Registration failed',
-                              'The password must be at least 6 characters long.',
-                            );
+                                'The password must be at least 6 characters long.');
                           }
                           break;
                         case 'ERROR_EMAIL_ALREADY_IN_USE':
                           {
                             alertUser(
-                              'Registration failed',
-                              'The email address is already in use by another account.',
-                            );
+                                'The email address is already in use by another account.');
                           }
                           break;
                         default:
                           {
                             alertUser(
-                              'Registration failed',
-                              'Something went wrong. Please try again later.',
-                            );
+                                'Something went wrong. Please try again later.');
                           }
                       }
                     }

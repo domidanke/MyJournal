@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/constants.dart';
+import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 import 'my_journal_screen.dart';
+import 'dart:io';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
@@ -19,44 +21,15 @@ class _LoginScreenState extends State<LoginScreen> {
   String email;
   String password;
 
-  void alertUser(String alertTitle, String alertMessage) {
+  void alertUser(String alertMessage) {
     showDialog(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        if (Theme.of(context).platform == TargetPlatform.android) {
-          return AlertDialog(
-            title: Text(alertTitle),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text(alertMessage),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        } else {
-          return CupertinoAlertDialog(
-            title: Text(alertTitle),
-            content: Text(alertMessage),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        }
+        return CustomAlert(
+          alertTitle: 'Login failed',
+          alertMessage: alertMessage,
+        );
       },
     );
   }
@@ -107,57 +80,52 @@ class _LoginScreenState extends State<LoginScreen> {
                 text: 'Log In',
                 color: Colors.lightBlueAccent,
                 onPressed: () async {
-                  setState(() {
-                    showSpinner = true;
-                  });
+                  if (password == null || email == null) {
+                    alertUser('Email and password cannot be blank.');
+                  } else {
+                    setState(() {
+                      showSpinner = true;
+                    });
 
-                  try {
-                    final user = await _auth.signInWithEmailAndPassword(
-                        email: email, password: password);
-                    if (user != null) {
+                    try {
+                      final user = await _auth.signInWithEmailAndPassword(
+                          email: email, password: password);
+                      if (user != null) {
+                        setState(() {
+                          showSpinner = false;
+                        });
+
+                        Navigator.pushNamed(context, MyJournalScreen.id);
+                      }
+                    } catch (e) {
                       setState(() {
                         showSpinner = false;
                       });
-
-                      Navigator.pushNamed(context, MyJournalScreen.id);
-                    }
-                  } catch (e) {
-                    setState(() {
-                      showSpinner = false;
-                    });
-                    print(e);
-                    switch (e.code) {
-                      case 'ERROR_INVALID_EMAIL':
-                        {
-                          alertUser(
-                            'Login failed',
-                            'Please enter a valid email address.',
-                          );
-                        }
-                        break;
-                      case 'ERROR_USER_NOT_FOUND':
-                        {
-                          alertUser(
-                            'Login failed',
-                            'Sorry, we can\'t find an account with this email address.',
-                          );
-                        }
-                        break;
-                      case 'ERROR_WRONG_PASSWORD':
-                        {
-                          alertUser(
-                            'Login failed',
-                            'Username or password is invalid. Please try again.',
-                          );
-                        }
-                        break;
-                      default:
-                        {
-                          alertUser(
-                            'Login failed',
-                            'Something went wrong. Please try again later.',
-                          );
-                        }
+                      print(e);
+                      switch (e.code) {
+                        case 'ERROR_INVALID_EMAIL':
+                          {
+                            alertUser('Please enter a valid email address.');
+                          }
+                          break;
+                        case 'ERROR_USER_NOT_FOUND':
+                          {
+                            alertUser(
+                                'Sorry, we can\'t find an account with this email address.');
+                          }
+                          break;
+                        case 'ERROR_WRONG_PASSWORD':
+                          {
+                            alertUser(
+                                'Username or password is invalid. Please try again.');
+                          }
+                          break;
+                        default:
+                          {
+                            alertUser(
+                                'Something went wrong. Please try again later.');
+                          }
+                      }
                     }
                   }
                 },
