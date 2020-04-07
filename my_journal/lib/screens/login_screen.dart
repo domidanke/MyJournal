@@ -154,7 +154,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         {
                           alertUser(
                             'Login failed',
-                            'Something went wrong. Please try again later',
+                            'Something went wrong. Please try again later.',
                           );
                         }
                     }
