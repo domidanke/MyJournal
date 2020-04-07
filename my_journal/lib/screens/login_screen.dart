@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       case 'ERROR_INVALID_EMAIL':
                         {
                           alertUser(
-                            'Login Failed',
+                            'Login failed',
                             'Please enter a valid email address.',
                           );
                         }
@@ -137,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       case 'ERROR_USER_NOT_FOUND':
                         {
                           alertUser(
-                            'Login Failed',
+                            'Login failed',
                             'Sorry, we can\'t find an account with this email address.',
                           );
                         }
@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       case 'ERROR_WRONG_PASSWORD':
                         {
                           alertUser(
-                            'Login Failed',
+                            'Login failed',
                             'Username or password is invalid. Please try again.',
                           );
                         }
@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       default:
                         {
                           alertUser(
-                            'Login Failed',
+                            'Login failed',
                             'Something went wrong. Please try again later',
                           );
                         }
