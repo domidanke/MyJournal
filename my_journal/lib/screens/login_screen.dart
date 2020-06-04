@@ -5,8 +5,8 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/constants.dart';
 import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
+
 import 'my_journal_screen.dart';
-import 'dart:io';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
@@ -16,7 +16,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   bool showSpinner = false;
   String email;
   String password;
@@ -41,39 +41,39 @@ class _LoginScreenState extends State<LoginScreen> {
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               TextField(
-                key: Key('email'),
+                key: const Key('email'),
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
                   hintText: 'Enter your email',
                 ),
-                onChanged: (value) {
+                onChanged: (String value) {
                   //Do something with the user input.
                   email = value;
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8.0,
               ),
               TextField(
-                key: Key('password'),
+                key: const Key('password'),
                 obscureText: true,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
                   hintText: 'Enter your password',
                 ),
-                onChanged: (value) {
+                onChanged: (String value) {
                   //Do something with the user input.
                   password = value;
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 24.0,
               ),
               RoundedButton(
@@ -88,8 +88,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
 
                     try {
-                      final user = await _auth.signInWithEmailAndPassword(
-                          email: email, password: password);
+                      final AuthResult user =
+                          await _auth.signInWithEmailAndPassword(
+                              email: email, password: password);
                       if (user != null) {
                         setState(() {
                           showSpinner = false;

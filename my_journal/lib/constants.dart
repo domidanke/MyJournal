@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const kTextFieldInputDecoration = InputDecoration(
+const InputDecoration kTextFieldInputDecoration = InputDecoration(
   hintText: '',
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(
