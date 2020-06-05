@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_journal/constants.dart';
 
 class HomeCard extends StatelessWidget {
   const HomeCard(
@@ -22,6 +23,7 @@ class HomeCard extends StatelessWidget {
             elevation: 10.0,
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             child: Container(
+              decoration: kCardDecoration,
               width: 300.0,
               height: 225.0,
               child: Column(
@@ -32,7 +34,7 @@ class HomeCard extends StatelessWidget {
                     child: Text(
                       headerText,
                       style: TextStyle(
-                        //color: ,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -57,7 +59,7 @@ class HomeCard extends StatelessWidget {
                           child: Text(
                             text,
                             style: TextStyle(
-                              //  color: ,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

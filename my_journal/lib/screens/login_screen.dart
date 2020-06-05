@@ -37,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
@@ -52,6 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
                   hintText: 'Enter your email',
+                ),
+                style: TextStyle(
+                  color: Colors.white,
                 ),
                 onChanged: (String value) {
                   //Do something with the user input.
@@ -68,6 +70,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: kTextFieldInputDecoration.copyWith(
                   hintText: 'Enter your password',
                 ),
+                style: TextStyle(
+                  color: Colors.white,
+                ),
                 onChanged: (String value) {
                   //Do something with the user input.
                   password = value;
@@ -78,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               RoundedButton(
                 text: 'Log In',
-                color: Colors.lightBlueAccent,
+                color: const Color(0xff5f2c82),
                 onPressed: () async {
                   if (password == null || email == null) {
                     alertUser('Email and password cannot be blank.');

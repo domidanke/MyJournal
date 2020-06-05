@@ -12,6 +12,9 @@ class MyJournalApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color(0xff383b44),
+      ),
       debugShowCheckedModeBanner: false,
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),

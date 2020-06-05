@@ -1,15 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:my_journal/constants.dart';
 
 import '../widgets/home_card.dart';
 import 'create_entry.dart';
-
-String getCurrentDate() {
-  final formatter = DateFormat('yyyy-MM-dd');
-  final DateTime now = DateTime.now();
-  return formatter.format(now);
-}
 
 class MyJournalScreen extends StatefulWidget {
   static String id = 'my_journal_screen';
@@ -22,6 +16,7 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
   String userEmail = '';
+  String today = getDateFormatted(DateTime.now());
   String lastJournalDate = '2020-05-31';
   int totalJournalEntries = 22;
 
@@ -49,39 +44,38 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFfffff3),
-      appBar: AppBar(
-        leading: const Text(''),
-        //backgroundColor: headerColor,
-        title: const Text(
-          'MyJournal',
-          // style: TextStyle(color: Colors.white),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.lock_open),
-            onPressed: () {
-              _auth.signOut();
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      ),
-      //backgroundColor: ,
       body: SafeArea(
         child: ListView(
           children: [
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-              child: Center(
-                child: Text(
-                  'Welcome Back \n $userEmail',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 35.0,
-                      color: Colors.black87),
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  const SizedBox(
+                    width: 50.0,
+                  ),
+                  Center(
+                    child: Text(
+                      'Welcome Back \n $userEmail',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
+                          foreground: Paint()..shader = headerGradient),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.lock_open,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      _auth.signOut();
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
               ),
             ),
             HomeCard(
@@ -91,7 +85,7 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
                 Icons.create,
                 //color: ,
               ),
-              headerText: getCurrentDate(),
+              headerText: today,
               onTap: () {
                 Navigator.pushNamed(context, CreateEntry.id);
               },

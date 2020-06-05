@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:my_journal/constants.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
 import 'login_screen.dart';
@@ -16,7 +17,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -29,15 +30,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   padding: const EdgeInsets.all(10.0),
                   child: Icon(
                     FontAwesomeIcons.book,
+                    color: Colors.white,
                     size: 50.0,
                   ),
                 ),
                 Text(
                   'myJournal',
                   style: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
-                  ),
+                      fontSize: 45.0,
+                      fontWeight: FontWeight.w900,
+                      foreground: Paint()..shader = headerGradient),
                 ),
               ],
             ),
@@ -46,14 +48,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
             RoundedButton(
               text: 'Log In',
-              color: Colors.lightBlueAccent,
+              color: const Color(0xff5f2c82),
               onPressed: () {
                 Navigator.pushNamed(context, LoginScreen.id);
               },
             ),
             RoundedButton(
               text: 'Register',
-              color: Colors.blueAccent,
+              color: const Color(0xff49a09d),
               onPressed: () {
                 Navigator.pushNamed(context, RegistrationScreen.id);
               },
