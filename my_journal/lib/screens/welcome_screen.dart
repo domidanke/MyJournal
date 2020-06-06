@@ -35,7 +35,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                 ),
                 Text(
-                  'myJournal',
+                  'MyJournal',
                   style: TextStyle(
                       fontSize: 45.0,
                       fontWeight: FontWeight.w900,
