@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 const Color pink = Color(0xffefabc5);
 Shader headerGradient =
@@ -32,8 +31,3 @@ const InputDecoration kTextFieldInputDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
-
-String getDateFormatted(DateTime dateTime) {
-  final formatter = DateFormat('yyyy-MM-dd');
-  return formatter.format(dateTime);
-}
