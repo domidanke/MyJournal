@@ -15,8 +15,7 @@ class MyJournalScreen extends StatefulWidget {
 class _MyJournalScreenState extends State<MyJournalScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
-  String userEmail = '';
-  String today = getDateFormatted(DateTime.now());
+  String today = 'lala'; //getDateFormatted(DateTime.now());
   String lastJournalDate = '2020-05-31';
   int totalJournalEntries = 22;
 
@@ -32,9 +31,6 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
       final user = await _auth.currentUser();
       if (user != null) {
         loggedInUser = user;
-        setState(() {
-          userEmail = loggedInUser.email;
-        });
       }
     } catch (e) {
       print(e);
@@ -48,32 +44,34 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
         child: ListView(
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              padding: const EdgeInsets.only(
+                  left: 40.0, top: 10.0, right: 25.0, bottom: 5.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const SizedBox(
-                    width: 50.0,
-                  ),
-                  Center(
-                    child: Text(
-                      'Welcome Back \n $userEmail',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0,
-                          foreground: Paint()..shader = headerGradient),
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.lock_open,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      _auth.signOut();
-                      Navigator.pop(context);
-                    },
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Center(
+                        child: Text(
+                          'Welcome Back',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25.0,
+                              foreground: Paint()..shader = headerGradient),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.lock_open,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          _auth.signOut();
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
