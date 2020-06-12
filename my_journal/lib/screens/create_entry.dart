@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_journal/constants.dart';
 
 class CreateEntry extends StatefulWidget {
@@ -9,8 +13,7 @@ class CreateEntry extends StatefulWidget {
 
 class _CreateEntryState extends State<CreateEntry> {
   int selectedIcon = 0;
-  DateTime _dateTime = DateTime.now();
-  String pickedDate = getDateFormatted(DateTime.now());
+  String dateText = DateFormat.yMMMd().format(DateTime.now());
 
   void updateSelectedIcon(int selected) {
     setState(() {
@@ -39,7 +42,7 @@ class _CreateEntryState extends State<CreateEntry> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          pickedDate,
+                          dateText,
                           style: TextStyle(
                               fontSize: 25.0,
                               fontWeight: FontWeight.bold,
@@ -54,23 +57,64 @@ class _CreateEntryState extends State<CreateEntry> {
                                 size: 30.0,
                               ),
                               onPressed: () {
-                                showDatePicker(
-                                        context: context,
-                                        initialDate: _dateTime,
-                                        firstDate: DateTime(2020),
-                                        lastDate: DateTime.now())
-                                    .then((date) {
-                                  if (date == null) {
-                                    return;
-                                  }
-                                  setState(() {
-                                    _dateTime = date;
-                                    pickedDate = getDateFormatted(_dateTime);
+                                if (Platform.isIOS) {
+                                  showModalBottomSheet(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                      ),
+                                      isDismissible: false,
+                                      context: context,
+                                      builder: (BuildContext bc) {
+                                        return Container(
+                                          height: 350.0,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: 250.0,
+                                                child: CupertinoDatePicker(
+                                                  mode: CupertinoDatePickerMode
+                                                      .date,
+                                                  initialDateTime:
+                                                      DateTime.now(),
+                                                  onDateTimeChanged:
+                                                      (selectedDate) {
+                                                    dateText =
+                                                        DateFormat.yMMMd()
+                                                            .format(
+                                                                selectedDate);
+                                                  },
+                                                ),
+                                              ),
+                                              RaisedButton(
+                                                child: const Text('Confirm'),
+                                                onPressed: () {
+                                                  setState(() {});
+                                                  Navigator.pop(context);
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      });
+                                } else {
+                                  showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(2020),
+                                          lastDate: DateTime.now())
+                                      .then((selectedDate) {
+                                    setState(() {
+                                      dateText = DateFormat.yMMMd()
+                                          .format(selectedDate);
+                                    });
                                   });
-                                });
+                                }
                               },
                             ),
-                            const Text(
+                            Text(
                               'Change Date',
                               style: TextStyle(
                                   color: Colors.white, fontSize: 10.0),
