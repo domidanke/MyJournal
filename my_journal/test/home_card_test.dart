@@ -3,34 +3,41 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:my_journal/widgets/home_card.dart';
 
 void main() {
-  testWidgets('RoundedButton is properly rendered',
-      (WidgetTester tester) async {
+  testWidgets('HomeCard is properly rendered', (WidgetTester tester) async {
     // Create RoundedButton
-    final Widget homeCard = HomeCard(
-      headerText: 'This is a test',
-      text: 'Click to test',
+    final Widget homeCardTest = HomeCard(
+      headerText: 'This is a header text',
+      text: 'This is a bottom text',
       image: const AssetImage('images/journal.jpg'),
       icon: Icon(
         Icons.email,
       ),
-      onTap: () {},
     );
 
     // Build testable RoundedButton using WidgetTester
     await tester.pumpWidget(
       MaterialApp(
-        home: homeCard,
+        home: homeCardTest,
       ),
     );
 
     // Create Finders
-    final widgetFinder = find.byWidget(homeCard);
-    final headerTextFinder = find.text('This is a test');
+    final widgetFinder = find.byWidget(homeCardTest);
+    final headerTextFinder = find.text('This is a header text');
+    final bottomTextFinder = find.text('This is a bottom text');
+    final iconFinder = find.byIcon(Icons.email);
+    final cardButton = find.byType(GestureDetector);
 
-    // Verify that RoundedButton exists and is properly rendered
+    // Verify that HomeCard exists and is properly rendered
     expect(widgetFinder, findsOneWidget);
+    // Verify that the header text exists and is properly rendered
     expect(headerTextFinder, findsOneWidget);
+    //TODO: add image rendering and/or asset loading test
+    // Verify that the bottom text exists and is properly rendered
+    expect(bottomTextFinder, findsOneWidget);
+    // Verify that the icon exists and is properly rendered
+    expect(iconFinder, findsOneWidget);
+    // Verify that the gesture detector exists
+    expect(cardButton, findsOneWidget);
   });
-
-  //TODO: Test onPress functionality of RoundedButton
 }
