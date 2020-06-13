@@ -77,6 +77,7 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
               ),
             ),
             HomeCard(
+              cardKey: const Key('CreateEntryKey'),
               image: const AssetImage('images/journal.jpg'),
               text: 'Create Your Journal Entry',
               icon: Icon(
@@ -85,10 +86,12 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
               ),
               headerText: today,
               onTap: () {
-                Navigator.pushNamed(context, CreateEntry.id);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CreateEntry()));
               },
             ),
             HomeCard(
+              cardKey: const Key('EditLastEntryKey'),
               image: const AssetImage('images/journalEdit.jpeg'),
               text: 'Edit Your Last Journal Entry',
               icon: Icon(
@@ -101,6 +104,7 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
               },
             ),
             HomeCard(
+              cardKey: const Key('ViewEntriesKey'),
               image: const AssetImage('images/calendar.jpeg'),
               text: 'View Your Journal Entry',
               icon: Icon(
