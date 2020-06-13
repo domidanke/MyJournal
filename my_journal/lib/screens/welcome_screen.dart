@@ -50,7 +50,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               text: 'Log In',
               color: const Color(0xff5f2c82),
               onPressed: () {
-                Navigator.pushNamed(context, LoginScreen.id);
+                // Need to use this navigation method for route testing
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
               },
             ),
             RoundedButton(
