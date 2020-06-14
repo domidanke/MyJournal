@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const Color pink = Color(0xffefabc5);
+const Color kPink = Color(0xffefabc5);
 Shader headerGradient =
     const LinearGradient(colors: [Color(0xff5f2c82), Color(0xff49a09d)])
         .createShader(const Rect.fromLTWH(0, 0, 200.0, 70.0));
@@ -27,7 +27,7 @@ const InputDecoration kTextFieldInputDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: pink, width: 2.0),
+    borderSide: BorderSide(color: kPink, width: 2.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
