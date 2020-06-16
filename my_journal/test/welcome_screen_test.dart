@@ -21,7 +21,7 @@ void main() {
     final widgetFinder = find.byWidget(welcomeScreen);
     final roundedButtonFinder = find.byType(RoundedButton);
     final faIconFinder = find.byIcon(FontAwesomeIcons.book);
-    final titleFinder = find.text('myJournal');
+    final titleFinder = find.text('MyJournal');
     final registerFinder = find.text('Register');
     final loginFinder = find.text('Log In');
 
