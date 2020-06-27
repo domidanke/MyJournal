@@ -26,6 +26,55 @@ class _CreateEntryState extends State<CreateEntry>
     });
   }
 
+  void showCustomDatePicker(BuildContext context) {
+    if (Platform.isIOS) {
+      showModalBottomSheet(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+          isDismissible: false,
+          context: context,
+          builder: (BuildContext bc) {
+            return Container(
+              height: 350.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  SizedBox(
+                    height: 250.0,
+                    child: CupertinoDatePicker(
+                      mode: CupertinoDatePickerMode.date,
+                      initialDateTime: DateTime.now(),
+                      onDateTimeChanged: (selectedDate) {
+                        dateText = DateFormat.yMMMd().format(selectedDate);
+                      },
+                    ),
+                  ),
+                  RaisedButton(
+                    child: const Text('Confirm'),
+                    onPressed: () {
+                      setState(() {});
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              ),
+            );
+          });
+    } else {
+      showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2020),
+              lastDate: DateTime.now())
+          .then((selectedDate) {
+        setState(() {
+          dateText = DateFormat.yMMMd().format(selectedDate);
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,65 +120,7 @@ class _CreateEntryState extends State<CreateEntry>
                                       size: 30.0,
                                     ),
                                     onPressed: () {
-                                      if (Platform.isIOS) {
-                                        showModalBottomSheet(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
-                                            ),
-                                            isDismissible: false,
-                                            context: context,
-                                            builder: (BuildContext bc) {
-                                              return Container(
-                                                height: 350.0,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: <Widget>[
-                                                    SizedBox(
-                                                      height: 250.0,
-                                                      child:
-                                                          CupertinoDatePicker(
-                                                        mode:
-                                                            CupertinoDatePickerMode
-                                                                .date,
-                                                        initialDateTime:
-                                                            DateTime.now(),
-                                                        onDateTimeChanged:
-                                                            (selectedDate) {
-                                                          dateText = DateFormat
-                                                                  .yMMMd()
-                                                              .format(
-                                                                  selectedDate);
-                                                        },
-                                                      ),
-                                                    ),
-                                                    RaisedButton(
-                                                      child:
-                                                          const Text('Confirm'),
-                                                      onPressed: () {
-                                                        setState(() {});
-                                                        Navigator.pop(context);
-                                                      },
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            });
-                                      } else {
-                                        showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime.now(),
-                                                firstDate: DateTime(2020),
-                                                lastDate: DateTime.now())
-                                            .then((selectedDate) {
-                                          setState(() {
-                                            dateText = DateFormat.yMMMd()
-                                                .format(selectedDate);
-                                          });
-                                        });
-                                      }
+                                      showCustomDatePicker(context);
                                     },
                                   ),
                                   Text(

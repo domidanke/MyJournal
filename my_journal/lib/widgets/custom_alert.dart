@@ -1,12 +1,12 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 class CustomAlert extends StatelessWidget {
+  const CustomAlert({this.alertTitle, this.alertMessage});
+
   final String alertTitle;
   final String alertMessage;
-
-  CustomAlert({this.alertTitle, this.alertMessage});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class CustomAlert extends StatelessWidget {
         content: Text(alertMessage),
         actions: <Widget>[
           CupertinoDialogAction(
-            child: Text('OK'),
+            child: const Text('OK'),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -35,7 +35,7 @@ class CustomAlert extends StatelessWidget {
         ),
         actions: <Widget>[
           FlatButton(
-            child: Text('OK'),
+            child: const Text('OK'),
             onPressed: () {
               Navigator.of(context).pop();
             },

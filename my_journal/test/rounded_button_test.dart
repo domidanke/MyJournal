@@ -6,7 +6,7 @@ void main() {
   testWidgets('RoundedButton is properly rendered',
       (WidgetTester tester) async {
     // Create RoundedButton
-    Widget roundedButton = RoundedButton(
+    final Widget roundedButton = RoundedButton(
       text: 'Test',
       color: Colors.lightBlueAccent,
       onPressed: () {},
