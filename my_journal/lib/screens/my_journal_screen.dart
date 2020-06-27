@@ -1,9 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_journal/classes/user_manager.dart';
 import 'package:my_journal/constants.dart';
+import 'package:my_journal/screens/welcome_screen.dart';
 
 import '../widgets/home_card.dart';
 import 'create_entry.dart';
+import 'select_entry.dart';
 
 class MyJournalScreen extends StatefulWidget {
   static String id = 'my_journal_screen';
@@ -13,28 +15,16 @@ class MyJournalScreen extends StatefulWidget {
 }
 
 class _MyJournalScreenState extends State<MyJournalScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseUser loggedInUser;
-  String today = 'lala'; //getDateFormatted(DateTime.now());
-  String lastJournalDate = '2020-05-31';
-  int totalJournalEntries = 22;
+  UserManager userManager = UserManager();
+  String today = '';
+  String lastJournalDate = '';
+  String totalJournalEntries = '';
+  bool isInit = false;
 
   @override
   void initState() {
     super.initState();
-    getCurrentUser();
-  }
-
-  // ignore: avoid_void_async
-  void getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser();
-      if (user != null) {
-        loggedInUser = user;
-      }
-    } catch (e) {
-      print(e);
-    }
+    userManager.initUserData(context);
   }
 
   @override
@@ -67,8 +57,8 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          _auth.signOut();
-                          Navigator.pop(context);
+                          userManager.logOut();
+                          Navigator.pushNamed(context, WelcomeScreen.id);
                         },
                       ),
                     ],
@@ -82,38 +72,38 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
               text: 'Create Your Journal Entry',
               icon: Icon(
                 Icons.create,
-                //color: ,
               ),
-              headerText: today,
+              headerText: userManager.getTodayFormatted(),
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CreateEntry()));
               },
             ),
+//            HomeCard(
+//              cardKey: const Key('EditLastEntryKey'),
+//              image: const AssetImage('images/journalEdit.jpeg'),
+//              text: 'Edit Your Last Journal Entry',
+//              icon: Icon(
+//                Icons.more_horiz,
+//              ),
+//              headerText: 'Last Entry: $lastJournalDate',
+//              onTap: () {
+//                print('Edit Tapped');
+//              },
+//            ),
             HomeCard(
-              cardKey: const Key('EditLastEntryKey'),
-              image: const AssetImage('images/journalEdit.jpeg'),
-              text: 'Edit Your Last Journal Entry',
-              icon: Icon(
-                Icons.more_horiz,
-                //color: ,
-              ),
-              headerText: 'Last Entry: $lastJournalDate',
-              onTap: () {
-                print('Edit Tapped');
-              },
-            ),
-            HomeCard(
-              cardKey: const Key('ViewEntriesKey'),
+              cardKey: const Key('SelectEntriesKey'),
               image: const AssetImage('images/calendar.jpeg'),
-              text: 'View Your Journal Entry',
-              icon: Icon(
-                Icons.remove_red_eye,
-                //color: ,
-              ),
-              headerText: 'Total Entries: $totalJournalEntries',
+              text: 'View Your Journal Entries',
+              icon: Icon(Icons.remove_red_eye),
+              headerText: 'Remember your experiences',
               onTap: () {
-                print('View Tapped');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SelectEntry(
+                              userManager: userManager,
+                            )));
               },
             ),
           ],

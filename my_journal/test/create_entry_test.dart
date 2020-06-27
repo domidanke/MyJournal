@@ -30,9 +30,14 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: CreateEntry()));
     final headerTextField = find.byKey(const Key('headerTextFieldKey'));
+    expect(headerTextField, findsOneWidget);
     final contentTextField = find.byKey(const Key('contentTextFieldKey'));
-    await tester.enterText(headerTextField, 'This is a Test Header');
-    expect(find.text('This is a Test Header'), findsOneWidget);
+    expect(contentTextField, findsOneWidget);
+    await tester.enterText(headerTextField, 'Test Header');
+    expect(find.text('Test Header'), findsOneWidget);
+    await tester.enterText(
+        headerTextField, 'We want a max of 15 characters in the header');
+    expect(find.text('We want a max o'), findsOneWidget);
     await tester.enterText(contentTextField,
         'This is a Test for the content a user ought to create');
     expect(find.text('This is a Test for the content a user ought to create'),

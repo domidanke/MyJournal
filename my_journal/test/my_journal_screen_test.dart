@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:my_journal/screens/create_entry.dart';
 import 'package:my_journal/screens/my_journal_screen.dart';
-import 'package:my_journal/widgets/home_card.dart';
+import 'package:my_journal/screens/select_entry.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
@@ -16,12 +16,12 @@ void main() {
     await tester.pumpWidget(MaterialApp(home: MyJournalScreen()));
 
     expect(find.text('Welcome Back'), findsOneWidget);
-    expect(find.byIcon(Icons.lock_open), findsOneWidget);
-    expect(find.byType(HomeCard), findsNWidgets(3));
+    //expect(find.byIcon(Icons.lock_open), findsOneWidget);
+    //expect(find.byType(HomeCard), findsNWidgets(3));
   });
 
   testWidgets(
-      'HomeCard 1 is clickable, navigates properly, and renders Create Entry correctly',
+      'HomeCard Create Entries is clickable, navigates properly, and renders Create Entry correctly',
       (WidgetTester tester) async {
     final mockObserver = MockNavigatorObserver();
     await tester.pumpWidget(
@@ -51,5 +51,29 @@ void main() {
     expect(find.text('Special Day'), findsOneWidget);
     expect(find.byType(RoundedButton), findsOneWidget);
     expect(find.text('Save Journal Entry'), findsOneWidget);
+  });
+
+  testWidgets(
+      'HomeCard View Entries is clickable, navigates properly, and renders empty Select Entry List correctly',
+      (WidgetTester tester) async {
+    final mockObserver = MockNavigatorObserver();
+    await tester.pumpWidget(
+      MaterialApp(
+        home: MyJournalScreen(),
+        navigatorObservers: [mockObserver],
+      ),
+    );
+
+    final cardButton = find.byKey(const Key('SelectEntriesKey'));
+    expect(cardButton, findsOneWidget);
+    await tester.tap(cardButton);
+    await tester.pumpAndSettle();
+
+    /// Verify that a push event happened
+    verify(mockObserver.didPush(any, any));
+
+    /// Navigated page is present in the screen.
+    expect(find.byType(SelectEntry), findsOneWidget);
+    expect(find.text("You don't have any\nEntries yet"), findsOneWidget);
   });
 }
