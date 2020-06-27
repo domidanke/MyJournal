@@ -63,10 +63,10 @@ class _CreateEntryState extends State<CreateEntry>
           });
     } else {
       showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(2020),
-          lastDate: DateTime.now())
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2020),
+              lastDate: DateTime.now())
           .then((selectedDate) {
         setState(() {
           dateText = DateFormat.yMMMd().format(selectedDate);

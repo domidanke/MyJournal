@@ -8,7 +8,7 @@ void main() {
   testWidgets('WelcomeScreen is properly rendered',
       (WidgetTester tester) async {
     // Create WelcomeScreen
-    Widget welcomeScreen = WelcomeScreen();
+    final Widget welcomeScreen = WelcomeScreen();
 
     // Build testable WelcomeScreen using WidgetTester
     await tester.pumpWidget(
