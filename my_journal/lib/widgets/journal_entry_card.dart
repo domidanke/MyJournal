@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:my_journal/constants.dart';
 
-import '../classes/entry.dart';
+import '../classes/journal_entry.dart';
 
-class EntryCard extends StatelessWidget {
-  const EntryCard({this.entry, this.onTap});
-  final Entry entry;
+class JournalEntryCard extends StatelessWidget {
+  const JournalEntryCard({this.entry, this.onTap});
+  final JournalEntry entry;
   final Function onTap;
 
   @override

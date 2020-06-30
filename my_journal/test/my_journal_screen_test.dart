@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,9 +12,14 @@ import 'package:my_journal/widgets/rounded_button.dart';
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 void main() {
+  FirebaseUser user;
+
   testWidgets('MyJournal Screen is loaded and rendered properly',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: MyJournalScreen()));
+    await tester.pumpWidget(MaterialApp(
+        home: MyJournalScreen(
+      loggedInUser: user,
+    )));
 
     expect(find.text('Welcome Back'), findsOneWidget);
     //expect(find.byIcon(Icons.lock_open), findsOneWidget);
@@ -26,7 +32,9 @@ void main() {
     final mockObserver = MockNavigatorObserver();
     await tester.pumpWidget(
       MaterialApp(
-        home: MyJournalScreen(),
+        home: MyJournalScreen(
+          loggedInUser: user,
+        ),
         navigatorObservers: [mockObserver],
       ),
     );
@@ -59,7 +67,9 @@ void main() {
     final mockObserver = MockNavigatorObserver();
     await tester.pumpWidget(
       MaterialApp(
-        home: MyJournalScreen(),
+        home: MyJournalScreen(
+          loggedInUser: user,
+        ),
         navigatorObservers: [mockObserver],
       ),
     );

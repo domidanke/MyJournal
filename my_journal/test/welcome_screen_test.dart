@@ -33,6 +33,4 @@ void main() {
     expect(registerFinder, findsOneWidget);
     expect(loginFinder, findsOneWidget);
   });
-
-  //TODO: Test routing of RoundedButton
 }

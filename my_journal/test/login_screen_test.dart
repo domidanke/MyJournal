@@ -6,7 +6,7 @@ import 'package:my_journal/widgets/rounded_button.dart';
 void main() {
   testWidgets('LoginScreen is properly rendered', (WidgetTester tester) async {
     // Create LoginScreen
-    Widget loginScreen = LoginScreen();
+    final Widget loginScreen = LoginScreen();
 
     // Build testable RegistrationScreen using WidgetTester
     await tester.pumpWidget(
@@ -20,8 +20,8 @@ void main() {
     final roundedButtonFinder = find.byType(RoundedButton);
     final registerFinder = find.text('Log In');
     final textFieldFinder = find.byType(TextField);
-    final emailTextFieldFinder = find.byKey(Key('email'));
-    final passwordTextFieldFinder = find.byKey(Key('password'));
+    final emailTextFieldFinder = find.byKey(const Key('email'));
+    final passwordTextFieldFinder = find.byKey(const Key('password'));
 
     // Verify that LoginScreen exists and is properly rendered
     expect(widgetFinder, findsOneWidget);
@@ -35,7 +35,7 @@ void main() {
   testWidgets('Log In alerts are properly rendered',
       (WidgetTester tester) async {
     // Create RegistrationScreen
-    Widget registrationScreen = LoginScreen();
+    final Widget registrationScreen = LoginScreen();
 
     // Build testable LoginScreen using WidgetTester
     await tester.pumpWidget(
@@ -45,8 +45,8 @@ void main() {
     );
 
     // Enter invalid email
-    await tester.enterText(find.byKey(Key('email')), 'lukas.tajak');
-    await tester.enterText(find.byKey(Key('password')), 'test123');
+    await tester.enterText(find.byKey(const Key('email')), 'lukas.tajak');
+    await tester.enterText(find.byKey(const Key('password')), 'test123');
 
     // Tap the RoundedButton
     await tester.tap(find.text('Log In'));

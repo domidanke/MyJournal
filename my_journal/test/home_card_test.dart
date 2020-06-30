@@ -32,7 +32,6 @@ void main() {
     expect(widgetFinder, findsOneWidget);
     // Verify that the header text exists and is properly rendered
     expect(headerTextFinder, findsOneWidget);
-    //TODO: add image rendering and/or asset loading test
     // Verify that the bottom text exists and is properly rendered
     expect(bottomTextFinder, findsOneWidget);
     // Verify that the icon exists and is properly rendered

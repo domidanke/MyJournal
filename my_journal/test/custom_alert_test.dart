@@ -27,7 +27,7 @@ MaterialApp _buildAppWithDialog(Widget dialog) {
 void main() {
   testWidgets('CustomAlert is properly rendered', (WidgetTester tester) async {
     // Create CustomAlert
-    final CustomAlert dialog = CustomAlert(
+    const CustomAlert dialog = CustomAlert(
       alertTitle: 'Test Title',
       alertMessage: 'Test Message.',
     );
@@ -53,7 +53,7 @@ void main() {
 
   testWidgets('CustomAlert is properly dismissed', (WidgetTester tester) async {
     // Create CustomAlert
-    final CustomAlert dialog = CustomAlert(
+    const CustomAlert dialog = CustomAlert(
       alertTitle: 'Test Title',
       alertMessage: 'Test Message.',
     );

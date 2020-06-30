@@ -27,6 +27,4 @@ void main() {
     expect(widgetFinder, findsOneWidget);
     expect(buttonTextFinder, findsOneWidget);
   });
-
-  //TODO: Test onPress functionality of RoundedButton
 }

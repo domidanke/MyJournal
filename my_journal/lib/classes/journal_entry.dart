@@ -8,8 +8,8 @@ final List<IconData> feelingIcons = [
   Icons.accessibility_new,
 ];
 
-class Entry {
-  Entry(
+class JournalEntry {
+  JournalEntry(
       {String headerText,
       String date,
       bool isFavorite,
