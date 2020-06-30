@@ -27,7 +27,7 @@ class JournalEntryCard extends StatelessWidget {
                     Expanded(
                       flex: 3,
                       child: Text(
-                        entry.date,
+                        entry.eventDate,
                         style: const TextStyle(fontSize: 25.0),
                       ),
                     ),

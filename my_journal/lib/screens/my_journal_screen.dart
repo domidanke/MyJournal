@@ -26,7 +26,11 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
   @override
   void initState() {
     super.initState();
-    loadJournalEntries();
+    try {
+      loadJournalEntries();
+    } catch (e) {
+      print(e);
+    }
   }
 
   void loadJournalEntries() {

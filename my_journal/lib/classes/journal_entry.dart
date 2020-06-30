@@ -34,7 +34,7 @@ class JournalEntry {
     return Icon(feelingIcons[_feeling]);
   }
 
-  String get date => _eventDate;
+  String get eventDate => _eventDate;
 
   String get content => _content;
 

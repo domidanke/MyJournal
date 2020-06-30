@@ -12,13 +12,13 @@ import 'package:my_journal/widgets/rounded_button.dart';
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 void main() {
-  FirebaseUser user;
+  FirebaseUser loggedInUser;
 
   testWidgets('MyJournal Screen is loaded and rendered properly',
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
         home: MyJournalScreen(
-      loggedInUser: user,
+      loggedInUser: loggedInUser,
     )));
 
     expect(find.text('Welcome Back'), findsOneWidget);
@@ -33,7 +33,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: MyJournalScreen(
-          loggedInUser: user,
+          loggedInUser: loggedInUser,
         ),
         navigatorObservers: [mockObserver],
       ),
@@ -68,7 +68,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: MyJournalScreen(
-          loggedInUser: user,
+          loggedInUser: loggedInUser,
         ),
         navigatorObservers: [mockObserver],
       ),

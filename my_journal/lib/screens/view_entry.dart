@@ -13,20 +13,9 @@ class ViewEntry extends StatefulWidget {
 }
 
 class _ViewEntryState extends State<ViewEntry> {
-  String dateSelected = '';
-  int feeling = 0;
-  String header = '';
-  String content = '';
-  bool isFavorite = false;
-
   @override
   void initState() {
     super.initState();
-    dateSelected = widget.entry.date;
-    feeling = widget.entry.feeling;
-    header = widget.entry.headerText;
-    content = widget.entry.content;
-    isFavorite = widget.entry.isFavorite;
   }
 
   @override
@@ -49,19 +38,19 @@ class _ViewEntryState extends State<ViewEntry> {
                             children: <Widget>[
                               Expanded(
                                 flex: 1,
-                                child: !isFavorite
+                                child: !widget.entry.isFavorite
                                     ? const Text('')
                                     : Icon(
                                         Icons.favorite,
                                       ),
                               ),
                               Text(
-                                dateSelected,
+                                widget.entry.eventDate,
                                 style: const TextStyle(fontSize: 20.0),
                               ),
                               Expanded(
                                 flex: 1,
-                                child: !isFavorite
+                                child: !widget.entry.isFavorite
                                     ? const Text('')
                                     : Icon(
                                         Icons.favorite,
@@ -74,7 +63,7 @@ class _ViewEntryState extends State<ViewEntry> {
                           children: <Widget>[
                             widget.entry.getFeelingIcon(),
                             Text(
-                              header,
+                              widget.entry.headerText,
                               style: const TextStyle(fontSize: 30.0),
                             ),
                           ],
@@ -88,7 +77,7 @@ class _ViewEntryState extends State<ViewEntry> {
                               padding: const EdgeInsets.only(
                                   left: 20.0, right: 20.0, bottom: 10.0),
                               child: Text(
-                                content,
+                                widget.entry.content,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 20.0,
