@@ -11,12 +11,12 @@ final List<IconData> feelingIcons = [
 class JournalEntry {
   JournalEntry(
       {String headerText,
-      String date,
+      String eventDate,
       bool isFavorite,
       int feeling,
       String content}) {
     _headerText = headerText;
-    _date = date;
+    _eventDate = eventDate;
     _isFavorite = isFavorite;
     _feeling = feeling;
     _content = content;
@@ -25,7 +25,7 @@ class JournalEntry {
   String _headerText;
 
   String get headerText => _headerText;
-  String _date;
+  String _eventDate;
   String _content;
   bool _isFavorite;
   int _feeling;
@@ -34,7 +34,7 @@ class JournalEntry {
     return Icon(feelingIcons[_feeling]);
   }
 
-  String get date => _date;
+  String get date => _eventDate;
 
   String get content => _content;
 

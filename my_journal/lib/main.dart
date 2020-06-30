@@ -22,10 +22,10 @@ class MyJournalApp extends StatelessWidget {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
         LoginScreen.id: (context) => LoginScreen(),
-        MyJournalScreen.id: (context) => MyJournalScreen(),
+        MyJournalScreen.id: (context) => const MyJournalScreen(),
         CreateEntry.id: (context) => CreateEntry(),
-        ViewEntry.id: (context) => ViewEntry(),
-        SelectEntry.id: (context) => SelectEntry(),
+        ViewEntry.id: (context) => const ViewEntry(),
+        SelectEntry.id: (context) => const SelectEntry(),
       },
       initialRoute: WelcomeScreen.id,
     );
