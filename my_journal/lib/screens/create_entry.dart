@@ -10,9 +10,6 @@ import 'package:my_journal/screens/my_journal_screen.dart';
 import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
-//TODO: Add created on date and time to message document
-//TODO: Maybe pass in the userManager at this point, still debatable
-
 final _fireStore = Firestore.instance;
 FirebaseUser loggedInUser;
 
@@ -34,18 +31,19 @@ class _CreateEntryState extends State<CreateEntry> {
   @override
   void initState() {
     super.initState();
-    getCurrentUser();
   }
 
-  void getCurrentUser() async {
+  Future<FirebaseUser> getCurrentUser() async {
     try {
       final user = await _auth.currentUser();
       if (user != null) {
-        loggedInUser = user;
+        return user;
       }
     } catch (e) {
       print(e);
+      return null;
     }
+    return null;
   }
 
   void updateSelectedIcon(int selected) {
@@ -160,7 +158,7 @@ class _CreateEntryState extends State<CreateEntry> {
                                       }
                                     },
                                   ),
-                                  Text(
+                                  const Text(
                                     'Change Date',
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 10.0),
@@ -340,7 +338,8 @@ class _CreateEntryState extends State<CreateEntry> {
               child: RoundedButton(
                 text: 'Save Journal Entry',
                 color: const Color(0xff49a09d),
-                onPressed: () {
+                onPressed: () async {
+                  loggedInUser = await getCurrentUser();
                   try {
                     _fireStore.collection('entries_' + loggedInUser.email).add({
                       'dateSelected': dateText,
@@ -365,7 +364,9 @@ class _CreateEntryState extends State<CreateEntry> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MyJournalScreen()));
+                          builder: (context) => MyJournalScreen(
+                                loggedInUser: loggedInUser,
+                              )));
                 },
               ),
             ),

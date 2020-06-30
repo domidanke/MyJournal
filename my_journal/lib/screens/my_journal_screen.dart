@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_journal/classes/user_manager.dart';
+import 'package:intl/intl.dart';
 import 'package:my_journal/constants.dart';
 import 'package:my_journal/screens/welcome_screen.dart';
 
@@ -8,23 +10,35 @@ import 'create_entry.dart';
 import 'select_entry.dart';
 
 class MyJournalScreen extends StatefulWidget {
+  const MyJournalScreen({this.loggedInUser});
   static String id = 'my_journal_screen';
+  final FirebaseUser loggedInUser;
 
   @override
   _MyJournalScreenState createState() => _MyJournalScreenState();
 }
 
 class _MyJournalScreenState extends State<MyJournalScreen> {
-  UserManager userManager = UserManager();
-  String today = '';
-  String lastJournalDate = '';
-  String totalJournalEntries = '';
-  bool isInit = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final _fireStore = Firestore.instance;
+  List journalEntryData = [];
 
   @override
   void initState() {
     super.initState();
-    userManager.initUserData(context);
+    loadJournalEntries();
+  }
+
+  void loadJournalEntries() {
+    _fireStore
+        .collection('entries_' + widget.loggedInUser.email)
+        .orderBy('dateSelected', descending: false)
+        .snapshots()
+        .listen((data) {
+      for (final doc in data.documents) {
+        journalEntryData.add(doc.data);
+      }
+    });
   }
 
   @override
@@ -57,7 +71,7 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          userManager.logOut();
+                          _auth.signOut();
                           Navigator.pushNamed(context, WelcomeScreen.id);
                         },
                       ),
@@ -73,7 +87,7 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
               icon: Icon(
                 Icons.create,
               ),
-              headerText: userManager.getTodayFormatted(),
+              headerText: DateFormat.yMMMd().format(DateTime.now()),
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CreateEntry()));
@@ -102,7 +116,7 @@ class _MyJournalScreenState extends State<MyJournalScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => SelectEntry(
-                              userManager: userManager,
+                              journalEntryData: journalEntryData,
                             )));
               },
             ),

@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: kTextFieldInputDecoration.copyWith(
                   hintText: 'Enter your email',
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                 ),
                 onChanged: (String value) {
@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 decoration: kTextFieldInputDecoration.copyWith(
                   hintText: 'Enter your password',
                 ),
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                 ),
                 onChanged: (String value) {
@@ -93,15 +93,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
 
                     try {
-                      final AuthResult user =
+                      final AuthResult authResult =
                           await _auth.signInWithEmailAndPassword(
                               email: email, password: password);
-                      if (user != null) {
+                      if (authResult != null) {
                         setState(() {
                           showSpinner = false;
                         });
-
-                        Navigator.pushNamed(context, MyJournalScreen.id);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyJournalScreen(
+                                      loggedInUser: authResult.user,
+                                    )));
                       }
                     } catch (e) {
                       setState(() {

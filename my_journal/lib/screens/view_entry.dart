@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_journal/classes/entry.dart';
+import 'package:my_journal/classes/journal_entry.dart';
 import 'package:my_journal/constants.dart';
 
 class ViewEntry extends StatefulWidget {
   const ViewEntry({this.entry});
   static String id = 'view_entry_screen';
-  final Entry entry;
+  final JournalEntry entry;
 
   @override
   _ViewEntryState createState() => _ViewEntryState();
