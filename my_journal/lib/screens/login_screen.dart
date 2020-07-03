@@ -3,10 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/constants.dart';
+import 'package:my_journal/screens/select_entry.dart';
 import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
-
-import 'my_journal_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = 'login_screen';
@@ -103,9 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyJournalScreen(
-                                      loggedInUser: authResult.user,
-                                    )));
+                                builder: (context) => SelectEntry()));
                       }
                     } catch (e) {
                       setState(() {
