@@ -7,7 +7,7 @@ void main() {
   final JournalEntry entry = JournalEntry(
       headerText: 'Header Text',
       content: 'Test Content blabla',
-      eventDate: 'Jun 8, 1990',
+      eventDate: DateTime.now(),
       feeling: 3,
       isFavorite: true);
 
@@ -15,7 +15,7 @@ void main() {
       (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(
         home: ViewEntry(
-      entry: entry,
+      journalEntry: entry,
     )));
     expect(find.byType(ViewEntry), findsOneWidget);
   });
