@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 final List<IconData> feelingIcons = [
@@ -11,30 +12,35 @@ final List<IconData> feelingIcons = [
 class JournalEntry {
   JournalEntry(
       {String headerText,
-      String eventDate,
+      DateTime eventDate,
       bool isFavorite,
       int feeling,
-      String content}) {
+      String content,
+      Timestamp createdOn}) {
     _headerText = headerText;
     _eventDate = eventDate;
     _isFavorite = isFavorite;
     _feeling = feeling;
     _content = content;
+    _createdOn = createdOn;
   }
 
   String _headerText;
 
   String get headerText => _headerText;
-  String _eventDate;
+  DateTime _eventDate;
   String _content;
   bool _isFavorite;
   int _feeling;
+  Timestamp _createdOn;
 
   Icon getFeelingIcon() {
     return Icon(feelingIcons[_feeling]);
   }
 
-  String get eventDate => _eventDate;
+  Timestamp get createdOn => _createdOn;
+
+  DateTime get eventDate => _eventDate;
 
   String get content => _content;
 
