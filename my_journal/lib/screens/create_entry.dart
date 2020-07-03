@@ -1,10 +1,17 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_journal/constants.dart';
+import 'package:my_journal/screens/my_journal_screen.dart';
+import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
+
+final _fireStore = Firestore.instance;
+FirebaseUser loggedInUser;
 
 class CreateEntry extends StatefulWidget {
   static String id = 'create_entry_screen';
@@ -12,13 +19,32 @@ class CreateEntry extends StatefulWidget {
   _CreateEntryState createState() => _CreateEntryState();
 }
 
-class _CreateEntryState extends State<CreateEntry>
-    with SingleTickerProviderStateMixin {
+class _CreateEntryState extends State<CreateEntry> {
+  final _auth = FirebaseAuth.instance;
   String dateText = DateFormat.yMMMd().format(DateTime.now());
-  int selectedIcon = 0;
+  DateTime date;
+  int selectedIcon = 2;
   bool toggledFavoriteIcon = false;
   final _headerTextFieldController = TextEditingController();
   final _contentTextFieldController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<FirebaseUser> getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        return user;
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+    return null;
+  }
 
   void updateSelectedIcon(int selected) {
     setState(() {
@@ -123,7 +149,7 @@ class _CreateEntryState extends State<CreateEntry>
                                       showCustomDatePicker(context);
                                     },
                                   ),
-                                  Text(
+                                  const Text(
                                     'Change Date',
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 10.0),
@@ -148,6 +174,16 @@ class _CreateEntryState extends State<CreateEntry>
                             IconButton(
                               icon: Icon(
                                 Icons.clear,
+                                color: selectedIcon == 0 ? kPink : Colors.white,
+                                size: selectedIcon == 0 ? 42.0 : 40.0,
+                              ),
+                              onPressed: () {
+                                updateSelectedIcon(0);
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.cloud,
                                 color: selectedIcon == 1 ? kPink : Colors.white,
                                 size: selectedIcon == 1 ? 42.0 : 40.0,
                               ),
@@ -157,7 +193,7 @@ class _CreateEntryState extends State<CreateEntry>
                             ),
                             IconButton(
                               icon: Icon(
-                                Icons.cloud,
+                                Icons.compare_arrows,
                                 color: selectedIcon == 2 ? kPink : Colors.white,
                                 size: selectedIcon == 2 ? 42.0 : 40.0,
                               ),
@@ -167,7 +203,7 @@ class _CreateEntryState extends State<CreateEntry>
                             ),
                             IconButton(
                               icon: Icon(
-                                Icons.compare_arrows,
+                                Icons.child_friendly,
                                 color: selectedIcon == 3 ? kPink : Colors.white,
                                 size: selectedIcon == 3 ? 42.0 : 40.0,
                               ),
@@ -177,22 +213,12 @@ class _CreateEntryState extends State<CreateEntry>
                             ),
                             IconButton(
                               icon: Icon(
-                                Icons.child_friendly,
+                                Icons.accessibility_new,
                                 color: selectedIcon == 4 ? kPink : Colors.white,
                                 size: selectedIcon == 4 ? 42.0 : 40.0,
                               ),
                               onPressed: () {
                                 updateSelectedIcon(4);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.accessibility_new,
-                                color: selectedIcon == 5 ? kPink : Colors.white,
-                                size: selectedIcon == 5 ? 42.0 : 40.0,
-                              ),
-                              onPressed: () {
-                                updateSelectedIcon(5);
                               },
                             )
                           ],
@@ -222,6 +248,7 @@ class _CreateEntryState extends State<CreateEntry>
                                     child: TextField(
                                       key: const Key('headerTextFieldKey'),
                                       controller: _headerTextFieldController,
+                                      maxLength: 15,
                                       decoration: const InputDecoration(
                                         hintText: 'Header',
                                         contentPadding: EdgeInsets.symmetric(
@@ -242,11 +269,6 @@ class _CreateEntryState extends State<CreateEntry>
                                           ? Icon(Icons.favorite)
                                           : Icon(Icons.favorite_border),
                                       onPressed: () {
-                                        print(MediaQuery.of(context)
-                                            .viewInsets
-                                            .bottom);
-                                        print(
-                                            MediaQuery.of(context).size.height);
                                         setState(() {
                                           toggledFavoriteIcon
                                               ? toggledFavoriteIcon = false
@@ -307,11 +329,35 @@ class _CreateEntryState extends State<CreateEntry>
               child: RoundedButton(
                 text: 'Save Journal Entry',
                 color: const Color(0xff49a09d),
-                onPressed: () {
-                  print('Saved: ' +
-                      _headerTextFieldController.text +
-                      '\n' +
-                      _contentTextFieldController.text);
+                onPressed: () async {
+                  loggedInUser = await getCurrentUser();
+                  try {
+                    _fireStore.collection('entries_' + loggedInUser.email).add({
+                      'dateSelected': dateText,
+                      'feeling': selectedIcon,
+                      'header': _headerTextFieldController.text,
+                      'isFavorite': toggledFavoriteIcon,
+                      'content': _contentTextFieldController.text,
+                    });
+                  } on Exception catch (e) {
+                    print(e);
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false, // user must tap button!
+                      builder: (BuildContext context) {
+                        return CustomAlert(
+                          alertTitle: 'Saving Entry failed',
+                          alertMessage: e.toString(),
+                        );
+                      },
+                    );
+                  }
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyJournalScreen(
+                                loggedInUser: loggedInUser,
+                              )));
                 },
               ),
             ),

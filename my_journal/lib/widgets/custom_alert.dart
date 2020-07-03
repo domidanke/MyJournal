@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 class CustomAlert extends StatelessWidget {
   const CustomAlert({this.alertTitle, this.alertMessage});
-
   final String alertTitle;
   final String alertMessage;
 
