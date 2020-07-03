@@ -1,12 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:intl/intl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:my_journal/screens/create_entry.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
+String formatDate(date) {
+  return date.month.toString() +
+      '-' +
+      date.day.toString() +
+      '-' +
+      date.year.toString();
+}
 
 void main() {
   testWidgets('Create Entry Screen is loaded and rendered properly',
@@ -14,8 +21,8 @@ void main() {
     await tester.pumpWidget(MaterialApp(home: CreateEntry()));
 
     expect(find.byType(CreateEntry), findsOneWidget);
-    expect(
-        find.text(DateFormat.yMMMd().format(DateTime.now())), findsOneWidget);
+    expect(find.text(formatDate(DateTime.now())), findsOneWidget);
+
     expect(find.byIcon(Icons.date_range), findsOneWidget);
     expect(find.text('Change Date'), findsOneWidget);
     expect(find.text('How Did You feel?'), findsOneWidget);

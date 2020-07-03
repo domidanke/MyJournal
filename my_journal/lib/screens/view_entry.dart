@@ -4,15 +4,23 @@ import 'package:my_journal/classes/journal_entry.dart';
 import 'package:my_journal/constants.dart';
 
 class ViewEntry extends StatefulWidget {
-  const ViewEntry({this.entry});
+  const ViewEntry({this.journalEntry});
   static String id = 'view_entry_screen';
-  final JournalEntry entry;
+  final JournalEntry journalEntry;
 
   @override
   _ViewEntryState createState() => _ViewEntryState();
 }
 
 class _ViewEntryState extends State<ViewEntry> {
+  String formatDate(date) {
+    return date.month.toString() +
+        '-' +
+        date.day.toString() +
+        '-' +
+        date.year.toString();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,19 +46,19 @@ class _ViewEntryState extends State<ViewEntry> {
                             children: <Widget>[
                               Expanded(
                                 flex: 1,
-                                child: !widget.entry.isFavorite
+                                child: !widget.journalEntry.isFavorite
                                     ? const Text('')
                                     : Icon(
                                         Icons.favorite,
                                       ),
                               ),
                               Text(
-                                widget.entry.eventDate,
+                                formatDate(widget.journalEntry.eventDate),
                                 style: const TextStyle(fontSize: 20.0),
                               ),
                               Expanded(
                                 flex: 1,
-                                child: !widget.entry.isFavorite
+                                child: !widget.journalEntry.isFavorite
                                     ? const Text('')
                                     : Icon(
                                         Icons.favorite,
@@ -61,9 +69,9 @@ class _ViewEntryState extends State<ViewEntry> {
                         ),
                         Column(
                           children: <Widget>[
-                            widget.entry.getFeelingIcon(),
+                            widget.journalEntry.getFeelingIcon(),
                             Text(
-                              widget.entry.headerText,
+                              widget.journalEntry.headerText,
                               style: const TextStyle(fontSize: 30.0),
                             ),
                           ],
@@ -77,7 +85,7 @@ class _ViewEntryState extends State<ViewEntry> {
                               padding: const EdgeInsets.only(
                                   left: 20.0, right: 20.0, bottom: 10.0),
                               child: Text(
-                                widget.entry.content,
+                                widget.journalEntry.content,
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
                                   fontSize: 20.0,

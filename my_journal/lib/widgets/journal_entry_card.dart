@@ -1,17 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:my_journal/constants.dart';
+import 'package:my_journal/screens/view_entry.dart';
 
 import '../classes/journal_entry.dart';
 
 class JournalEntryCard extends StatelessWidget {
-  const JournalEntryCard({this.entry, this.onTap});
-  final JournalEntry entry;
-  final Function onTap;
+  const JournalEntryCard({this.journalEntry});
+  final JournalEntry journalEntry;
+
+  String formatDate(date) {
+    return date.month.toString() +
+        '-' +
+        date.day.toString() +
+        '-' +
+        date.year.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ViewEntry(
+                      journalEntry: journalEntry,
+                    )));
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
         child: Container(
@@ -27,13 +42,13 @@ class JournalEntryCard extends StatelessWidget {
                     Expanded(
                       flex: 3,
                       child: Text(
-                        entry.eventDate,
-                        style: const TextStyle(fontSize: 25.0),
+                        formatDate(journalEntry.eventDate),
+                        style: const TextStyle(fontSize: 20.0),
                       ),
                     ),
                     Expanded(
                       flex: 1,
-                      child: entry.isFavorite
+                      child: journalEntry.isFavorite
                           ? Icon(Icons.favorite)
                           : const Text(''),
                     )
@@ -48,13 +63,13 @@ class JournalEntryCard extends StatelessWidget {
                     Expanded(
                       flex: 3,
                       child: Text(
-                        entry.headerText,
+                        journalEntry.headerText,
                         style: const TextStyle(fontSize: 15.0),
                       ),
                     ),
                     Expanded(
                       flex: 1,
-                      child: entry.getFeelingIcon(),
+                      child: journalEntry.getFeelingIcon(),
                     )
                   ],
                 ),
