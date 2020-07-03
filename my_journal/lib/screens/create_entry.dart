@@ -4,9 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:my_journal/constants.dart';
-import 'package:my_journal/screens/my_journal_screen.dart';
+import 'package:my_journal/screens/select_entry.dart';
 import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
@@ -21,16 +20,28 @@ class CreateEntry extends StatefulWidget {
 
 class _CreateEntryState extends State<CreateEntry> {
   final _auth = FirebaseAuth.instance;
-  String dateText = DateFormat.yMMMd().format(DateTime.now());
-  DateTime date;
-  int selectedIcon = 2;
-  bool toggledFavoriteIcon = false;
-  final _headerTextFieldController = TextEditingController();
-  final _contentTextFieldController = TextEditingController();
+  DateTime eventDate;
+  int selectedIconIndex;
+  bool toggledFavoriteIcon;
+  TextEditingController headerTextFieldController;
+  TextEditingController contentTextFieldController;
 
   @override
   void initState() {
     super.initState();
+    eventDate = DateTime.now();
+    selectedIconIndex = 2;
+    toggledFavoriteIcon = false;
+    headerTextFieldController = TextEditingController();
+    contentTextFieldController = TextEditingController();
+  }
+
+  String formatDate(date) {
+    return date.month.toString() +
+        '-' +
+        date.day.toString() +
+        '-' +
+        date.year.toString();
   }
 
   Future<FirebaseUser> getCurrentUser() async {
@@ -48,7 +59,7 @@ class _CreateEntryState extends State<CreateEntry> {
 
   void updateSelectedIcon(int selected) {
     setState(() {
-      selectedIcon = selected;
+      selectedIconIndex = selected;
     });
   }
 
@@ -72,7 +83,7 @@ class _CreateEntryState extends State<CreateEntry> {
                       mode: CupertinoDatePickerMode.date,
                       initialDateTime: DateTime.now(),
                       onDateTimeChanged: (selectedDate) {
-                        dateText = DateFormat.yMMMd().format(selectedDate);
+                        eventDate = selectedDate;
                       },
                     ),
                   ),
@@ -95,7 +106,7 @@ class _CreateEntryState extends State<CreateEntry> {
               lastDate: DateTime.now())
           .then((selectedDate) {
         setState(() {
-          dateText = DateFormat.yMMMd().format(selectedDate);
+          eventDate = selectedDate;
         });
       });
     }
@@ -131,7 +142,7 @@ class _CreateEntryState extends State<CreateEntry> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                dateText,
+                                formatDate(eventDate),
                                 style: TextStyle(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
@@ -174,8 +185,10 @@ class _CreateEntryState extends State<CreateEntry> {
                             IconButton(
                               icon: Icon(
                                 Icons.clear,
-                                color: selectedIcon == 0 ? kPink : Colors.white,
-                                size: selectedIcon == 0 ? 42.0 : 40.0,
+                                color: selectedIconIndex == 0
+                                    ? kPink
+                                    : Colors.white,
+                                size: selectedIconIndex == 0 ? 42.0 : 40.0,
                               ),
                               onPressed: () {
                                 updateSelectedIcon(0);
@@ -184,8 +197,10 @@ class _CreateEntryState extends State<CreateEntry> {
                             IconButton(
                               icon: Icon(
                                 Icons.cloud,
-                                color: selectedIcon == 1 ? kPink : Colors.white,
-                                size: selectedIcon == 1 ? 42.0 : 40.0,
+                                color: selectedIconIndex == 1
+                                    ? kPink
+                                    : Colors.white,
+                                size: selectedIconIndex == 1 ? 42.0 : 40.0,
                               ),
                               onPressed: () {
                                 updateSelectedIcon(1);
@@ -194,8 +209,10 @@ class _CreateEntryState extends State<CreateEntry> {
                             IconButton(
                               icon: Icon(
                                 Icons.compare_arrows,
-                                color: selectedIcon == 2 ? kPink : Colors.white,
-                                size: selectedIcon == 2 ? 42.0 : 40.0,
+                                color: selectedIconIndex == 2
+                                    ? kPink
+                                    : Colors.white,
+                                size: selectedIconIndex == 2 ? 42.0 : 40.0,
                               ),
                               onPressed: () {
                                 updateSelectedIcon(2);
@@ -204,8 +221,10 @@ class _CreateEntryState extends State<CreateEntry> {
                             IconButton(
                               icon: Icon(
                                 Icons.child_friendly,
-                                color: selectedIcon == 3 ? kPink : Colors.white,
-                                size: selectedIcon == 3 ? 42.0 : 40.0,
+                                color: selectedIconIndex == 3
+                                    ? kPink
+                                    : Colors.white,
+                                size: selectedIconIndex == 3 ? 42.0 : 40.0,
                               ),
                               onPressed: () {
                                 updateSelectedIcon(3);
@@ -214,8 +233,10 @@ class _CreateEntryState extends State<CreateEntry> {
                             IconButton(
                               icon: Icon(
                                 Icons.accessibility_new,
-                                color: selectedIcon == 4 ? kPink : Colors.white,
-                                size: selectedIcon == 4 ? 42.0 : 40.0,
+                                color: selectedIconIndex == 4
+                                    ? kPink
+                                    : Colors.white,
+                                size: selectedIconIndex == 4 ? 42.0 : 40.0,
                               ),
                               onPressed: () {
                                 updateSelectedIcon(4);
@@ -247,7 +268,7 @@ class _CreateEntryState extends State<CreateEntry> {
                                   child: Container(
                                     child: TextField(
                                       key: const Key('headerTextFieldKey'),
-                                      controller: _headerTextFieldController,
+                                      controller: headerTextFieldController,
                                       maxLength: 15,
                                       decoration: const InputDecoration(
                                         hintText: 'Header',
@@ -302,7 +323,7 @@ class _CreateEntryState extends State<CreateEntry> {
                                               .bottom,
                                   child: TextField(
                                     key: const Key('contentTextFieldKey'),
-                                    controller: _contentTextFieldController,
+                                    controller: contentTextFieldController,
                                     style: const TextStyle(
                                       height: 1.5,
                                     ),
@@ -332,12 +353,13 @@ class _CreateEntryState extends State<CreateEntry> {
                 onPressed: () async {
                   loggedInUser = await getCurrentUser();
                   try {
-                    _fireStore.collection('entries_' + loggedInUser.email).add({
-                      'dateSelected': dateText,
-                      'feeling': selectedIcon,
-                      'header': _headerTextFieldController.text,
+                    _fireStore.collection('entries_' + loggedInUser.uid).add({
+                      'eventDate': eventDate,
+                      'header': headerTextFieldController.text,
+                      'content': contentTextFieldController.text,
+                      'feeling': selectedIconIndex,
                       'isFavorite': toggledFavoriteIcon,
-                      'content': _contentTextFieldController.text,
+                      'createdOn': DateTime.now()
                     });
                   } on Exception catch (e) {
                     print(e);
@@ -352,12 +374,8 @@ class _CreateEntryState extends State<CreateEntry> {
                       },
                     );
                   }
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MyJournalScreen(
-                                loggedInUser: loggedInUser,
-                              )));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SelectEntry()));
                 },
               ),
             ),
