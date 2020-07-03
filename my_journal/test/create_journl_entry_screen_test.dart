@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:my_journal/screens/create_entry.dart';
+import 'package:my_journal/screens/create_journal_entry_screen.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
@@ -16,11 +16,11 @@ String formatDate(date) {
 }
 
 void main() {
-  testWidgets('Create Entry Screen is loaded and rendered properly',
+  testWidgets('CreateJournalEntryScreen is loaded and rendered properly',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: CreateEntry()));
+    await tester.pumpWidget(MaterialApp(home: CreateJournalEntryScreen()));
 
-    expect(find.byType(CreateEntry), findsOneWidget);
+    expect(find.byType(CreateJournalEntryScreen), findsOneWidget);
     expect(find.text(formatDate(DateTime.now())), findsOneWidget);
 
     expect(find.byIcon(Icons.date_range), findsOneWidget);
@@ -35,7 +35,7 @@ void main() {
 
   testWidgets('TextFields receive and render user input correctly',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: CreateEntry()));
+    await tester.pumpWidget(MaterialApp(home: CreateJournalEntryScreen()));
     final headerTextField = find.byKey(const Key('headerTextFieldKey'));
     expect(headerTextField, findsOneWidget);
     final contentTextField = find.byKey(const Key('contentTextFieldKey'));
@@ -53,7 +53,7 @@ void main() {
 
   testWidgets('FaveIconButton changes correctly on tap',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: CreateEntry()));
+    await tester.pumpWidget(MaterialApp(home: CreateJournalEntryScreen()));
 
     final faveIcon = find.byIcon(Icons.favorite_border);
     await tester.tap(faveIcon);

@@ -5,20 +5,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journal/constants.dart';
-import 'package:my_journal/screens/select_entry.dart';
+import 'package:my_journal/screens/journal_entry_overview_screen.dart';
 import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
 final _fireStore = Firestore.instance;
 FirebaseUser loggedInUser;
 
-class CreateEntry extends StatefulWidget {
+class CreateJournalEntryScreen extends StatefulWidget {
   static String id = 'create_entry_screen';
   @override
-  _CreateEntryState createState() => _CreateEntryState();
+  _CreateJournalEntryScreenState createState() =>
+      _CreateJournalEntryScreenState();
 }
 
-class _CreateEntryState extends State<CreateEntry> {
+class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
   final _auth = FirebaseAuth.instance;
   DateTime eventDate;
   int selectedIconIndex;
@@ -374,8 +375,10 @@ class _CreateEntryState extends State<CreateEntry> {
                       },
                     );
                   }
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SelectEntry()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => JournalEntryOverviewScreen()));
                 },
               ),
             ),

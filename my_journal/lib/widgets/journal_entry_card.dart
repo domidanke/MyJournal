@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_journal/constants.dart';
-import 'package:my_journal/screens/view_entry.dart';
+import 'package:my_journal/screens/journal_entry_detail_screen.dart';
 
 import '../classes/journal_entry.dart';
 
@@ -23,7 +23,7 @@ class JournalEntryCard extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ViewEntry(
+                builder: (context) => JournalEntryDetailScreen(
                       journalEntry: journalEntry,
                     )));
       },
