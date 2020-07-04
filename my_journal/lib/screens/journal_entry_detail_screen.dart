@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:my_journal/classes/journal_entry.dart';
 import 'package:my_journal/constants.dart';
 
-class ViewEntry extends StatefulWidget {
-  const ViewEntry({this.journalEntry});
+class JournalEntryDetailScreen extends StatefulWidget {
+  const JournalEntryDetailScreen({this.journalEntry});
   static String id = 'view_entry_screen';
   final JournalEntry journalEntry;
 
   @override
-  _ViewEntryState createState() => _ViewEntryState();
+  _JournalEntryDetailScreenState createState() =>
+      _JournalEntryDetailScreenState();
 }
 
-class _ViewEntryState extends State<ViewEntry> {
+class _JournalEntryDetailScreenState extends State<JournalEntryDetailScreen> {
   String formatDate(date) {
     return date.month.toString() +
         '-' +
@@ -69,7 +70,7 @@ class _ViewEntryState extends State<ViewEntry> {
                         ),
                         Column(
                           children: <Widget>[
-                            widget.journalEntry.getFeelingIcon(),
+                            widget.journalEntry.getFeelingIcon(iconSize: 50.0),
                             Text(
                               widget.journalEntry.headerText,
                               style: const TextStyle(fontSize: 30.0),

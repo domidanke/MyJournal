@@ -4,20 +4,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journal/classes/journal_entry.dart';
 import 'package:my_journal/constants.dart';
-import 'package:my_journal/screens/create_entry.dart';
+import 'package:my_journal/screens/create_journal_entry_screen.dart';
 import 'package:my_journal/screens/welcome_screen.dart';
 import 'package:my_journal/widgets/journal_entry_card.dart';
 
 final _fireStore = Firestore.instance;
 FirebaseUser loggedInUser;
 
-class SelectEntry extends StatefulWidget {
+class JournalEntryOverviewScreen extends StatefulWidget {
   static String id = 'select_entry_screen';
   @override
-  _SelectEntryState createState() => _SelectEntryState();
+  _JournalEntryOverviewScreenState createState() =>
+      _JournalEntryOverviewScreenState();
 }
 
-class _SelectEntryState extends State<SelectEntry> {
+class _JournalEntryOverviewScreenState
+    extends State<JournalEntryOverviewScreen> {
   final _auth = FirebaseAuth.instance;
   List<JournalEntryCard> entryCards;
 
@@ -37,8 +39,10 @@ class _SelectEntryState extends State<SelectEntry> {
             size: 30.0,
           ),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => CreateEntry()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CreateJournalEntryScreen()));
           },
         ),
         body: SafeArea(

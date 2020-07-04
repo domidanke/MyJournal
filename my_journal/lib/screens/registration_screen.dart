@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/constants.dart';
-import 'package:my_journal/screens/select_entry.dart';
+import 'package:my_journal/screens/journal_entry_overview_screen.dart';
 import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
@@ -100,7 +100,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           showSpinner = false;
                         });
 
-                        Navigator.pushNamed(context, SelectEntry.id);
+                        Navigator.pushNamed(
+                            context, JournalEntryOverviewScreen.id);
                       }
                     } catch (e) {
                       setState(() {
