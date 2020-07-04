@@ -70,7 +70,7 @@ class _JournalEntryDetailScreenState extends State<JournalEntryDetailScreen> {
                         ),
                         Column(
                           children: <Widget>[
-                            widget.journalEntry.getFeelingIcon(),
+                            widget.journalEntry.getFeelingIcon(iconSize: 50.0),
                             Text(
                               widget.journalEntry.headerText,
                               style: const TextStyle(fontSize: 30.0),

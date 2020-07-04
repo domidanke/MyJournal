@@ -6,7 +6,6 @@ Shader headerGradient =
         .createShader(const Rect.fromLTWH(0, 0, 200.0, 70.0));
 
 const kCardDecoration = BoxDecoration(
-  borderRadius: BorderRadius.all(Radius.circular(20)),
   gradient:
       LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
           //colors: [Color(0xffd7d0f5), Color(0xff9385d6)]),

@@ -18,64 +18,29 @@ class JournalEntryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => JournalEntryDetailScreen(
-                      journalEntry: journalEntry,
-                    )));
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-        child: Container(
-          decoration: kCardDecoration,
-          height: 100,
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        formatDate(journalEntry.eventDate),
-                        style: const TextStyle(fontSize: 20.0),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: journalEntry.isFavorite
-                          ? Icon(Icons.favorite)
-                          : const Text(''),
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                        journalEntry.headerText,
-                        style: const TextStyle(fontSize: 15.0),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: journalEntry.getFeelingIcon(),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+    return Card(
+      child: Container(
+        decoration: kCardDecoration,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              title: Text(journalEntry.headerText),
+              subtitle: Text(formatDate(journalEntry.eventDate)),
+              trailing: journalEntry.isFavorite
+                  ? Icon(Icons.favorite)
+                  : const Text(''),
+              leading: journalEntry.getFeelingIcon(iconSize: 40.0),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => JournalEntryDetailScreen(
+                              journalEntry: journalEntry,
+                            )));
+              },
+            ),
+          ],
         ),
       ),
     );

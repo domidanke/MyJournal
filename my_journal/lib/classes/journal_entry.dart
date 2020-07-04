@@ -34,8 +34,11 @@ class JournalEntry {
   int _feeling;
   Timestamp _createdOn;
 
-  Icon getFeelingIcon() {
-    return Icon(feelingIcons[_feeling]);
+  Icon getFeelingIcon({iconSize}) {
+    return Icon(
+      feelingIcons[_feeling],
+      size: iconSize,
+    );
   }
 
   Timestamp get createdOn => _createdOn;
