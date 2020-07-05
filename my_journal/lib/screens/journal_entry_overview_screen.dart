@@ -119,7 +119,6 @@ class JournalEntryStream extends StatelessWidget {
 
         // ignore: avoid_function_literals_in_foreach_calls
         journalEntries.forEach((entry) {
-          print(entry.data['eventDate'].toDate());
           final eventDate = entry.data['eventDate'].toDate();
           final headerText = entry.data['header'];
           final content = entry.data['content'];

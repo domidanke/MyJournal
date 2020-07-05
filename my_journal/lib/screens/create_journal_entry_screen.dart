@@ -26,6 +26,7 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
   bool toggledFavoriteIcon;
   TextEditingController headerTextFieldController;
   TextEditingController contentTextFieldController;
+  final _createEntryFormKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -119,270 +120,294 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
         resizeToAvoidBottomInset: false,
         key: const Key('CreateEntryKey'),
         body: SafeArea(
-          child: Column(children: <Widget>[
-            Visibility(
-              // ignore: avoid_bool_literals_in_conditional_expressions
-              visible: MediaQuery.of(context).viewInsets.bottom == 0.0
-                  ? true
-                  : false,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 15.0, vertical: 20.0),
-                child: Center(
-                    child: Container(
-                  height: 210.0,
-                  decoration: kCardDecoration,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 20.0),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                formatDate(eventDate),
-                                style: TextStyle(
-                                    fontSize: 25.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.date_range,
-                                      color: Colors.white,
-                                      size: 30.0,
-                                    ),
-                                    onPressed: () {
-                                      showCustomDatePicker(context);
-                                    },
-                                  ),
-                                  const Text(
-                                    'Change Date',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 10.0),
-                                  )
-                                ],
-                              )
-                            ]),
-                      ),
-                      Text(
-                        'How Did You feel?',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(
-                                Icons.clear,
-                                color: selectedIconIndex == 0
-                                    ? kPink
-                                    : Colors.white,
-                                size: selectedIconIndex == 0 ? 42.0 : 40.0,
-                              ),
-                              onPressed: () {
-                                updateSelectedIcon(0);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.cloud,
-                                color: selectedIconIndex == 1
-                                    ? kPink
-                                    : Colors.white,
-                                size: selectedIconIndex == 1 ? 42.0 : 40.0,
-                              ),
-                              onPressed: () {
-                                updateSelectedIcon(1);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.compare_arrows,
-                                color: selectedIconIndex == 2
-                                    ? kPink
-                                    : Colors.white,
-                                size: selectedIconIndex == 2 ? 42.0 : 40.0,
-                              ),
-                              onPressed: () {
-                                updateSelectedIcon(2);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.child_friendly,
-                                color: selectedIconIndex == 3
-                                    ? kPink
-                                    : Colors.white,
-                                size: selectedIconIndex == 3 ? 42.0 : 40.0,
-                              ),
-                              onPressed: () {
-                                updateSelectedIcon(3);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.accessibility_new,
-                                color: selectedIconIndex == 4
-                                    ? kPink
-                                    : Colors.white,
-                                size: selectedIconIndex == 4 ? 42.0 : 40.0,
-                              ),
-                              onPressed: () {
-                                updateSelectedIcon(4);
-                              },
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )),
-              ),
-            ),
-            Expanded(
-              child: Padding(
+          child: Form(
+            key: _createEntryFormKey,
+            child: Column(children: <Widget>[
+              Visibility(
+                // ignore: avoid_bool_literals_in_conditional_expressions
+                visible: MediaQuery.of(context).viewInsets.bottom == 0.0
+                    ? true
+                    : false,
+                child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 10.0),
-                  child: Container(
-                      decoration: kCardDecoration,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Row(
+                      horizontal: 15.0, vertical: 20.0),
+                  child: Center(
+                      child: Container(
+                    height: 210.0,
+                    decoration: kCardDecoration,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15.0, horizontal: 20.0),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                  formatDate(eventDate),
+                                  style: TextStyle(
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                Column(
+                                  children: <Widget>[
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.date_range,
+                                        color: Colors.white,
+                                        size: 30.0,
+                                      ),
+                                      onPressed: () {
+                                        showCustomDatePicker(context);
+                                      },
+                                    ),
+                                    const Text(
+                                      'Change Date',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 10.0),
+                                    )
+                                  ],
+                                )
+                              ]),
+                        ),
+                        Text(
+                          'How Did You feel?',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20.0),
-                                  child: Container(
-                                    child: TextField(
-                                      key: const Key('headerTextFieldKey'),
-                                      controller: headerTextFieldController,
-                                      maxLength: 15,
-                                      decoration: const InputDecoration(
-                                        hintText: 'Header',
-                                        contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 10.0),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.clear,
+                                  color: selectedIconIndex == 0
+                                      ? kPink
+                                      : Colors.white,
+                                  size: selectedIconIndex == 0 ? 42.0 : 40.0,
+                                ),
+                                onPressed: () {
+                                  updateSelectedIcon(0);
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.cloud,
+                                  color: selectedIconIndex == 1
+                                      ? kPink
+                                      : Colors.white,
+                                  size: selectedIconIndex == 1 ? 42.0 : 40.0,
+                                ),
+                                onPressed: () {
+                                  updateSelectedIcon(1);
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.compare_arrows,
+                                  color: selectedIconIndex == 2
+                                      ? kPink
+                                      : Colors.white,
+                                  size: selectedIconIndex == 2 ? 42.0 : 40.0,
+                                ),
+                                onPressed: () {
+                                  updateSelectedIcon(2);
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.child_friendly,
+                                  color: selectedIconIndex == 3
+                                      ? kPink
+                                      : Colors.white,
+                                  size: selectedIconIndex == 3 ? 42.0 : 40.0,
+                                ),
+                                onPressed: () {
+                                  updateSelectedIcon(3);
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.accessibility_new,
+                                  color: selectedIconIndex == 4
+                                      ? kPink
+                                      : Colors.white,
+                                  size: selectedIconIndex == 4 ? 42.0 : 40.0,
+                                ),
+                                onPressed: () {
+                                  updateSelectedIcon(4);
+                                },
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 10.0),
+                    child: Container(
+                        decoration: kCardDecoration,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0),
+                                    child: Container(
+                                      child: TextFormField(
+                                        key: const Key('headerTextFieldKey'),
+                                        validator: (value) {
+                                          if (value.isEmpty) {
+                                            return 'Please enter a Header';
+                                          }
+                                          return null;
+                                        },
+                                        controller: headerTextFieldController,
+                                        maxLength: 15,
+                                        decoration: const InputDecoration(
+                                          hintText: 'Header',
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 10.0),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    IconButton(
-                                      iconSize: 30.0,
-                                      icon: toggledFavoriteIcon
-                                          ? Icon(Icons.favorite)
-                                          : Icon(Icons.favorite_border),
-                                      onPressed: () {
-                                        setState(() {
-                                          toggledFavoriteIcon
-                                              ? toggledFavoriteIcon = false
-                                              : toggledFavoriteIcon = true;
-                                        });
-                                      },
-                                    ),
-                                    const Text(
-                                      'Special Day',
-                                    )
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  child: Column(
+                                    children: <Widget>[
+                                      IconButton(
+                                        iconSize: 30.0,
+                                        icon: toggledFavoriteIcon
+                                            ? Icon(Icons.favorite)
+                                            : Icon(Icons.favorite_border),
+                                        onPressed: () {
+                                          setState(() {
+                                            toggledFavoriteIcon
+                                                ? toggledFavoriteIcon = false
+                                                : toggledFavoriteIcon = true;
+                                          });
+                                        },
+                                      ),
+                                      const Text(
+                                        'Special Day',
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0, vertical: 10.0),
-                                child: Container(
-                                  height: MediaQuery.of(context)
-                                              .viewInsets
-                                              .bottom ==
-                                          0.0
-                                      ? 250.0
-                                      : MediaQuery.of(context).size.height -
-                                          150.0 -
-                                          MediaQuery.of(context)
-                                              .viewInsets
-                                              .bottom,
-                                  child: TextField(
-                                    key: const Key('contentTextFieldKey'),
-                                    controller: contentTextFieldController,
-                                    style: const TextStyle(
-                                      height: 1.5,
+                              ],
+                            ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 10.0),
+                                  child: Container(
+                                    height: MediaQuery.of(context)
+                                                .viewInsets
+                                                .bottom ==
+                                            0.0
+                                        ? 250.0
+                                        : MediaQuery.of(context).size.height -
+                                            150.0 -
+                                            MediaQuery.of(context)
+                                                .viewInsets
+                                                .bottom,
+                                    child: TextFormField(
+                                      key: const Key('contentTextFieldKey'),
+                                      validator: (value) {
+                                        if (value.isEmpty) {
+                                          return 'Please enter some Content';
+                                        }
+                                        return null;
+                                      },
+                                      controller: contentTextFieldController,
+                                      style: const TextStyle(
+                                        height: 1.5,
+                                      ),
+                                      decoration: const InputDecoration(
+                                        hintText: 'Content',
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 10.0, vertical: 10.0),
+                                      ),
+                                      keyboardType: TextInputType.multiline,
+                                      maxLines: null,
                                     ),
-                                    decoration: const InputDecoration(
-                                      hintText: 'Content',
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 10.0, vertical: 10.0),
-                                    ),
-                                    keyboardType: TextInputType.multiline,
-                                    maxLines: null,
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ))),
-            ),
-            Visibility(
-              // ignore: avoid_bool_literals_in_conditional_expressions
-              visible: MediaQuery.of(context).viewInsets.bottom == 0.0
-                  ? true
-                  : false,
-              child: RoundedButton(
-                text: 'Save Journal Entry',
-                color: const Color(0xff49a09d),
-                onPressed: () async {
-                  loggedInUser = await getCurrentUser();
-                  try {
-                    _fireStore.collection('entries_' + loggedInUser.uid).add({
-                      'eventDate': eventDate,
-                      'header': headerTextFieldController.text,
-                      'content': contentTextFieldController.text,
-                      'feeling': selectedIconIndex,
-                      'isFavorite': toggledFavoriteIcon,
-                      'createdOn': DateTime.now()
-                    });
-                  } on Exception catch (e) {
-                    print(e);
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false, // user must tap button!
-                      builder: (BuildContext context) {
-                        return CustomAlert(
-                          alertTitle: 'Saving Entry failed',
-                          alertMessage: e.toString(),
-                        );
-                      },
-                    );
-                  }
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => JournalEntryOverviewScreen()));
-                },
+                          ],
+                        ))),
               ),
-            ),
-          ]),
+              Visibility(
+                // ignore: avoid_bool_literals_in_conditional_expressions
+                visible: MediaQuery.of(context).viewInsets.bottom == 0.0
+                    ? true
+                    : false,
+                child: RoundedButton(
+                  text: 'Save Journal Entry',
+                  color: const Color(0xff49a09d),
+                  onPressed: () async {
+                    if (_createEntryFormKey.currentState.validate()) {
+                      Scaffold.of(context).showSnackBar(const SnackBar(
+                        content: Text('Processing Entry'),
+                      ));
+
+                      loggedInUser = await getCurrentUser();
+                      try {
+                        _fireStore
+                            .collection('entries_' + loggedInUser.uid)
+                            .add({
+                          'eventDate': eventDate,
+                          'header': headerTextFieldController.text,
+                          'content': contentTextFieldController.text,
+                          'feeling': selectedIconIndex,
+                          'isFavorite': toggledFavoriteIcon,
+                          'createdOn': DateTime.now()
+                        });
+                      } on Exception catch (e) {
+                        print(e);
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false, // user must tap button!
+                          builder: (BuildContext context) {
+                            return CustomAlert(
+                              alertTitle: 'Saving Entry failed',
+                              alertMessage: e.toString(),
+                            );
+                          },
+                        );
+                      }
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  JournalEntryOverviewScreen()));
+                    }
+                  },
+                ),
+              ),
+            ]),
+          ),
         ));
   }
 }
