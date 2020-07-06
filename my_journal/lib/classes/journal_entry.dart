@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'custom_icons_icons.dart';
+
 final List<IconData> feelingIcons = [
-  Icons.clear,
-  Icons.cloud,
-  Icons.compare_arrows,
-  Icons.child_friendly,
-  Icons.accessibility_new,
+  CustomIcons.angry,
+  CustomIcons.sad,
+  CustomIcons.meh,
+  CustomIcons.smile_2,
+  CustomIcons.happy,
 ];
 
 class JournalEntry {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_journal/constants.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
@@ -29,7 +28,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Container(
                   padding: const EdgeInsets.all(10.0),
                   child: Icon(
-                    FontAwesomeIcons.book,
+                    Icons.email,
                     color: Colors.white,
                     size: 50.0,
                   ),

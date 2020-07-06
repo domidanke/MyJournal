@@ -9,6 +9,8 @@ import 'package:my_journal/screens/journal_entry_overview_screen.dart';
 import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
+import '../classes/custom_icons_icons.dart';
+
 final _fireStore = Firestore.instance;
 FirebaseUser loggedInUser;
 
@@ -188,7 +190,7 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                             children: <Widget>[
                               IconButton(
                                 icon: Icon(
-                                  Icons.clear,
+                                  CustomIcons.angry,
                                   color: selectedIconIndex == 0
                                       ? kPink
                                       : Colors.white,
@@ -200,7 +202,7 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                               ),
                               IconButton(
                                 icon: Icon(
-                                  Icons.cloud,
+                                  CustomIcons.sad,
                                   color: selectedIconIndex == 1
                                       ? kPink
                                       : Colors.white,
@@ -212,7 +214,7 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                               ),
                               IconButton(
                                 icon: Icon(
-                                  Icons.compare_arrows,
+                                  CustomIcons.meh,
                                   color: selectedIconIndex == 2
                                       ? kPink
                                       : Colors.white,
@@ -224,7 +226,7 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                               ),
                               IconButton(
                                 icon: Icon(
-                                  Icons.child_friendly,
+                                  CustomIcons.smile_2,
                                   color: selectedIconIndex == 3
                                       ? kPink
                                       : Colors.white,
@@ -236,7 +238,7 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                               ),
                               IconButton(
                                 icon: Icon(
-                                  Icons.accessibility_new,
+                                  CustomIcons.happy,
                                   color: selectedIconIndex == 4
                                       ? kPink
                                       : Colors.white,
@@ -368,10 +370,6 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                   color: const Color(0xff49a09d),
                   onPressed: () async {
                     if (_createEntryFormKey.currentState.validate()) {
-                      Scaffold.of(context).showSnackBar(const SnackBar(
-                        content: Text('Processing Entry'),
-                      ));
-
                       loggedInUser = await getCurrentUser();
                       try {
                         _fireStore
