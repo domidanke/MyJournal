@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_journal/generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'screens/create_journal_entry_screen.dart';
 import 'screens/journal_entry_detail_screen.dart';
@@ -28,6 +30,15 @@ class MyJournalApp extends StatelessWidget {
             JournalEntryOverviewScreen(),
       },
       initialRoute: WelcomeScreen.id,
+      localizationsDelegates: [
+        // 1
+        S.delegate,
+        // 2
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
     );
   }
 }
