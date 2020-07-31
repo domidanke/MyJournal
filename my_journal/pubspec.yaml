@@ -32,6 +32,9 @@ dependencies:
   google_fonts: ^1.1.0
   mockito: ^4.1.1
 
+  flutter_localizations:
+    sdk: flutter
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -80,3 +83,6 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  main_locale: en_US
+  enabled: true
