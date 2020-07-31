@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_journal/constants.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
+import 'package:my_journal/generated/l10n.dart';
 
 import 'login_screen.dart';
 import 'registration_screen.dart';
@@ -46,7 +47,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               height: 48.0,
             ),
             RoundedButton(
-              text: 'Log In',
+              text: S.of(context).welcomeScreenLoginButton,
               color: const Color(0xff5f2c82),
               onPressed: () {
                 // Need to use this navigation method for route testing
@@ -55,7 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               },
             ),
             RoundedButton(
-              text: 'Register',
+              text: S.of(context).welcomeScreenRegistrationButton,
               color: const Color(0xff49a09d),
               onPressed: () {
                 Navigator.pushNamed(context, RegistrationScreen.id);

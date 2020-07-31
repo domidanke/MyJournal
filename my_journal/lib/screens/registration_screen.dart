@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_journal/generated/l10n.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/constants.dart';
 import 'package:my_journal/screens/journal_entry_overview_screen.dart';
@@ -49,7 +50,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your email',
+                  hintText: S.of(context).registrationScreenEmailTextFieldHint,
                 ),
                 style: const TextStyle(
                   color: Colors.white,
@@ -67,7 +68,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 obscureText: true,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your password',
+                  hintText:
+                      S.of(context).registrationScreenPasswordTextFieldHint,
                 ),
                 style: const TextStyle(
                   color: Colors.white,
@@ -81,7 +83,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 24.0,
               ),
               RoundedButton(
-                text: 'Register',
+                text: S.of(context).registrationScreenRegistrationButton,
                 color: const Color(0xff49a09d),
                 onPressed: () async {
                   if (password == null || email == null) {
@@ -110,25 +112,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       switch (e.code) {
                         case 'ERROR_INVALID_EMAIL':
                           {
-                            alertUser('Please enter a valid email address.');
+                            alertUser(S
+                                .of(context)
+                                .registrationScreenErrorInvalidEmail);
                           }
                           break;
                         case 'ERROR_WEAK_PASSWORD':
                           {
-                            alertUser(
-                                'The password must be at least 6 characters long.');
+                            alertUser(S
+                                .of(context)
+                                .registrationScreenErrorWeakPassword);
                           }
                           break;
                         case 'ERROR_EMAIL_ALREADY_IN_USE':
                           {
-                            alertUser(
-                                'The email address is already in use by another account.');
+                            alertUser(S
+                                .of(context)
+                                .registrationScreenErrorEmailAlreadyInUse);
                           }
                           break;
                         default:
                           {
                             alertUser(
-                                'Something went wrong. Please try again later.');
+                                S.of(context).registrationScreenErrorDefault);
                           }
                       }
                     }

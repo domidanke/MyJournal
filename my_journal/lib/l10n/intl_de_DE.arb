@@ -1,1 +1,19 @@
-{}
+{
+  "@@locale": "en_US",
+  "welcomeScreenLoginButton": "Einloggen",
+  "welcomeScreenRegistrationButton": "Registrieren",
+  "loginScreenEmailTextFieldHint": "E-Mail eingeben",
+  "loginScreenPasswordTextFieldHint": "Passwort eingeben",
+  "loginScreenLoginButton": "Einloggen",
+  "loginScreenErrorInvalidEmail": "Bitte gib eine valide E-Mail Adresse ein.",
+  "loginScreenErrorUserNotFound": "Sorry, wir können keinen Account mit dieser E-Mail Adresse finden.",
+  "loginScreenErrorWrongPassword": "Die E-Mail Adresse oder das Passwort sind nicht korrekt. Bitte versuche es erneut.",
+  "loginScreenErrorDefault": "Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut.",
+  "registrationScreenEmailTextFieldHint": "E-Mail eingeben",
+  "registrationScreenPasswordTextFieldHint": "Passwort eingeben",
+  "registrationScreenRegistrationButton": "Registrieren",
+  "registrationScreenErrorInvalidEmail": "Bitte gib eine valide E-Mail Adresse ein.",
+  "registrationScreenErrorWeakPassword": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+  "registrationScreenErrorEmailAlreadyInUse": "Diese E-Mail Adresse ist bereits vergeben.",
+  "registrationScreenErrorDefault": "Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut."
+}

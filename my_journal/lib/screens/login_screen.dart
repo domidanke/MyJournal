@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_journal/generated/l10n.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/constants.dart';
 import 'package:my_journal/screens/journal_entry_overview_screen.dart';
@@ -49,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your email',
+                  hintText: S.of(context).loginScreenEmailTextFieldHint,
                 ),
                 style: const TextStyle(
                   color: Colors.white,
@@ -67,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: true,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your password',
+                  hintText: S.of(context).loginScreenPasswordTextFieldHint,
                 ),
                 style: const TextStyle(
                   color: Colors.white,
@@ -81,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 24.0,
               ),
               RoundedButton(
-                text: 'Log In',
+                text: S.of(context).loginScreenLoginButton,
                 color: const Color(0xff5f2c82),
                 onPressed: () async {
                   if (password == null || email == null) {
@@ -113,25 +114,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       switch (e.code) {
                         case 'ERROR_INVALID_EMAIL':
                           {
-                            alertUser('Please enter a valid email address.');
+                            alertUser(
+                                S.of(context).loginScreenErrorInvalidEmail);
                           }
                           break;
                         case 'ERROR_USER_NOT_FOUND':
                           {
                             alertUser(
-                                'Sorry, we can\'t find an account with this email address.');
+                                S.of(context).loginScreenErrorUserNotFound);
                           }
                           break;
                         case 'ERROR_WRONG_PASSWORD':
                           {
                             alertUser(
-                                'Username or password is invalid. Please try again.');
+                                S.of(context).loginScreenErrorWrongPassword);
                           }
                           break;
                         default:
                           {
-                            alertUser(
-                                'Something went wrong. Please try again later.');
+                            alertUser(S.of(context).loginScreenErrorDefault);
                           }
                       }
                     }

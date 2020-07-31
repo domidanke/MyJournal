@@ -1,1 +1,19 @@
-{}
+{
+  "@@locale": "en_US",
+  "welcomeScreenLoginButton": "Log In",
+  "welcomeScreenRegistrationButton": "Register",
+  "loginScreenEmailTextFieldHint": "Enter your email",
+  "loginScreenPasswordTextFieldHint": "Enter your password",
+  "loginScreenLoginButton": "Log In",
+  "loginScreenErrorInvalidEmail": "Please enter a valid email address.",
+  "loginScreenErrorUserNotFound": "Sorry, we can't find an account with this email address.",
+  "loginScreenErrorWrongPassword": "Email or password is invalid. Please try again.",
+  "loginScreenErrorDefault": "Something went wrong. Please try again later.",
+  "registrationScreenEmailTextFieldHint": "Enter your email",
+  "registrationScreenPasswordTextFieldHint": "Enter your password",
+  "registrationScreenRegistrationButton": "Register",
+  "registrationScreenErrorInvalidEmail": "Please enter a valid email address.",
+  "registrationScreenErrorWeakPassword": "The password must be at least 6 characters long.",
+  "registrationScreenErrorEmailAlreadyInUse": "The email address is already in use by another account.",
+  "registrationScreenErrorDefault": "Something went wrong. Please try again later."
+}

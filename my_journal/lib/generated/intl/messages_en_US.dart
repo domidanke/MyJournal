@@ -21,6 +21,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-
+    "loginScreenEmailTextFieldHint" : MessageLookupByLibrary.simpleMessage("Enter your email"),
+    "loginScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Something went wrong. Please try again later."),
+    "loginScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Please enter a valid email address."),
+    "loginScreenErrorUserNotFound" : MessageLookupByLibrary.simpleMessage("Sorry, we can\'t find an account with this email address."),
+    "loginScreenErrorWrongPassword" : MessageLookupByLibrary.simpleMessage("Email or password is invalid. Please try again."),
+    "loginScreenLoginButton" : MessageLookupByLibrary.simpleMessage("Log In"),
+    "loginScreenPasswordTextFieldHint" : MessageLookupByLibrary.simpleMessage("Enter your password"),
+    "registrationScreenEmailTextFieldHint" : MessageLookupByLibrary.simpleMessage("Enter your email"),
+    "registrationScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Something went wrong. Please try again later."),
+    "registrationScreenErrorEmailAlreadyInUse" : MessageLookupByLibrary.simpleMessage("The email address is already in use by another account."),
+    "registrationScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Please enter a valid email address."),
+    "registrationScreenErrorWeakPassword" : MessageLookupByLibrary.simpleMessage("The password must be at least 6 characters long."),
+    "registrationScreenPasswordTextFieldHint" : MessageLookupByLibrary.simpleMessage("Enter your password"),
+    "registrationScreenRegistrationButton" : MessageLookupByLibrary.simpleMessage("Register"),
+    "welcomeScreenLoginButton" : MessageLookupByLibrary.simpleMessage("Log In"),
+    "welcomeScreenRegistrationButton" : MessageLookupByLibrary.simpleMessage("Register")
   };
 }
