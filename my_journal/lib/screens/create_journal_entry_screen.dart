@@ -14,7 +14,7 @@ import '../classes/custom_icons_icons.dart';
 
 final _fireStore = Firestore.instance;
 FirebaseUser loggedInUser;
-const screenString = '';
+const screenString = 'create_journal_entry_screen';
 
 class CreateJournalEntryScreen extends StatefulWidget {
   static String id = 'create_entry_screen';
