@@ -7,6 +7,10 @@ import 'package:my_journal/screens/journal_entry_overview_screen.dart';
 import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
+import '../app_localization.dart';
+
+const screenString = 'registration_screen';
+
 class RegistrationScreen extends StatefulWidget {
   static String id = 'registration_screen';
 
@@ -26,7 +30,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return CustomAlert(
-          alertTitle: 'Registration failed',
+          alertTitle: AppLocalizations.of(context)
+              .translate('$screenString-alert_title'),
           alertMessage: alertMessage,
         );
       },
@@ -49,7 +54,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your email',
+                  hintText: AppLocalizations.of(context)
+                      .translate('$screenString-email'),
                 ),
                 style: const TextStyle(
                   color: Colors.white,
@@ -67,7 +73,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 obscureText: true,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your password',
+                  hintText: AppLocalizations.of(context)
+                      .translate('$screenString-password'),
                 ),
                 style: const TextStyle(
                   color: Colors.white,
@@ -85,7 +92,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 color: const Color(0xff49a09d),
                 onPressed: () async {
                   if (password == null || email == null) {
-                    alertUser('Email and password cannot be blank.');
+                    alertUser(AppLocalizations.of(context)
+                        .translate('$screenString-blank_field'));
                   } else {
                     setState(() {
                       showSpinner = true;
@@ -110,25 +118,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       switch (e.code) {
                         case 'ERROR_INVALID_EMAIL':
                           {
-                            alertUser('Please enter a valid email address.');
+                            alertUser(AppLocalizations.of(context)
+                                .translate('$screenString-invalid_email'));
                           }
                           break;
                         case 'ERROR_WEAK_PASSWORD':
                           {
-                            alertUser(
-                                'The password must be at least 6 characters long.');
+                            alertUser(AppLocalizations.of(context)
+                                .translate('$screenString-weak_password'));
                           }
                           break;
                         case 'ERROR_EMAIL_ALREADY_IN_USE':
                           {
-                            alertUser(
-                                'The email address is already in use by another account.');
+                            alertUser(AppLocalizations.of(context)
+                                .translate('$screenString-email_in_use'));
                           }
                           break;
                         default:
                           {
-                            alertUser(
-                                'Something went wrong. Please try again later.');
+                            alertUser(AppLocalizations.of(context)
+                                .translate('$screenString-server_error'));
                           }
                       }
                     }

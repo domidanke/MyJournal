@@ -8,8 +8,11 @@ import 'package:my_journal/screens/create_journal_entry_screen.dart';
 import 'package:my_journal/screens/welcome_screen.dart';
 import 'package:my_journal/widgets/journal_entry_card.dart';
 
+import '../app_localization.dart';
+
 final _fireStore = Firestore.instance;
 FirebaseUser loggedInUser;
+const screenString = 'journal_entry_overview_screen';
 
 class JournalEntryOverviewScreen extends StatefulWidget {
   static String id = 'select_entry_screen';
@@ -61,11 +64,12 @@ class _JournalEntryOverviewScreenState
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            const Expanded(
+                            Expanded(
                               flex: 3,
                               child: Text(
-                                'Welcome Back!',
-                                style: TextStyle(
+                                AppLocalizations.of(context)
+                                    .translate('$screenString-header'),
+                                style: const TextStyle(
                                     fontSize: 25.0, color: Colors.white),
                               ),
                             ),
@@ -152,7 +156,9 @@ class JournalEntryStream extends StatelessWidget {
                   height: 20.0,
                   child: Center(
                     child: Text(
-                      'Total Journal Entries: ${journalEntryCards.length}',
+                      AppLocalizations.of(context)
+                              .translate('$screenString-total_entries') +
+                          '${journalEntryCards.length}',
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),

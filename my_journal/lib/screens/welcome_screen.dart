@@ -1,12 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:my_journal/app_localization.dart';
 import 'package:my_journal/constants.dart';
 import 'package:my_journal/screens/registration_screen.dart';
 import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
 import 'journal_entry_overview_screen.dart';
+
+const screenString = 'welcome_screen';
 
 class WelcomeScreen extends StatefulWidget {
   static String id = 'welcome_screen';
@@ -27,7 +30,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return CustomAlert(
-          alertTitle: 'Login failed',
+          alertTitle: AppLocalizations.of(context)
+              .translate('$screenString-alert_title'),
           alertMessage: alertMessage,
         );
       },
@@ -72,7 +76,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your email',
+                  hintText: AppLocalizations.of(context)
+                      .translate('$screenString-email'),
                 ),
                 style: const TextStyle(
                   color: Colors.white,
@@ -90,7 +95,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 obscureText: true,
                 textAlign: TextAlign.center,
                 decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: 'Enter your password',
+                  hintText: AppLocalizations.of(context)
+                      .translate('$screenString-password'),
                 ),
                 style: const TextStyle(
                   color: Colors.white,
@@ -104,11 +110,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 height: 18.0,
               ),
               RoundedButton(
-                text: 'Log In',
+                text: AppLocalizations.of(context)
+                    .translate('$screenString-login'),
                 color: const Color(0xff5f2c82),
                 onPressed: () async {
                   if (password == null || email == null) {
-                    alertUser('Email and password cannot be blank.');
+                    alertUser(AppLocalizations.of(context)
+                        .translate('$screenString-blank_field'));
                   } else {
                     setState(() {
                       showSpinner = true;
@@ -136,25 +144,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       switch (e.code) {
                         case 'ERROR_INVALID_EMAIL':
                           {
-                            alertUser('Please enter a valid email address.');
+                            alertUser(AppLocalizations.of(context)
+                                .translate('$screenString-invalid_email'));
                           }
                           break;
                         case 'ERROR_USER_NOT_FOUND':
                           {
-                            alertUser(
-                                'Sorry, we can\'t find an account with this email address.');
+                            alertUser(AppLocalizations.of(context)
+                                .translate('$screenString-email_not_found'));
                           }
                           break;
                         case 'ERROR_WRONG_PASSWORD':
                           {
-                            alertUser(
-                                'Username or password is invalid. Please try again.');
+                            alertUser(AppLocalizations.of(context)
+                                .translate('$screenString-wrong_credentials'));
                           }
                           break;
                         default:
                           {
-                            alertUser(
-                                'Something went wrong. Please try again later.');
+                            alertUser(AppLocalizations.of(context)
+                                .translate('$screenString-server_error'));
                           }
                       }
                     }
@@ -168,9 +177,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       MaterialPageRoute(
                           builder: (context) => RegistrationScreen()));
                 },
-                child: const Center(
+                child: Center(
                     child: Text(
-                  'Register',
+                  AppLocalizations.of(context)
+                      .translate('$screenString-register'),
                   style: TextStyle(
                       fontSize: 14.0,
                       color: Colors.white,
