@@ -1,0 +1,57 @@
+{
+  "welcome_screen" :
+  {
+    "email" : "Email eingeben",
+    "password" : "Passwort eingeben",
+    "login" : "Einloggen",
+    "register" : "Registrieren",
+    "login_failed_title" : "Login fehlgeschlagen",
+    "blank_field" : "Email oder Passwort sind nicht ausgefüllt",
+    "invalid_email" : "Bitte geben Sie eine korrekte Email ein",
+    "email_not_found" : "Wir konnten keine registrierte Email finden",
+    "wrong_credentials" : "Benutzername oder Passwort sind inkorrekt. Versuchen Sie es erneut",
+    "server_error" : "Etwas ist schiefgelaufen. Versuchen Sie es später erneut"
+  },
+
+  "registration_screen" :
+  {
+    "email" : "Email eingeben",
+    "password" : "Passwort eingeben",
+    "register" : "Registrieren",
+    "alert_title" : "Registrierung fehlgeschlagen",
+    "blank_field" : "Email oder Passwort sind nicht ausgefüllt",
+    "invalid_email" : "Bitte geben Sie eine korrekte Email ein",
+    "weak_password" : "Bitte wählen Sie ein stärkeres Passwort",
+    "email_in_use" : "Diese Email ist bereits registriert",
+    "server_error" : "Etwas ist schiefgelaufen. Versuchen Sie es später erneut"
+  },
+
+  "journal_entry_overview_screen" :
+  {
+    "header" : "Willkommen Zurück!",
+    "total_entries" : "Gesamte Einträge: "
+  },
+
+  "create_journal_entry_screen" :
+  {
+    "change_date" : "Datum ändern",
+    "feeling" : "Wie hast du dich gefühlt?",
+    "header" : "Titel",
+    "header_invalid" : "Bitte geben Sie einen Titel ein",
+    "special_day": "Besonderer Tag",
+    "content" : "Inhalt",
+    "content_invalid" : "Schreiben Sie doch was nettes",
+    "save" : "Eintrag Speichern"
+  },
+
+  "custom_alert" :
+  {
+    "title":
+    {
+      "failed_login": "Login fehlgeschlagen",
+      "failed_registration": "Registrierung fehlgeschlagen"
+
+    }
+  }
+
+}

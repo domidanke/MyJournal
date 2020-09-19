@@ -1,0 +1,47 @@
+{
+  "welcome_screen" :
+  {
+    "email" : "Enter your email",
+    "password" : "Enter your password",
+    "login" : "Sign In",
+    "register" : "Register",
+    "alert_title" : "Login failed",
+    "blank_field" : "Email and password cannot be blank",
+    "invalid_email" : "Please enter a valid email address",
+    "email_not_found" : "Sorry, we cannot find an account with this email address",
+    "wrong_credentials" : "Username or password is invalid. Please try again",
+    "server_error" : "Something went wrong. Please try again later"
+  },
+
+  "registration_screen" :
+  {
+    "email" : "Enter your email",
+    "password" : "Enter your password",
+    "register" : "Register",
+    "alert_title" : "Registration failed",
+    "blank_field" : "Email and password cannot be blank",
+    "invalid_email" : "Please enter a valid email address",
+    "weak_password" : "Please enter a stronger password",
+    "email_in_use" : "The email address is already registered",
+    "server_error" : "Something went wrong. Please try again later"
+  },
+
+  "journal_entry_overview_screen" :
+  {
+    "header" : "Welcome Back!",
+    "total_entries" : "Total Journal Entries: "
+  },
+
+  "create_journal_entry_screen" :
+  {
+    "change_date" : "Change Date",
+    "feeling" : "How Did You Feel?",
+    "header" : "Header",
+    "header_invalid" : "Please enter a header",
+    "special_day": "Special Day",
+    "content" : "Content",
+    "content_invalid" : "Please enter some content",
+    "save" : "Save Journal Entry"
+  }
+
+}
