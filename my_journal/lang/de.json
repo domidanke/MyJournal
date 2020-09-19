@@ -42,16 +42,5 @@
     "content" : "Inhalt",
     "content_invalid" : "Schreiben Sie doch was nettes",
     "save" : "Eintrag Speichern"
-  },
-
-  "custom_alert" :
-  {
-    "title":
-    {
-      "failed_login": "Login fehlgeschlagen",
-      "failed_registration": "Registrierung fehlgeschlagen"
-
-    }
   }
-
 }
