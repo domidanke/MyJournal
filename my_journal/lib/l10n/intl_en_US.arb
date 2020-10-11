@@ -1,7 +1,7 @@
 {
   "@@locale": "en_US",
-  "welcomeScreenLoginButton": "Log In",
-  "welcomeScreenRegistrationButton": "Register",
+  "loginScreenLoginButton": "Log In",
+  "loginScreenRegistrationButton": "Register",
   "loginScreenEmailTextFieldHint": "Enter your email",
   "loginScreenPasswordTextFieldHint": "Enter your password",
   "loginScreenLoginButton": "Log In",
@@ -15,5 +15,6 @@
   "registrationScreenErrorInvalidEmail": "Please enter a valid email address.",
   "registrationScreenErrorWeakPassword": "The password must be at least 6 characters long.",
   "registrationScreenErrorEmailAlreadyInUse": "The email address is already in use by another account.",
-  "registrationScreenErrorDefault": "Something went wrong. Please try again later."
+  "registrationScreenErrorDefault": "Something went wrong. Please try again later.",
+  "errorBlankField": "Fields cannot be blank."
 }

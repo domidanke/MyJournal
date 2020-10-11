@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:my_journal/classes/journal_entry.dart';
 import 'package:my_journal/constants.dart';
 import 'package:my_journal/screens/create_journal_entry_screen.dart';
-import 'package:my_journal/screens/welcome_screen.dart';
+import 'package:my_journal/screens/login_screen.dart';
 import 'package:my_journal/widgets/journal_entry_card.dart';
 
 final _fireStore = Firestore.instance;

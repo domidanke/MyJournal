@@ -87,7 +87,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 color: const Color(0xff49a09d),
                 onPressed: () async {
                   if (password == null || email == null) {
-                    alertUser('Email and password cannot be blank.');
+                    alertUser(S.of(context).errorBlankField);
                   } else {
                     setState(() {
                       showSpinner = true;

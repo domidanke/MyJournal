@@ -1,21 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/constants.dart';
 import 'package:my_journal/generated/l10n.dart';
-import 'package:my_journal/screens/journal_entry_overview_screen.dart';
+import 'package:my_journal/screens/registration_screen.dart';
 import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
-class LoginScreen extends StatefulWidget {
-  static String id = 'login_screen';
+import 'journal_entry_overview_screen.dart';
+
+class WelcomeScreen extends StatefulWidget {
+  static String id = 'welcome_screen';
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool showSpinner = false;
   String email;
@@ -45,6 +46,28 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Icon(
+                      Icons.email,
+                      color: Colors.white,
+                      size: 50.0,
+                    ),
+                  ),
+                  Text(
+                    'MyJournal',
+                    style: TextStyle(
+                        fontSize: 45.0,
+                        fontWeight: FontWeight.w900,
+                        foreground: Paint()..shader = headerGradient),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 36.0,
+              ),
               TextField(
                 key: const Key('email'),
                 keyboardType: TextInputType.emailAddress,
@@ -64,29 +87,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 8.0,
               ),
               TextField(
-                key: const Key('password'),
-                obscureText: true,
-                textAlign: TextAlign.center,
-                decoration: kTextFieldInputDecoration.copyWith(
-                  hintText: S.of(context).loginScreenPasswordTextFieldHint,
-                ),
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-                onChanged: (String value) {
-                  //Do something with the user input.
-                  password = value;
-                },
-              ),
+                  key: const Key('password'),
+                  obscureText: true,
+                  textAlign: TextAlign.center,
+                  decoration: kTextFieldInputDecoration.copyWith(
+                    hintText: S.of(context).loginScreenPasswordTextFieldHint,
+                  ),
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                  onChanged: (String value) {
+                    password = value;
+                  }),
               const SizedBox(
-                height: 24.0,
+                height: 48.0,
               ),
               RoundedButton(
                 text: S.of(context).loginScreenLoginButton,
                 color: const Color(0xff5f2c82),
                 onPressed: () async {
                   if (password == null || email == null) {
-                    alertUser('Email and password cannot be blank.');
+                    alertUser(S.of(context).errorBlankField);
                   } else {
                     setState(() {
                       showSpinner = true;
@@ -139,6 +160,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                 },
               ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => RegistrationScreen()));
+                },
+                child: Center(
+                    child: Text(
+                  S.of(context).loginScreenRegistrationButton,
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white,
+                      decoration: TextDecoration.underline),
+                )),
+              )
             ],
           ),
         ),

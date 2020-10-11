@@ -36,20 +36,20 @@ class S {
   }
 
   /// `Log In`
-  String get welcomeScreenLoginButton {
+  String get loginScreenLoginButton {
     return Intl.message(
       'Log In',
-      name: 'welcomeScreenLoginButton',
+      name: 'loginScreenLoginButton',
       desc: '',
       args: [],
     );
   }
 
   /// `Register`
-  String get welcomeScreenRegistrationButton {
+  String get loginScreenRegistrationButton {
     return Intl.message(
       'Register',
-      name: 'welcomeScreenRegistrationButton',
+      name: 'loginScreenRegistrationButton',
       desc: '',
       args: [],
     );
@@ -75,11 +75,11 @@ class S {
     );
   }
 
-  /// `Log In`
-  String get loginScreenLoginButton {
+  /// `Fields cannot be blank.`
+  String get errorBlankField {
     return Intl.message(
-      'Log In',
-      name: 'loginScreenLoginButton',
+      'Fields cannot be blank.',
+      name: 'errorBlankField',
       desc: '',
       args: [],
     );

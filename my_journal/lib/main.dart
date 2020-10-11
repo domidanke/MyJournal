@@ -7,7 +7,6 @@ import 'screens/journal_entry_detail_screen.dart';
 import 'screens/journal_entry_overview_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/registration_screen.dart';
-import 'screens/welcome_screen.dart';
 
 void main() => runApp(MyJournalApp());
 
@@ -22,7 +21,6 @@ class MyJournalApp extends StatelessWidget {
       routes: {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
         CreateJournalEntryScreen.id: (context) => CreateJournalEntryScreen(),
         JournalEntryDetailScreen.id: (context) =>
             const JournalEntryDetailScreen(),

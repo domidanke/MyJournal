@@ -1,7 +1,7 @@
 {
   "@@locale": "en_US",
-  "welcomeScreenLoginButton": "Einloggen",
-  "welcomeScreenRegistrationButton": "Registrieren",
+  "loginScreenLoginButton": "Einloggen",
+  "loginScreenRegistrationButton": "Registrieren",
   "loginScreenEmailTextFieldHint": "E-Mail eingeben",
   "loginScreenPasswordTextFieldHint": "Passwort eingeben",
   "loginScreenLoginButton": "Einloggen",
@@ -15,5 +15,6 @@
   "registrationScreenErrorInvalidEmail": "Bitte gib eine valide E-Mail Adresse ein.",
   "registrationScreenErrorWeakPassword": "Das Passwort muss mindestens 6 Zeichen lang sein.",
   "registrationScreenErrorEmailAlreadyInUse": "Diese E-Mail Adresse ist bereits vergeben.",
-  "registrationScreenErrorDefault": "Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut."
+  "registrationScreenErrorDefault": "Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut.",
+  "errorBlankField": "Eines der Felder is leer."
 }
