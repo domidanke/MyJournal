@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:my_journal/generated/l10n.dart';
 import 'package:my_journal/screens/registration_screen.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
@@ -13,9 +15,17 @@ void main() {
     // Build testable RegistrationScreen using WidgetTester
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: [
+          const AppLocalizationDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
         home: registrationScreen,
       ),
     );
+
+    await tester.pumpAndSettle(const Duration(seconds: 10), EnginePhase.build,
+        const Duration(minutes: 1));
 
     // Create Finders
     final widgetFinder = find.byWidget(registrationScreen);
@@ -32,29 +42,6 @@ void main() {
     expect(textFieldFinder, findsNWidgets(2));
     expect(emailTextFieldFinder, findsOneWidget);
     expect(passwordTextFieldFinder, findsOneWidget);
-  });
-
-  testWidgets('Registration alerts are properly rendered',
-      (WidgetTester tester) async {
-    // Create RegistrationScreen
-    final Widget registrationScreen = RegistrationScreen();
-
-    // Build testable RegistrationScreen using WidgetTester
-    await tester.pumpWidget(
-      MaterialApp(
-        home: registrationScreen,
-      ),
-    );
-
-    // Enter invalid email
-    await tester.enterText(find.byKey(const Key('email')), 'lukas.tajak');
-    await tester.enterText(find.byKey(const Key('password')), 'test123');
-
-    // Tap the RoundedButton
-    await tester.tap(find.text('Register'));
-
-    // Rebuild the widget after the state has changed.
-    await tester.pump();
   });
 
   //Todo: Test positive and negative resgistration scenarios

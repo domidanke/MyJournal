@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_journal/constants.dart';
-import 'package:my_journal/widgets/rounded_button.dart';
 import 'package:my_journal/generated/l10n.dart';
+import 'package:my_journal/widgets/rounded_button.dart';
 
 import 'login_screen.dart';
 import 'registration_screen.dart';

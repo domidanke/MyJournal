@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_journal/generated/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:my_journal/generated/l10n.dart';
 
 import 'screens/create_journal_entry_screen.dart';
 import 'screens/journal_entry_detail_screen.dart';
