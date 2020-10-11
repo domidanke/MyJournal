@@ -194,6 +194,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Welcome Back`
+  String get journalOverviewScreenWelcome {
+    return Intl.message(
+      'Welcome Back!',
+      name: 'journalOverviewScreenWelcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Journal Entries: `
+  String get journalOverviewScreenTotalEntries {
+    return Intl.message(
+      'Total Journal Entries: ',
+      name: 'journalOverviewScreenTotalEntries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Date: `
+  String get createJournalEntryChangeDate {
+    return Intl.message(
+      'Change Date: ',
+      name: 'createJournalEntryChangeDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How did you feel?`
+  String get createJournalEntryFeeling {
+    return Intl.message(
+      'How did you feel?',
+      name: 'createJournalEntryFeeling',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Header`
+  String get createJournalEntryHeader {
+    return Intl.message(
+      'Header',
+      name: 'createJournalEntryHeader',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a header`
+  String get createJournalEntryHeaderInvalid {
+    return Intl.message(
+      'Please enter a header',
+      name: 'createJournalEntryHeaderInvalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Content`
+  String get createJournalEntryContent {
+    return Intl.message(
+      'Content',
+      name: 'createJournalEntryContent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter some content`
+  String get createJournalEntryContentInvalid {
+    return Intl.message(
+      'Please enter some content',
+      name: 'createJournalEntryContentInvalid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Special Day`
+  String get createJournalEntrySpecialDay {
+    return Intl.message(
+      'Special Day',
+      name: 'createJournalEntrySpecialDay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save Journal Entry`
+  String get createJournalEntrySaveEntry {
+    return Intl.message(
+      'Save Journal Entry',
+      name: 'createJournalEntrySaveEntry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to save Journal Entry`
+  String get createJournalEntrySaveEntryError {
+    return Intl.message(
+      'Failed to save Journal Entry',
+      name: 'createJournalEntrySaveEntryError',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

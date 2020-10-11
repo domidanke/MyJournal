@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journal/classes/journal_entry.dart';
 import 'package:my_journal/constants.dart';
+import 'package:my_journal/generated/l10n.dart';
 import 'package:my_journal/screens/create_journal_entry_screen.dart';
 import 'package:my_journal/screens/login_screen.dart';
 import 'package:my_journal/widgets/journal_entry_card.dart';
@@ -61,11 +62,11 @@ class _JournalEntryOverviewScreenState
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            const Expanded(
+                            Expanded(
                               flex: 3,
                               child: Text(
-                                'Welcome Back!',
-                                style: TextStyle(
+                                S.of(context).journalOverviewScreenWelcome,
+                                style: const TextStyle(
                                     fontSize: 25.0, color: Colors.white),
                               ),
                             ),
@@ -152,7 +153,8 @@ class JournalEntryStream extends StatelessWidget {
                   height: 20.0,
                   child: Center(
                     child: Text(
-                      'Total Journal Entries: ${journalEntryCards.length}',
+                      S.of(context).journalOverviewScreenTotalEntries +
+                          '${journalEntryCards.length}',
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),

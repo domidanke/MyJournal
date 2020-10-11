@@ -9,6 +9,7 @@
   "loginScreenErrorUserNotFound": "Sorry, we can't find an account with this email address.",
   "loginScreenErrorWrongPassword": "Email or password is invalid. Please try again.",
   "loginScreenErrorDefault": "Something went wrong. Please try again later.",
+
   "registrationScreenEmailTextFieldHint": "Enter your email",
   "registrationScreenPasswordTextFieldHint": "Enter your password",
   "registrationScreenRegistrationButton": "Register",
@@ -16,5 +17,19 @@
   "registrationScreenErrorWeakPassword": "The password must be at least 6 characters long.",
   "registrationScreenErrorEmailAlreadyInUse": "The email address is already in use by another account.",
   "registrationScreenErrorDefault": "Something went wrong. Please try again later.",
-  "errorBlankField": "Fields cannot be blank."
+
+  "journalOverviewScreenWelcome" : "Welcome Back!",
+  "journalOverviewScreenTotalEntries" : "Total Journal Entries: ",
+
+  "createJournalEntryChangeDate": "Change Date",
+  "createJournalEntryFeeling": "How did you feel?",
+  "createJournalEntryHeader": "Header",
+  "createJournalEntryHeaderInvalid": "Please enter a header",
+  "createJournalEntryContent": "Content",
+  "createJournalEntryContentInvalid": "Please enter some content",
+  "createJournalEntrySpecialDay": "Special Day",
+  "createJournalEntrySaveEntry": "Save Journal Entry",
+  "createJournalEntrySaveEntryError": "Failed to save Journal Entry",
+
+  "errorBlankField": "Fields cannot be blank.",
 }

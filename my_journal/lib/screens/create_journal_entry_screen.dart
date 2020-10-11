@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journal/constants.dart';
+import 'package:my_journal/generated/l10n.dart';
 import 'package:my_journal/screens/journal_entry_overview_screen.dart';
 import 'package:my_journal/widgets/custom_alert.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
@@ -157,6 +158,7 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                                 Column(
                                   children: <Widget>[
                                     IconButton(
+                                      key: const Key('changeDateButton'),
                                       icon: Icon(
                                         Icons.date_range,
                                         color: Colors.white,
@@ -166,8 +168,10 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                                         showCustomDatePicker(context);
                                       },
                                     ),
-                                    const Text(
-                                      'Change Date',
+                                    Text(
+                                      S
+                                          .of(context)
+                                          .createJournalEntryChangeDate,
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 10.0),
                                     )
@@ -176,7 +180,7 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                               ]),
                         ),
                         Text(
-                          'How Did You feel?',
+                          S.of(context).createJournalEntryFeeling,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 20.0,
@@ -276,16 +280,21 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                                         key: const Key('headerTextFieldKey'),
                                         validator: (value) {
                                           if (value.isEmpty) {
-                                            return 'Please enter a Header';
+                                            return S
+                                                .of(context)
+                                                .createJournalEntryHeaderInvalid;
                                           }
                                           return null;
                                         },
                                         controller: headerTextFieldController,
                                         maxLength: 15,
-                                        decoration: const InputDecoration(
-                                          hintText: 'Header',
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 10.0),
+                                        decoration: InputDecoration(
+                                          hintText: S
+                                              .of(context)
+                                              .createJournalEntryHeader,
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 10.0),
                                         ),
                                       ),
                                     ),
@@ -297,6 +306,7 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                                   child: Column(
                                     children: <Widget>[
                                       IconButton(
+                                        key: const Key('specialDayButton'),
                                         iconSize: 30.0,
                                         icon: toggledFavoriteIcon
                                             ? Icon(Icons.favorite)
@@ -309,8 +319,10 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                                           });
                                         },
                                       ),
-                                      const Text(
-                                        'Special Day',
+                                      Text(
+                                        S
+                                            .of(context)
+                                            .createJournalEntrySpecialDay,
                                       )
                                     ],
                                   ),
@@ -337,7 +349,9 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                                       key: const Key('contentTextFieldKey'),
                                       validator: (value) {
                                         if (value.isEmpty) {
-                                          return 'Please enter some Content';
+                                          return S
+                                              .of(context)
+                                              .createJournalEntryContentInvalid;
                                         }
                                         return null;
                                       },
@@ -345,10 +359,14 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                                       style: const TextStyle(
                                         height: 1.5,
                                       ),
-                                      decoration: const InputDecoration(
-                                        hintText: 'Content',
-                                        contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 10.0, vertical: 10.0),
+                                      decoration: InputDecoration(
+                                        hintText: S
+                                            .of(context)
+                                            .createJournalEntryContent,
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 10.0,
+                                                vertical: 10.0),
                                       ),
                                       keyboardType: TextInputType.multiline,
                                       maxLines: null,
@@ -366,7 +384,7 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                     ? true
                     : false,
                 child: RoundedButton(
-                  text: 'Save Journal Entry',
+                  text: S.of(context).createJournalEntrySaveEntry,
                   color: const Color(0xff49a09d),
                   onPressed: () async {
                     if (_createEntryFormKey.currentState.validate()) {
@@ -389,7 +407,9 @@ class _CreateJournalEntryScreenState extends State<CreateJournalEntryScreen> {
                           barrierDismissible: false, // user must tap button!
                           builder: (BuildContext context) {
                             return CustomAlert(
-                              alertTitle: 'Saving Entry failed',
+                              alertTitle: S
+                                  .of(context)
+                                  .createJournalEntrySaveEntryError,
                               alertMessage: e.toString(),
                             );
                           },

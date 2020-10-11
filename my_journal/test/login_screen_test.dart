@@ -6,8 +6,7 @@ import 'package:my_journal/screens/login_screen.dart';
 import 'package:my_journal/widgets/rounded_button.dart';
 
 void main() {
-  testWidgets('WelcomeScreen is properly rendered',
-      (WidgetTester tester) async {
+  testWidgets('Login Screen is properly rendered', (WidgetTester tester) async {
     // Create WelcomeScreen
     final Widget welcomeScreen = WelcomeScreen();
 
@@ -33,8 +32,7 @@ void main() {
     final titleFinder = find.text('MyJournal');
     final emailTextFieldFinder = find.byKey(const Key('email'));
     final passwordTextFieldFinder = find.byKey(const Key('password'));
-    final registerFinder = find.text('Register');
-    final loginFinder = find.text('Log In');
+    final registerFinder = find.byKey(const Key('RegisterButton'));
 
     // Verify that WelcomeScreen exists and is properly rendered
     expect(widgetFinder, findsOneWidget);
@@ -42,31 +40,7 @@ void main() {
     expect(faIconFinder, findsOneWidget);
     expect(titleFinder, findsOneWidget);
     expect(registerFinder, findsOneWidget);
-    expect(loginFinder, findsOneWidget);
     expect(emailTextFieldFinder, findsOneWidget);
     expect(passwordTextFieldFinder, findsOneWidget);
-  });
-
-  testWidgets('Log In alerts are properly rendered',
-      (WidgetTester tester) async {
-    // Create RegistrationScreen
-    final Widget welcomeScreen = WelcomeScreen();
-
-    // Build testable LoginScreen using WidgetTester
-    await tester.pumpWidget(
-      MaterialApp(
-        home: welcomeScreen,
-      ),
-    );
-
-    // Enter invalid email
-    await tester.enterText(find.byKey(const Key('email')), 'lukas.tajak');
-    await tester.enterText(find.byKey(const Key('password')), 'test123');
-
-    // Tap the RoundedButton
-    await tester.tap(find.text('Log In'));
-
-    // Rebuild the widget after the state has changed.
-    await tester.pump();
   });
 }

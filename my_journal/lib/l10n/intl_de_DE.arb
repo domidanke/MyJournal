@@ -9,6 +9,7 @@
   "loginScreenErrorUserNotFound": "Sorry, wir können keinen Account mit dieser E-Mail Adresse finden.",
   "loginScreenErrorWrongPassword": "Die E-Mail Adresse oder das Passwort sind nicht korrekt. Bitte versuche es erneut.",
   "loginScreenErrorDefault": "Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut.",
+
   "registrationScreenEmailTextFieldHint": "E-Mail eingeben",
   "registrationScreenPasswordTextFieldHint": "Passwort eingeben",
   "registrationScreenRegistrationButton": "Registrieren",
@@ -16,5 +17,19 @@
   "registrationScreenErrorWeakPassword": "Das Passwort muss mindestens 6 Zeichen lang sein.",
   "registrationScreenErrorEmailAlreadyInUse": "Diese E-Mail Adresse ist bereits vergeben.",
   "registrationScreenErrorDefault": "Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut.",
+
+  "journalOverviewScreenWelcome" : "Willkommen Zurueck!",
+  "journalOverviewScreenTotalEntries" : "Anzahl der Eintraege: ",
+
+  "createJournalEntryChangeDate": "Datum aendern",
+  "createJournalEntryFeeling": "Wie hast du dich gefuehlt?",
+  "createJournalEntryHeader": "Titel",
+  "createJournalEntryHeaderInvalid": "Bitte gib einen Titel ein",
+  "createJournalEntryContent": "Inhalt",
+  "createJournalEntryContentInvalid": "Schreib doch was schoenes",
+  "createJournalEntrySpecialDay": "Besonderer Tag",
+  "createJournalEntrySaveEntry": "Speichere Eintrag",
+  "createJournalEntrySaveEntryError": "Speichern fehlgeschlagen",
+
   "errorBlankField": "Eines der Felder is leer."
 }

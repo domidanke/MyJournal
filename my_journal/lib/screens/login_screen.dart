@@ -161,6 +161,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 },
               ),
               GestureDetector(
+                key: const Key('RegisterButton'),
                 onTap: () {
                   Navigator.push(
                       context,
