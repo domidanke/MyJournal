@@ -4,16 +4,6 @@ import '../models/custom_icons_icons.dart';
 
 //region Maps/Lists
 
-Map<String, String> kAlertMap = const {
-  'invalid-email': 'Please enter a valid email address.',
-  'user-not-found': 'Sorry, we can\'t find an account with this email address.',
-  'wrong-password': 'Username or password is invalid. Please try again.',
-  'weak-password': 'The password must be at least 6 characters long.',
-  'email-already-in-use':
-      'The email address is already in use by another account.',
-  'operation-not-allowed': 'Something went wrong on the Server'
-};
-
 Map<String, IconData> kCategoryIconMapping = const {
   'Art': Icons.photo,
   'Beauty': Icons.face,
@@ -66,18 +56,18 @@ Shader kGradient = LinearGradient(colors: [
   Colors.teal[500],
 ]).createShader(const Rect.fromLTWH(0, 0, 200.0, 70.0));
 
-InputDecoration kTextFieldInputDecoration = InputDecoration(
-  contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-  border: const OutlineInputBorder(
+InputDecoration kTextFieldInputDecoration = const InputDecoration(
+  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(8.0)),
   ),
-  enabledBorder: const OutlineInputBorder(
+  enabledBorder: OutlineInputBorder(
     borderSide: BorderSide(width: 1.0),
     borderRadius: BorderRadius.all(Radius.circular(8.0)),
   ),
   focusedBorder: OutlineInputBorder(
     borderSide: BorderSide(width: 2.0), //color: Colors.teal[300],
-    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+    borderRadius: BorderRadius.all(Radius.circular(10.0)),
   ),
 );
 //endregion

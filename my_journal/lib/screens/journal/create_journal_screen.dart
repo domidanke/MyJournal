@@ -117,13 +117,11 @@ class _CreateJournalScreenState extends State<CreateJournalScreen> {
               children: imageSelected == null
                   ? <Widget>[
                       Container(
-                        decoration: ShapeDecoration(
-                          //color: Colors.teal[300],
-                          shape: const CircleBorder(),
+                        decoration: const ShapeDecoration(
+                          shape: CircleBorder(),
                         ),
                         child: IconButton(
                             icon: const Icon(Icons.photo_camera),
-                            //color: Colors.white,
                             onPressed: () async {
                               final image = await _imageService
                                   .pickImage(ImageSource.camera);
@@ -138,8 +136,8 @@ class _CreateJournalScreenState extends State<CreateJournalScreen> {
                         width: 10.0,
                       ),
                       Container(
-                        decoration: ShapeDecoration(
-                          shape: const CircleBorder(),
+                        decoration: const ShapeDecoration(
+                          shape: CircleBorder(),
                         ),
                         child: IconButton(
                             icon: const Icon(Icons.photo_library),

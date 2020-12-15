@@ -5,12 +5,10 @@ import 'package:my_journal/screens/main/home_screen.dart';
 import 'package:my_journal/screens/main/profile_screen.dart';
 import 'package:my_journal/screens/main/settings-screen.dart';
 import 'package:my_journal/services/data-access_service.dart';
-import 'package:my_journal/services/theme_service.dart';
 
 import '../../services/locator.dart';
 
 final DataAccessService _dataAccessService = locator<DataAccessService>();
-final ThemeService _themeService = locator<ThemeService>();
 
 class MainScreen extends StatefulWidget {
   static String id = 'main_screen';

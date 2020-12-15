@@ -5,13 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:my_journal/models/entry.dart';
 import 'package:my_journal/models/journal.dart';
 
-import '../utils/constants.dart';
 import 'data-access_service.dart';
 import 'locator.dart';
 import 'navigation_service.dart';
 
 final NavigationService _navigationService = locator<NavigationService>();
 final DataAccessService _dataAccessService = locator<DataAccessService>();
+
+Map<String, String> kAlertMap = const {
+  'invalid-email': 'Please enter a valid email address.',
+  'user-not-found': 'Sorry, we can\'t find an account with this email address.',
+  'wrong-password': 'Username or password is invalid. Please try again.',
+  'weak-password': 'The password must be at least 6 characters long.',
+  'email-already-in-use':
+      'The email address is already in use by another account.',
+  'operation-not-allowed': 'Something went wrong on the Server'
+};
 
 class AlertService {
   //region General Alert
