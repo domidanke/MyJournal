@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_journal/widgets/rounded_button.dart';
+import 'package:my_journal/widgets/buttons/rounded_button.dart';
 
 void main() {
   testWidgets('RoundedButton is properly rendered',

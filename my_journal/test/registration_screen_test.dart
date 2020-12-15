@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_journal/screens/registration_screen.dart';
-import 'package:my_journal/widgets/rounded_button.dart';
+import 'package:my_journal/screens/login/registration_screen.dart';
+import 'package:my_journal/widgets/buttons/rounded_button.dart';
 
 void main() {
   testWidgets('RegistrationScreen is properly rendered',

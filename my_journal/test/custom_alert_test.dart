@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_journal/widgets/custom_alert.dart';
+import 'package:my_journal/services/alert_service.dart';
 
 MaterialApp _buildAppWithDialog(Widget dialog) {
   return MaterialApp(
