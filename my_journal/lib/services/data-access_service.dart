@@ -102,29 +102,34 @@ class DataAccessService {
   //endregion
 
   //region Create Journal
-  Future<void> createJournal(Journal newJournal) async {
-    final journalCreated = await _fireStore.collection('journals').add({
-      'title': newJournal.title,
-      'category': newJournal.category,
-      'userID': _auth.currentUser.uid,
-      'created': DateTime.now(),
-      'modified': DateTime.now(),
-      'sortOrder': 0,
-      'accFeeling': 0,
-      'totalEntries': 0,
-      'totalSpecialDays': 0,
-      'entriesColor': '',
-      'mostRecentEntryDate': DateTime.parse('1969-06-09'),
-    });
-    await _fireStore
-        .collection('journals')
-        .doc(journalCreated.id)
-        .collection('entries')
-        .add({});
-    StorageUploadTask _uploadTask;
-    final String filePath = 'journal-images/${journalCreated.id}';
-    _uploadTask = _storage.ref().child(filePath).putFile(newJournal.image);
-    await _uploadTask.onComplete;
+  Future<bool> createJournal(Journal newJournal) async {
+    try {
+      final journalCreated = await _fireStore.collection('journals').add({
+        'title': newJournal.title,
+        'category': newJournal.category,
+        'userID': _auth.currentUser.uid,
+        'created': DateTime.now(),
+        'modified': DateTime.now(),
+        'sortOrder': 0,
+        'accFeeling': 0,
+        'totalEntries': 0,
+        'totalSpecialDays': 0,
+        'entriesColor': '',
+        'mostRecentEntryDate': DateTime.parse('1969-06-09'),
+      });
+      await _fireStore
+          .collection('journals')
+          .doc(journalCreated.id)
+          .collection('entries')
+          .add({});
+      StorageUploadTask _uploadTask;
+      final String filePath = 'journal-images/${journalCreated.id}';
+      _uploadTask = _storage.ref().child(filePath).putFile(newJournal.image);
+      await _uploadTask.onComplete;
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
   //endregion
 
@@ -171,47 +176,67 @@ class DataAccessService {
   //endregion
 
   //region Update Journal Sort Order
-  Future<void> updateJournalSortOrder(
+  Future<bool> updateJournalSortOrder(
       Map<String, JournalCheckObject> newOrder) async {
-    newOrder.forEach((k, v) {
-      _fireStore
-          .collection('journals')
-          .doc(v.journalID)
-          .update({'sortOrder': v.indexAssigned});
-    });
+    try {
+      newOrder.forEach((k, v) {
+        _fireStore
+            .collection('journals')
+            .doc(v.journalID)
+            .update({'sortOrder': v.indexAssigned});
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
   //endregion
 
   //region Update Entries Color
-  Future<void> updateEntriesColor(Journal journal, Color color) async {
-    _fireStore
-        .collection('journals')
-        .doc(journal.journalID)
-        .update({'entriesColor': color.toString()});
+  Future<bool> updateEntriesColor(Journal journal, Color color) async {
+    try {
+      _fireStore
+          .collection('journals')
+          .doc(journal.journalID)
+          .update({'entriesColor': color.toString()});
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
   //endregion
 
   //region Update Journal
-  Future<void> updateJournal(Journal journal) async {
-    await _fireStore.collection('journals').doc(journal.journalID).update({
-      'modified': DateTime.now(),
-      'title': journal.title,
-      'category': journal.category
-    });
-    StorageUploadTask _uploadTask;
-    if (journal.image != null && journal.image.runtimeType != String) {
-      final String filePath = 'journal-images/${journal.journalID}';
-      _uploadTask = _storage.ref().child(filePath).putFile(journal.image);
-      await _uploadTask.onComplete;
+  Future<bool> updateJournal(Journal journal) async {
+    try {
+      await _fireStore.collection('journals').doc(journal.journalID).update({
+        'modified': DateTime.now(),
+        'title': journal.title,
+        'category': journal.category
+      });
+      StorageUploadTask _uploadTask;
+      if (journal.image != null && journal.image.runtimeType != String) {
+        final String filePath = 'journal-images/${journal.journalID}';
+        _uploadTask = _storage.ref().child(filePath).putFile(journal.image);
+        await _uploadTask.onComplete;
+      }
+      return true;
+    } catch (e) {
+      return false;
     }
   }
   //endregion
 
   //region Delete Journal
-  Future<void> deleteJournal(Journal journal) async {
-    await _fireStore.collection('journals').doc(journal.journalID).delete();
-    final String filePath = 'journal-images/${journal.journalID}';
-    await deleteImage(filePath);
+  Future<bool> deleteJournal(Journal journal) async {
+    try {
+      await _fireStore.collection('journals').doc(journal.journalID).delete();
+      final String filePath = 'journal-images/${journal.journalID}';
+      await deleteImage(filePath);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
   //endregion
 
@@ -220,37 +245,42 @@ class DataAccessService {
   //region Entry
 
   //region Add New Entry
-  Future<void> addNewEntry(Entry entry) async {
-    await _fireStore
-        .collection('journals')
-        .doc(entry.journal.journalID)
-        .collection('entries')
-        .add({
-      'header': entry.header,
-      'content': entry.content,
-      'feeling': entry.feeling,
-      'specialDay': entry.specialDay,
-      'eventDate': entry.eventDate,
-      'created': DateTime.now(),
-      'modified': DateTime.now()
-    });
+  Future<bool> addNewEntry(Entry entry) async {
+    try {
+      await _fireStore
+          .collection('journals')
+          .doc(entry.journal.journalID)
+          .collection('entries')
+          .add({
+        'header': entry.header,
+        'content': entry.content,
+        'feeling': entry.feeling,
+        'specialDay': entry.specialDay,
+        'eventDate': entry.eventDate,
+        'created': DateTime.now(),
+        'modified': DateTime.now()
+      });
 
-    final journalToUpdate = await _fireStore
-        .collection('journals')
-        .doc(entry.journal.journalID)
-        .get();
+      final journalToUpdate = await _fireStore
+          .collection('journals')
+          .doc(entry.journal.journalID)
+          .get();
 
-    await _fireStore
-        .collection('journals')
-        .doc(entry.journal.journalID)
-        .update({
-      'totalEntries': journalToUpdate.data()['totalEntries'] + 1,
-      'totalSpecialDays': entry.specialDay
-          ? journalToUpdate.data()['totalSpecialDays'] + 1
-          : journalToUpdate.data()['totalSpecialDays'],
-      'accFeeling': journalToUpdate.data()['accFeeling'] + entry.feeling,
-      'mostRecentEntryDate': DateTime.now()
-    });
+      await _fireStore
+          .collection('journals')
+          .doc(entry.journal.journalID)
+          .update({
+        'totalEntries': journalToUpdate.data()['totalEntries'] + 1,
+        'totalSpecialDays': entry.specialDay
+            ? journalToUpdate.data()['totalSpecialDays'] + 1
+            : journalToUpdate.data()['totalSpecialDays'],
+        'accFeeling': journalToUpdate.data()['accFeeling'] + entry.feeling,
+        'mostRecentEntryDate': DateTime.now()
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
   //endregion
 
@@ -266,44 +296,54 @@ class DataAccessService {
   //endregion
 
   //region Update Entry
-  Future<void> updateEntry(Entry entry) async {
-    await _fireStore
-        .collection('journals')
-        .doc(entry.journal.journalID)
-        .collection('entries')
-        .doc(entry.entryID)
-        .update({
-      'modified': DateTime.now(),
-      'header': entry.header,
-      'content': entry.content
-    });
+  Future<bool> updateEntry(Entry entry) async {
+    try {
+      await _fireStore
+          .collection('journals')
+          .doc(entry.journal.journalID)
+          .collection('entries')
+          .doc(entry.entryID)
+          .update({
+        'modified': DateTime.now(),
+        'header': entry.header,
+        'content': entry.content
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
   //endregion
 
   //region Delete Entry
-  Future<void> deleteEntry(Entry entry) async {
-    await _fireStore
-        .collection('journals')
-        .doc(entry.journal.journalID)
-        .collection('entries')
-        .doc(entry.entryID)
-        .delete();
+  Future<bool> deleteEntry(Entry entry) async {
+    try {
+      await _fireStore
+          .collection('journals')
+          .doc(entry.journal.journalID)
+          .collection('entries')
+          .doc(entry.entryID)
+          .delete();
 
-    final journalToUpdate = await _fireStore
-        .collection('journals')
-        .doc(entry.journal.journalID)
-        .get();
+      final journalToUpdate = await _fireStore
+          .collection('journals')
+          .doc(entry.journal.journalID)
+          .get();
 
-    await _fireStore
-        .collection('journals')
-        .doc(entry.journal.journalID)
-        .update({
-      'totalEntries': journalToUpdate.data()['totalEntries'] - 1,
-      'totalSpecialDays': entry.specialDay
-          ? journalToUpdate.data()['totalSpecialDays'] - 1
-          : journalToUpdate.data()['totalSpecialDays'],
-      'accFeeling': journalToUpdate.data()['accFeeling'] - entry.feeling,
-    });
+      await _fireStore
+          .collection('journals')
+          .doc(entry.journal.journalID)
+          .update({
+        'totalEntries': journalToUpdate.data()['totalEntries'] - 1,
+        'totalSpecialDays': entry.specialDay
+            ? journalToUpdate.data()['totalSpecialDays'] - 1
+            : journalToUpdate.data()['totalSpecialDays'],
+        'accFeeling': journalToUpdate.data()['accFeeling'] - entry.feeling,
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
   //endregion
 

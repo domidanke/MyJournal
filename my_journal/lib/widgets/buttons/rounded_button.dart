@@ -5,11 +5,13 @@ class RoundedButton extends StatelessWidget {
       {@required this.text,
       this.color,
       @required this.onPressed,
-      this.width = 100.0});
+      this.width = 100.0,
+      this.isAsync = false});
   final String text;
   final Color color;
   final Function onPressed;
   final double width;
+  final bool isAsync;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,12 @@ class RoundedButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 6.0),
           width: width,
           child: Center(
-              child: Text(text, style: Theme.of(context).textTheme.headline6)),
+              child: isAsync
+                  ? const Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: CircularProgressIndicator(),
+                    )
+                  : Text(text, style: Theme.of(context).textTheme.headline6)),
         ),
       ),
     );
