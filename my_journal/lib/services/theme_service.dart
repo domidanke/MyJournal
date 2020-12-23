@@ -44,10 +44,8 @@ class ThemeService {
           ),
           primaryColor: mainColor,
           iconTheme: IconThemeData(color: mainBlack),
-          indicatorColor: Colors.red,
           accentColor: mainColor,
           primaryColorLight: mainColor,
-          primaryColorDark: Colors.red,
           sliderTheme: SliderThemeData(
               activeTrackColor: mainColor, thumbColor: mainColor),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -81,10 +79,8 @@ class ThemeService {
           ),
           primaryColor: mainColor,
           iconTheme: IconThemeData(color: mainBlack),
-          indicatorColor: Colors.red,
           accentColor: mainColor,
           primaryColorLight: mainColor,
-          primaryColorDark: Colors.red,
           sliderTheme: SliderThemeData(
               activeTrackColor: mainColor, thumbColor: mainColor),
           floatingActionButtonTheme:

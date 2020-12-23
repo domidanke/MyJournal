@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journal/models/entry.dart';
+import 'package:my_journal/services/alert_service.dart';
 import 'package:my_journal/services/data-access_service.dart';
 import 'package:my_journal/services/navigation_service.dart';
 import 'package:my_journal/widgets/buttons/rounded_button.dart';
@@ -11,6 +12,7 @@ import 'entry_overview_screen.dart';
 
 final NavigationService _navigationService = locator<NavigationService>();
 final DataAccessService _dataAccessService = locator<DataAccessService>();
+final AlertService _alertService = locator<AlertService>();
 
 class WriteEntryScreen extends StatefulWidget {
   const WriteEntryScreen(this.entry);
@@ -23,6 +25,7 @@ class WriteEntryScreen extends StatefulWidget {
 class _WriteEntryScreenState extends State<WriteEntryScreen> {
   final contentFormKey = GlobalKey<FormState>();
   final TextEditingController contentController = TextEditingController();
+  bool loading = false;
 
   @override
   void initState() {
@@ -118,16 +121,35 @@ class _WriteEntryScreenState extends State<WriteEntryScreen> {
                 color: Colors.teal[700],
                 width: 120,
                 text: 'Add Entry',
+                isAsync: loading,
                 onPressed: () async {
-                  if (contentFormKey.currentState.validate()) {
-                    await _dataAccessService.addNewEntry(widget.entry);
-                    if (widget.entry.journal.comingFromHome) {
-                      widget.entry.journal.comingFromHome = false;
-                      _navigationService.navigateHome();
-                      _navigationService.navigateTo(EntryOverviewScreen.id,
-                          args: widget.entry.journal);
-                    } else {
-                      _navigationService.goBack(n: 2);
+                  if (!loading) {
+                    if (contentFormKey.currentState.validate()) {
+                      setState(() {
+                        loading = true;
+                      });
+                      await _dataAccessService
+                          .addNewEntry(widget.entry)
+                          .then((value) async {
+                        setState(() {
+                          loading = false;
+                        });
+                        if (value) {
+                          await _alertService.popUpSuccess(
+                              context, 'Entry Added!');
+                          if (widget.entry.journal.comingFromHome) {
+                            widget.entry.journal.comingFromHome = false;
+                            _navigationService.navigateHome();
+                            _navigationService.navigateTo(
+                                EntryOverviewScreen.id,
+                                args: widget.entry.journal);
+                          } else {
+                            _navigationService.goBack(n: 2);
+                          }
+                        } else {
+                          await _alertService.popUpError(context);
+                        }
+                      });
                     }
                   }
                 },

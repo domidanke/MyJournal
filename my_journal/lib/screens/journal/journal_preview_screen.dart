@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journal/models/journal.dart';
+import 'package:my_journal/services/alert_service.dart';
 import 'package:my_journal/services/data-access_service.dart';
 import 'package:my_journal/services/navigation_service.dart';
 import 'package:my_journal/widgets/buttons/rounded_button.dart';
@@ -10,6 +11,7 @@ import '../../services/locator.dart';
 
 final DataAccessService _dataAccessService = locator<DataAccessService>();
 final NavigationService _navigationService = locator<NavigationService>();
+final AlertService _alertService = locator<AlertService>();
 
 class JournalPreviewScreen extends StatefulWidget {
   const JournalPreviewScreen(this.journal);
@@ -21,6 +23,8 @@ class JournalPreviewScreen extends StatefulWidget {
 }
 
 class _JournalPreviewScreenState extends State<JournalPreviewScreen> {
+  bool loading = false;
+
   @override
   void initState() {
     super.initState();
@@ -50,11 +54,39 @@ class _JournalPreviewScreenState extends State<JournalPreviewScreen> {
                   color: Colors.teal[700],
                   width: 120,
                   text: widget.journal.comingFromHome ? 'Create' : 'Save',
+                  isAsync: loading,
                   onPressed: () async {
+                    setState(() {
+                      loading = true;
+                    });
                     if (widget.journal.comingFromHome) {
-                      await _dataAccessService.createJournal(widget.journal);
+                      await _dataAccessService
+                          .createJournal(widget.journal)
+                          .then((value) async {
+                        setState(() {
+                          loading = false;
+                        });
+                        if (value) {
+                          await _alertService.popUpSuccess(
+                              context, 'Journal Created');
+                        } else {
+                          await _alertService.popUpError(context);
+                        }
+                      });
                     } else {
-                      await _dataAccessService.updateJournal(widget.journal);
+                      await _dataAccessService
+                          .updateJournal(widget.journal)
+                          .then((value) async {
+                        if (value) {
+                          setState(() {
+                            loading = false;
+                          });
+                          await _alertService.popUpSuccess(
+                              context, 'Journal Saved!');
+                        } else {
+                          await _alertService.popUpError(context);
+                        }
+                      });
                     }
                     _navigationService.navigateHome();
                   },
