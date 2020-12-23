@@ -31,6 +31,7 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
   String initialTitle;
   final TextEditingController titleController = TextEditingController();
   final titleFormKey = GlobalKey<FormState>();
+  bool loading = false;
 
   String initialCategory;
   List<String> journalCategories = [];

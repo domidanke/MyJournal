@@ -25,6 +25,7 @@ class EditEntriesColorScreen extends StatefulWidget {
 class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
   Color selectedColor;
   bool calendarView = false;
+  DateTime now = DateTime.now();
 
   @override
   void initState() {
@@ -35,20 +36,16 @@ class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
   List<Widget> getEntryCards() {
     final List<Widget> mockEntryCards = [];
     for (int i = 0; i < 6; i++) {
-      mockEntryCards.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
-        child: EntryCard(
-            isCalendarView: calendarView,
-            entry: Entry(
-                journal: Journal(entriesColor: selectedColor),
-                header: 'Day at the Zoo ${i + 1}',
-                content:
-                    'Today my family and I went to the Zoo to watch my favorite animals, the Elephants. It has been very hot and my 3-year-old sister cried so we had to leave early',
-                eventDate: DateTime.now(),
-                isMockEntry: true,
-                specialDay: i % 2 == 0,
-                feeling: 4 - i % 4)),
-      ));
+      mockEntryCards.add(EntryCard(
+          isCalendarView: calendarView,
+          entry: Entry(
+              journal: Journal(entriesColor: selectedColor),
+              header: 'Your Title ${i + 1}',
+              content: 'Your Content',
+              eventDate: DateTime(now.year, now.month, now.day - i),
+              isMockEntry: true,
+              specialDay: i % 3 == 0,
+              feeling: 4 - i % 4)));
     }
     return mockEntryCards;
   }
@@ -96,7 +93,6 @@ class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
       ),
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 10.0),
@@ -127,7 +123,6 @@ class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
               ),
             ),
             Expanded(
-              flex: 3,
               child: GridView.count(
                   primary: false,
                   padding: const EdgeInsets.all(20),
@@ -143,8 +138,9 @@ class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 12.0),
+              margin: const EdgeInsets.only(top: 12.0, bottom: 24.0),
               child: CircleColorPicker(
+                thumbSize: 18.0,
                 textStyle: const TextStyle(color: Colors.white, fontSize: 20.0),
                 initialColor: widget.journal.entriesColor ?? Colors.teal,
                 onChanged: (color) {
@@ -158,7 +154,7 @@ class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
                   return const Center();
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

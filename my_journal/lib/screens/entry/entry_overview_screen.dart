@@ -61,12 +61,9 @@ class _EntryOverviewScreenState extends State<EntryOverviewScreen> {
   Widget getEventList() {
     final List<Widget> calendarViewEntryCards = [];
     for (final Entry entry in selectedEvents) {
-      calendarViewEntryCards.add(Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
-        child: EntryCard(
-          entry: entry,
-          isCalendarView: true,
-        ),
+      calendarViewEntryCards.add(EntryCard(
+        entry: entry,
+        isCalendarView: true,
       ));
     }
 

@@ -98,8 +98,15 @@ class AlertService {
           alertMessage:
               "Clicking OK will delete Entry '${entry.header}' permanently.",
           onPressed1: () async {
-            await _dataAccessService.deleteEntry(entry);
-            _navigationService.goBack(n: 2);
+            await _dataAccessService.deleteEntry(entry).then((value) async {
+              _navigationService.goBack();
+              if (value) {
+                await popUpSuccess(context, 'Entry Deleted!');
+                _navigationService.goBack();
+              } else {
+                await popUpError(context);
+              }
+            });
           },
           secondOption: 'Cancel',
           onPressed2: () {
@@ -111,7 +118,7 @@ class AlertService {
   }
   //endregion
 
-  //region Delete Entry
+  //region Delete Journal
   void deleteJournal(BuildContext context, Journal journal) {
     showDialog(
       context: context,
@@ -122,8 +129,15 @@ class AlertService {
           alertMessage:
               "Clicking OK will delete Journal '${journal.title}' permanently.",
           onPressed1: () async {
-            await _dataAccessService.deleteJournal(journal);
-            _navigationService.navigateHome();
+            await _dataAccessService.deleteJournal(journal).then((value) async {
+              _navigationService.goBack();
+              if (value) {
+                await popUpSuccess(context, 'Journal Deleted!');
+                _navigationService.navigateHome();
+              } else {
+                await popUpError(context);
+              }
+            });
           },
           secondOption: 'Cancel',
           onPressed2: () {
@@ -136,7 +150,8 @@ class AlertService {
   //endregion
 
   //region Update Entries Color
-  void updateEntriesColor(BuildContext context, Journal journal, Color color) {
+  Future<void> updateEntriesColor(
+      BuildContext context, Journal journal, Color color) async {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -147,7 +162,17 @@ class AlertService {
               ? 'Clicking OK will apply selected Color'
               : 'Clicking OK will set Entries Color to Default',
           onPressed1: () async {
-            await _dataAccessService.updateEntriesColor(journal, color);
+            await _dataAccessService
+                .updateEntriesColor(journal, color)
+                .then((value) async {
+              _navigationService.goBack();
+              if (value) {
+                await popUpSuccess(context, 'Colors changed!');
+                _navigationService.navigateHome();
+              } else {
+                await popUpError(context);
+              }
+            });
             _navigationService.navigateHome();
           },
           secondOption: 'Cancel',
@@ -159,6 +184,50 @@ class AlertService {
     );
   }
   //endregion
+
+  //region Pop Up Success
+  Future<void> popUpSuccess(BuildContext context, String title) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CustomPopUp(
+          popUpTitle: title,
+          popUpContent: Center(
+            child: Icon(
+              Icons.check,
+              color: Colors.teal[500],
+            ),
+          ),
+        );
+      },
+    );
+    await Future.delayed(const Duration(seconds: 2), () {});
+    _navigationService.goBack();
+  }
+  //endregion
+
+  //region Pop Up Error
+  Future<void> popUpError(BuildContext context) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CustomPopUp(
+          popUpTitle: 'Something Went Wrong!',
+          popUpContent: Center(
+            child: Icon(
+              Icons.clear,
+              color: Colors.red[500],
+            ),
+          ),
+        );
+      },
+    );
+    await Future.delayed(const Duration(seconds: 2), () {});
+    _navigationService.goBack();
+  }
+//endregion
 
 }
 
@@ -229,6 +298,29 @@ class CustomAlert extends StatelessWidget {
                   onPressed: onPressed1,
                 ),
               ],
+      );
+    }
+  }
+}
+//endregion
+
+//region Custom Pop Up Widget
+class CustomPopUp extends StatelessWidget {
+  const CustomPopUp({this.popUpTitle, this.popUpContent});
+  final String popUpTitle;
+  final Widget popUpContent;
+
+  @override
+  Widget build(BuildContext context) {
+    if (Platform.isIOS) {
+      return CupertinoAlertDialog(
+        title: Text(popUpTitle),
+        content: popUpContent,
+      );
+    } else {
+      return AlertDialog(
+        title: Text(popUpTitle),
+        content: popUpContent,
       );
     }
   }

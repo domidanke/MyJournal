@@ -26,6 +26,7 @@ class AuthService {
           email: email, password: password);
       return newUser.user;
     } on FirebaseAuthException catch (e) {
+      print(e);
       return null;
     }
   }

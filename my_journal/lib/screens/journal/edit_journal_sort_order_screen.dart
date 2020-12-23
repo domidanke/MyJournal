@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journal/models/journal.dart';
+import 'package:my_journal/services/alert_service.dart';
 import 'package:my_journal/services/data-access_service.dart';
 import 'package:my_journal/services/navigation_service.dart';
 
@@ -8,6 +9,7 @@ import '../../services/locator.dart';
 
 final NavigationService _navigationService = locator<NavigationService>();
 final DataAccessService _dataAccessService = locator<DataAccessService>();
+final AlertService _alertService = locator<AlertService>();
 
 class EditJournalSortOrderScreen extends StatefulWidget {
   const EditJournalSortOrderScreen(this.journals);
@@ -26,6 +28,7 @@ class _EditJournalSortOrderScreenState
   List<Draggable> dragWidgets = [];
   List<DragTarget> dragTargetWidgets = [];
   bool isDone = false;
+  bool loading = false;
 
   @override
   void initState() {
@@ -289,9 +292,21 @@ class _EditJournalSortOrderScreenState
                         icon: const Icon(Icons.done),
                         color: Colors.white,
                         onPressed: () async {
-                          await _dataAccessService
-                              .updateJournalSortOrder(journalWidgetControl);
-                          _navigationService.navigateHome();
+                          if (!loading) {
+                            loading = true;
+                            await _dataAccessService
+                                .updateJournalSortOrder(journalWidgetControl)
+                                .then((value) async {
+                              loading = false;
+                              if (value) {
+                                await _alertService.popUpSuccess(
+                                    context, 'Sort Order Changed!');
+                                _navigationService.navigateHome();
+                              } else {
+                                await _alertService.popUpError(context);
+                              }
+                            });
+                          }
                         },
                       ),
                     ),

@@ -31,6 +31,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
   String initialContent;
   final TextEditingController headerController = TextEditingController();
   final TextEditingController contentController = TextEditingController();
+  bool loading = false;
 
   @override
   void initState() {
@@ -207,6 +208,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                           RoundedButton(
                             color: Colors.teal[500],
                             text: 'Save',
+                            isAsync: loading,
                             onPressed: () async {
                               if (headerController.text == initialHeader &&
                                   contentController.text == initialContent) {
@@ -219,13 +221,29 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                                 _alertService.generalAlert('Try Again',
                                     'Both fields have to be filled', context);
                               } else {
-                                await _dataAccessService
-                                    .updateEntry(widget.entry);
-                                setState(() {
-                                  editMode = false;
-                                });
-                                initialHeader = widget.entry.header;
-                                initialContent = widget.entry.content;
+                                if (!loading) {
+                                  setState(() {
+                                    loading = true;
+                                  });
+                                  await _dataAccessService
+                                      .updateEntry(widget.entry)
+                                      .then((value) async {
+                                    setState(() {
+                                      loading = false;
+                                    });
+                                    if (value) {
+                                      await _alertService.popUpSuccess(
+                                          context, 'Entry Edited!');
+                                      setState(() {
+                                        editMode = false;
+                                      });
+                                      initialHeader = widget.entry.header;
+                                      initialContent = widget.entry.content;
+                                    } else {
+                                      await _alertService.popUpError(context);
+                                    }
+                                  });
+                                }
                               }
                             },
                           ),
