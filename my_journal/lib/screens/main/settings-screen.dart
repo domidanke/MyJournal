@@ -76,9 +76,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           leading: const Icon(Icons.filter_1),
                           title: const Text('Change Journal Sort Order'),
                           onTap: () {
-                            _navigationService.navigateTo(
-                                EditJournalSortOrderScreen.id,
-                                args: widget.journals);
+                            if (widget.journals.length < 2) {
+                              _alertService.generalAlert('Failed',
+                                  'You need at least 2 Journals', context);
+                            } else {
+                              _navigationService.navigateTo(
+                                  EditJournalSortOrderScreen.id,
+                                  args: widget.journals);
+                            }
                           },
                         ),
                       ),
