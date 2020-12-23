@@ -296,15 +296,13 @@ class _EditJournalSortOrderScreenState
                             loading = true;
                             await _dataAccessService
                                 .updateJournalSortOrder(journalWidgetControl)
-                                .then((value) async {
+                                .then((_) async {
                               loading = false;
-                              if (value) {
-                                await _alertService.popUpSuccess(
-                                    context, 'Sort Order Changed!');
-                                _navigationService.navigateHome();
-                              } else {
-                                await _alertService.popUpError(context);
-                              }
+                              await _alertService.popUpSuccess(
+                                  context, 'Sort Order Changed!');
+                              _navigationService.navigateHome();
+                            }).catchError((Object error) async {
+                              await _alertService.popUpError(context);
                             });
                           }
                         },

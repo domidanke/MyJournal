@@ -88,40 +88,44 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     height: 24.0,
                   ),
                   RoundedButton(
-                    text: 'Register',
-                    //color: Colors.teal[500],
-                    onPressed: () async {
-                      if (password == null || email == null) {
-                        FocusScope.of(context).unfocus();
-                        _alertService.generalAlert(
-                            'Try Again', 'Fields are not filled out', context);
-                      } else {
-                        setState(() {
-                          showSpinner = true;
-                        });
-
-                        try {
-                          final newUser =
-                              await _authService.signUp(email, password);
-
-                          if (newUser != null) {
+                      text: 'Register',
+                      //color: Colors.teal[500],
+                      onPressed: () async {
+                        if (password == null || email == null) {
+                          FocusScope.of(context).unfocus();
+                          _alertService.generalAlert('Try Again',
+                              'Fields are not filled out', context);
+                        } else {
+                          setState(() {
+                            showSpinner = true;
+                          });
+                          await _authService
+                              .signUp(email, password)
+                              .then((newUser) async {
+                            setState(() {
+                              showSpinner = false;
+                            });
                             final AppUser createUser = AppUser(
                               userID: newUser.uid,
                               email: newUser.email,
                             );
-                            await _dataAccessService.createUser(createUser);
-                            showSpinner = false;
-                            _navigationService.navigateTo(MainScreen.id);
-                          }
-                        } catch (e) {
-                          setState(() {
-                            showSpinner = false;
+                            await _dataAccessService
+                                .createUser(createUser)
+                                .then((value) async {
+                              if (value) {
+                                _navigationService.navigateTo(MainScreen.id);
+                              } else {
+                                await _alertService.popUpError(context);
+                              }
+                            });
+                          }).catchError((Object error) {
+                            setState(() {
+                              showSpinner = false;
+                            });
+                            _alertService.registrationFailed(error, context);
                           });
-                          _alertService.registrationFailed(e.code, context);
                         }
-                      }
-                    },
-                  ),
+                      }),
                   const SizedBox(
                     height: 12.0,
                   ),
