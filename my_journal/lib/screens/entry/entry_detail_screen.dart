@@ -115,10 +115,9 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                                 ),
                                 Text(
                                   '${widget.entry.header}',
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: widget.entry.header.length > 15
+                                      ? Theme.of(context).textTheme.headline4
+                                      : Theme.of(context).textTheme.headline3,
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(right: 32.0),
