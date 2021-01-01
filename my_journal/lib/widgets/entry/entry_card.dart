@@ -71,7 +71,9 @@ class _EntryCardState extends State<EntryCard> {
                   textAlign: TextAlign.center,
                   style: widget.isCalendarView
                       ? Theme.of(context).textTheme.headline1
-                      : Theme.of(context).textTheme.headline3,
+                      : widget.entry.header.length > 15
+                          ? Theme.of(context).textTheme.headline4
+                          : Theme.of(context).textTheme.headline3,
                 ),
               ),
             ),
