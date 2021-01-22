@@ -1,3 +1,5 @@
+import 'package:my_journal/generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -89,6 +91,16 @@ class MyJournalApp extends StatelessWidget {
                   EditJournalScreen(ModalRoute.of(context).settings.arguments),
             },
             initialRoute: AuthScreen.id,
+            localizationsDelegates: [
+              // 1
+              S.delegate,
+              // 2
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+
             //endregion
           );
         },

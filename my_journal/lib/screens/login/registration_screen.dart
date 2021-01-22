@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_journal/generated/l10n.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/models/app_user.dart';
 import 'package:my_journal/services/alert_service.dart';
@@ -45,7 +46,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('Register',
+                  Text(S.of(context).registrationScreenTopLabel,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline1),
                   const SizedBox(
@@ -58,7 +59,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       keyboardType: TextInputType.emailAddress,
                       textAlign: TextAlign.center,
                       decoration: kTextFieldInputDecoration.copyWith(
-                          hintText: 'Enter your email',
+                          hintText: S
+                              .of(context)
+                              .registrationScreenEmailTextFieldHint,
                           hintStyle: Theme.of(context).textTheme.headline4),
                       onChanged: (value) {
                         //Do something with the user input.
@@ -76,7 +79,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       obscureText: true,
                       textAlign: TextAlign.center,
                       decoration: kTextFieldInputDecoration.copyWith(
-                          hintText: 'Enter your password',
+                          hintText: S
+                              .of(context)
+                              .registrationScreenPasswordTextFieldHint,
                           hintStyle: Theme.of(context).textTheme.headline4),
                       onChanged: (value) {
                         //Do something with the user input.
@@ -88,44 +93,40 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     height: 24.0,
                   ),
                   RoundedButton(
-                      text: 'Register',
-                      //color: Colors.teal[500],
-                      onPressed: () async {
-                        if (password == null || email == null) {
-                          FocusScope.of(context).unfocus();
-                          _alertService.generalAlert('Try Again',
-                              'Fields are not filled out', context);
-                        } else {
-                          setState(() {
-                            showSpinner = true;
-                          });
-                          await _authService
-                              .signUp(email, password)
-                              .then((newUser) async {
-                            setState(() {
-                              showSpinner = false;
-                            });
+                    text: S.of(context).registrationScreenRegistrationButton,
+                    //color: Colors.teal[500],
+                    onPressed: () async {
+                      if (password == null || email == null) {
+                        FocusScope.of(context).unfocus();
+                        _alertService.generalAlert(
+                            'Try Again', 'Fields are not filled out', context);
+                      } else {
+                        setState(() {
+                          showSpinner = true;
+                        });
+
+                        try {
+                          final newUser =
+                              await _authService.signUp(email, password);
+
+                          if (newUser != null) {
                             final AppUser createUser = AppUser(
                               userID: newUser.uid,
                               email: newUser.email,
                             );
-                            await _dataAccessService
-                                .createUser(createUser)
-                                .then((value) async {
-                              if (value) {
-                                _navigationService.navigateTo(MainScreen.id);
-                              } else {
-                                await _alertService.popUpError(context);
-                              }
-                            });
-                          }).catchError((Object error) {
-                            setState(() {
-                              showSpinner = false;
-                            });
-                            _alertService.registrationFailed(error, context);
+                            await _dataAccessService.createUser(createUser);
+                            showSpinner = false;
+                            _navigationService.navigateTo(MainScreen.id);
+                          }
+                        } catch (e) {
+                          setState(() {
+                            showSpinner = false;
                           });
+                          _alertService.registrationFailed(e.code, context);
                         }
-                      }),
+                      }
+                    },
+                  ),
                   const SizedBox(
                     height: 12.0,
                   ),
@@ -134,7 +135,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       _navigationService.goBack();
                     },
                     child: Center(
-                      child: Text('Back to login',
+                      child: Text(
+                          S.of(context).registrationScreenBackToLoginButton,
                           style: Theme.of(context).textTheme.subtitle2),
                     ),
                   )

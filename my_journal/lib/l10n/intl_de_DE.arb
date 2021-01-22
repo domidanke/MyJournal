@@ -1,0 +1,22 @@
+{
+  "@@locale": "de_DE",
+  "welcomeScreenAppName": "MyJournal",
+  "welcomeScreenLoginButton": "Einloggen",
+  "welcomeScreenRegistrationButton": "Registrieren",
+  "welcomeScreenForgotPasswordButton": "Password vergessen?",
+  "welcomeScreenEmailTextFieldHint": "E-Mail eingeben",
+  "welcomeScreenPasswordTextFieldHint": "Passwort eingeben",
+  "loginScreenErrorInvalidEmail": "Bitte gib eine valide E-Mail Adresse ein.",
+  "loginScreenErrorUserNotFound": "Sorry, wir können keinen Account mit dieser E-Mail Adresse finden.",
+  "loginScreenErrorWrongPassword": "Die E-Mail Adresse oder das Passwort sind nicht korrekt. Bitte versuche es erneut.",
+  "loginScreenErrorDefault": "Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut.",
+  "registrationScreenTopLabel": "Registrieren",
+  "registrationScreenEmailTextFieldHint": "E-Mail eingeben",
+  "registrationScreenPasswordTextFieldHint": "Passwort eingeben",
+  "registrationScreenRegistrationButton": "Registrieren",
+  "registrationScreenBackToLoginButton": "Zurück zum Log-In",
+  "registrationScreenErrorInvalidEmail": "Bitte gib eine valide E-Mail Adresse ein.",
+  "registrationScreenErrorWeakPassword": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+  "registrationScreenErrorEmailAlreadyInUse": "Diese E-Mail Adresse ist bereits vergeben.",
+  "registrationScreenErrorDefault": "Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut."
+}
