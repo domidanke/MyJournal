@@ -62,30 +62,26 @@ class _JournalPreviewScreenState extends State<JournalPreviewScreen> {
                     if (widget.journal.comingFromHome) {
                       await _dataAccessService
                           .createJournal(widget.journal)
-                          .then((value) async {
+                          .then((_) async {
                         setState(() {
                           loading = false;
                         });
-                        if (value) {
-                          await _alertService.popUpSuccess(
-                              context, 'Journal Created');
-                        } else {
-                          await _alertService.popUpError(context);
-                        }
+                        await _alertService.popUpSuccess(
+                            context, 'Journal Created');
+                      }).catchError((Object error) async {
+                        await _alertService.popUpError(context);
                       });
                     } else {
                       await _dataAccessService
                           .updateJournal(widget.journal)
-                          .then((value) async {
-                        if (value) {
-                          setState(() {
-                            loading = false;
-                          });
-                          await _alertService.popUpSuccess(
-                              context, 'Journal Saved!');
-                        } else {
-                          await _alertService.popUpError(context);
-                        }
+                          .then((_) async {
+                        setState(() {
+                          loading = false;
+                        });
+                        await _alertService.popUpSuccess(
+                            context, 'Journal Saved!');
+                      }).catchError((Object error) async {
+                        await _alertService.popUpError(context);
                       });
                     }
                     _navigationService.navigateHome();

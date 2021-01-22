@@ -100,22 +100,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         setState(() {
                           showSpinner = true;
                         });
-
-                        try {
-                          final authResult =
-                              await _authService.signIn(email, password);
-                          if (authResult != null) {
-                            setState(() {
-                              showSpinner = false;
-                            });
-                            _navigationService.navigateTo(LoadingScreen.id);
-                          }
-                        } catch (e) {
+                        await _authService.signIn(email, password).then((_) {
                           setState(() {
                             showSpinner = false;
                           });
-                          _alertService.loginFailed(e.code, context);
-                        }
+                          _navigationService.navigateTo(LoadingScreen.id);
+                        }).catchError((Object error) {
+                          setState(() {
+                            showSpinner = false;
+                          });
+                          _alertService.loginFailed(error, context);
+                          return null;
+                        });
                       }
                     },
                   ),

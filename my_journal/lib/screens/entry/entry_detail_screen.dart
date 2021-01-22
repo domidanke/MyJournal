@@ -115,10 +115,9 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                                 ),
                                 Text(
                                   '${widget.entry.header}',
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: widget.entry.header.length > 15
+                                      ? Theme.of(context).textTheme.headline4
+                                      : Theme.of(context).textTheme.headline3,
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(right: 32.0),
@@ -227,21 +226,19 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                                   });
                                   await _dataAccessService
                                       .updateEntry(widget.entry)
-                                      .then((value) async {
+                                      .then((_) async {
                                     setState(() {
                                       loading = false;
                                     });
-                                    if (value) {
-                                      await _alertService.popUpSuccess(
-                                          context, 'Entry Edited!');
-                                      setState(() {
-                                        editMode = false;
-                                      });
-                                      initialHeader = widget.entry.header;
-                                      initialContent = widget.entry.content;
-                                    } else {
-                                      await _alertService.popUpError(context);
-                                    }
+                                    await _alertService.popUpSuccess(
+                                        context, 'Entry Edited!');
+                                    setState(() {
+                                      editMode = false;
+                                    });
+                                    initialHeader = widget.entry.header;
+                                    initialContent = widget.entry.content;
+                                  }).catchError((Object error) async {
+                                    await _alertService.popUpError(context);
                                   });
                                 }
                               }

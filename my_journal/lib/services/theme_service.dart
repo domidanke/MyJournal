@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ThemeService {
   final Color mainBlack = Colors.black45;
-  final Color mainWhite = Colors.white54;
+  final Color mainWhite = Colors.white70;
   final Color mainColor = Colors.teal[500];
   bool darkMode = false;
 
@@ -43,7 +43,7 @@ class ThemeService {
             buttonColor: Colors.grey[900],
           ),
           primaryColor: mainColor,
-          iconTheme: IconThemeData(color: mainBlack),
+          iconTheme: IconThemeData(color: mainWhite),
           accentColor: mainColor,
           primaryColorLight: mainColor,
           sliderTheme: SliderThemeData(
@@ -78,7 +78,7 @@ class ThemeService {
             buttonColor: Colors.grey[400],
           ),
           primaryColor: mainColor,
-          iconTheme: IconThemeData(color: mainBlack),
+          iconTheme: IconThemeData(color: mainWhite),
           accentColor: mainColor,
           primaryColorLight: mainColor,
           sliderTheme: SliderThemeData(

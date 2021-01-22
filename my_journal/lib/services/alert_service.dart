@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journal/models/entry.dart';
@@ -40,14 +41,14 @@ class AlertService {
   //endregion
 
   //region Login failed
-  void loginFailed(String alertCode, BuildContext context) {
+  void loginFailed(FirebaseAuthException error, BuildContext context) {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return CustomAlert(
           alertTitle: 'Login failed',
-          alertMessage: kAlertMap[alertCode],
+          alertMessage: kAlertMap[error.code],
           onPressed1: () => _navigationService.goBack(),
         );
       },
@@ -56,14 +57,14 @@ class AlertService {
   //endregion
 
   //region Registration failed
-  void registrationFailed(String alertCode, BuildContext context) {
+  void registrationFailed(FirebaseAuthException error, BuildContext context) {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return CustomAlert(
           alertTitle: 'Registration failed',
-          alertMessage: kAlertMap[alertCode],
+          alertMessage: kAlertMap[error.code],
           onPressed1: () => _navigationService.goBack(),
         );
       },
@@ -98,14 +99,12 @@ class AlertService {
           alertMessage:
               "Clicking OK will delete Entry '${entry.header}' permanently.",
           onPressed1: () async {
-            await _dataAccessService.deleteEntry(entry).then((value) async {
+            await _dataAccessService.deleteEntry(entry).then((_) async {
               _navigationService.goBack();
-              if (value) {
-                await popUpSuccess(context, 'Entry Deleted!');
-                _navigationService.goBack();
-              } else {
-                await popUpError(context);
-              }
+              await popUpSuccess(context, 'Entry Deleted!');
+              _navigationService.goBack();
+            }).catchError((Object error) async {
+              await popUpError(context);
             });
           },
           secondOption: 'Cancel',
@@ -129,14 +128,13 @@ class AlertService {
           alertMessage:
               "Clicking OK will delete Journal '${journal.title}' permanently.",
           onPressed1: () async {
-            await _dataAccessService.deleteJournal(journal).then((value) async {
+            await _dataAccessService.deleteJournal(journal).then((_) async {
               _navigationService.goBack();
-              if (value) {
-                await popUpSuccess(context, 'Journal Deleted!');
-                _navigationService.navigateHome();
-              } else {
-                await popUpError(context);
-              }
+
+              await popUpSuccess(context, 'Journal Deleted!');
+              _navigationService.navigateHome();
+            }).catchError((Object error) async {
+              await popUpError(context);
             });
           },
           secondOption: 'Cancel',
@@ -164,14 +162,13 @@ class AlertService {
           onPressed1: () async {
             await _dataAccessService
                 .updateEntriesColor(journal, color)
-                .then((value) async {
+                .then((_) async {
               _navigationService.goBack();
-              if (value) {
-                await popUpSuccess(context, 'Colors changed!');
-                _navigationService.navigateHome();
-              } else {
-                await popUpError(context);
-              }
+
+              await popUpSuccess(context, 'Colors changed!');
+              _navigationService.navigateHome();
+            }).catchError((Object error) async {
+              await popUpError(context);
             });
             _navigationService.navigateHome();
           },
