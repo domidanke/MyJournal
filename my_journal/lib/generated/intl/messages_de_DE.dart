@@ -21,6 +21,22 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-
+    "loginScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut."),
+    "loginScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Bitte gib eine valide E-Mail Adresse ein."),
+    "loginScreenErrorUserNotFound" : MessageLookupByLibrary.simpleMessage("Sorry, wir können keinen Account mit dieser E-Mail Adresse finden."),
+    "loginScreenErrorWrongPassword" : MessageLookupByLibrary.simpleMessage("Die E-Mail Adresse oder das Passwort sind nicht korrekt. Bitte versuche es erneut."),
+    "registrationScreenEmailTextFieldHint" : MessageLookupByLibrary.simpleMessage("E-Mail eingeben"),
+    "registrationScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut."),
+    "registrationScreenErrorEmailAlreadyInUse" : MessageLookupByLibrary.simpleMessage("Diese E-Mail Adresse ist bereits vergeben."),
+    "registrationScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Bitte gib eine valide E-Mail Adresse ein."),
+    "registrationScreenErrorWeakPassword" : MessageLookupByLibrary.simpleMessage("Das Passwort muss mindestens 6 Zeichen lang sein."),
+    "registrationScreenPasswordTextFieldHint" : MessageLookupByLibrary.simpleMessage("Passwort eingeben"),
+    "registrationScreenRegistrationButton" : MessageLookupByLibrary.simpleMessage("Registrieren"),
+    "welcomeScreenAppName" : MessageLookupByLibrary.simpleMessage("MyJournal"),
+    "welcomeScreenEmailTextFieldHint" : MessageLookupByLibrary.simpleMessage("E-Mail eingeben"),
+    "welcomeScreenForgotPasswordButton" : MessageLookupByLibrary.simpleMessage("Password vergessen?"),
+    "welcomeScreenLoginButton" : MessageLookupByLibrary.simpleMessage("Einloggen"),
+    "welcomeScreenPasswordTextFieldHint" : MessageLookupByLibrary.simpleMessage("Passwort eingeben"),
+    "welcomeScreenRegistrationButton" : MessageLookupByLibrary.simpleMessage("Registrieren")
   };
 }

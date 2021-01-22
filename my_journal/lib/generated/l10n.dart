@@ -35,7 +35,175 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `MyJournal`
+  String get welcomeScreenAppName {
+    return Intl.message(
+      'MyJournal',
+      name: 'welcomeScreenAppName',
+      desc: '',
+      args: [],
+    );
+  }
 
+  /// `Log In`
+  String get welcomeScreenLoginButton {
+    return Intl.message(
+      'Log In',
+      name: 'welcomeScreenLoginButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register`
+  String get welcomeScreenRegistrationButton {
+    return Intl.message(
+      'Register',
+      name: 'welcomeScreenRegistrationButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot your password?`
+  String get welcomeScreenForgotPasswordButton {
+    return Intl.message(
+      'Forgot your password?',
+      name: 'welcomeScreenForgotPasswordButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email`
+  String get welcomeScreenEmailTextFieldHint {
+    return Intl.message(
+      'Enter your email',
+      name: 'welcomeScreenEmailTextFieldHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your password`
+  String get welcomeScreenPasswordTextFieldHint {
+    return Intl.message(
+      'Enter your password',
+      name: 'welcomeScreenPasswordTextFieldHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email address.`
+  String get loginScreenErrorInvalidEmail {
+    return Intl.message(
+      'Please enter a valid email address.',
+      name: 'loginScreenErrorInvalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry, we can't find an account with this email address.`
+  String get loginScreenErrorUserNotFound {
+    return Intl.message(
+      'Sorry, we can\'t find an account with this email address.',
+      name: 'loginScreenErrorUserNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email or password is invalid. Please try again.`
+  String get loginScreenErrorWrongPassword {
+    return Intl.message(
+      'Email or password is invalid. Please try again.',
+      name: 'loginScreenErrorWrongPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong. Please try again later.`
+  String get loginScreenErrorDefault {
+    return Intl.message(
+      'Something went wrong. Please try again later.',
+      name: 'loginScreenErrorDefault',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email`
+  String get registrationScreenEmailTextFieldHint {
+    return Intl.message(
+      'Enter your email',
+      name: 'registrationScreenEmailTextFieldHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your password`
+  String get registrationScreenPasswordTextFieldHint {
+    return Intl.message(
+      'Enter your password',
+      name: 'registrationScreenPasswordTextFieldHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register`
+  String get registrationScreenRegistrationButton {
+    return Intl.message(
+      'Register',
+      name: 'registrationScreenRegistrationButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email address.`
+  String get registrationScreenErrorInvalidEmail {
+    return Intl.message(
+      'Please enter a valid email address.',
+      name: 'registrationScreenErrorInvalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password must be at least 6 characters long.`
+  String get registrationScreenErrorWeakPassword {
+    return Intl.message(
+      'The password must be at least 6 characters long.',
+      name: 'registrationScreenErrorWeakPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The email address is already in use by another account.`
+  String get registrationScreenErrorEmailAlreadyInUse {
+    return Intl.message(
+      'The email address is already in use by another account.',
+      name: 'registrationScreenErrorEmailAlreadyInUse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong. Please try again later.`
+  String get registrationScreenErrorDefault {
+    return Intl.message(
+      'Something went wrong. Please try again later.',
+      name: 'registrationScreenErrorDefault',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
