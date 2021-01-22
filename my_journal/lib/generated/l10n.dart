@@ -135,6 +135,16 @@ class S {
     );
   }
 
+  /// `Register`
+  String get registrationScreenTopLabel {
+    return Intl.message(
+      'Register',
+      name: 'registrationScreenTopLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter your email`
   String get registrationScreenEmailTextFieldHint {
     return Intl.message(
@@ -160,6 +170,16 @@ class S {
     return Intl.message(
       'Register',
       name: 'registrationScreenRegistrationButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back to Login`
+  String get registrationScreenBackToLoginButton {
+    return Intl.message(
+      'Back to Login',
+      name: 'registrationScreenBackToLoginButton',
       desc: '',
       args: [],
     );
