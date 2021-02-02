@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "loginScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Something went wrong. Please try again later."),
     "loginScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Please enter a valid email address."),
+    "loginScreenErrorTitle" : MessageLookupByLibrary.simpleMessage("Login failed"),
     "loginScreenErrorUserNotFound" : MessageLookupByLibrary.simpleMessage("Sorry, we can\'t find an account with this email address."),
     "loginScreenErrorWrongPassword" : MessageLookupByLibrary.simpleMessage("Email or password is invalid. Please try again."),
     "registrationScreenBackToLoginButton" : MessageLookupByLibrary.simpleMessage("Back to Login"),
@@ -30,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "registrationScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Something went wrong. Please try again later."),
     "registrationScreenErrorEmailAlreadyInUse" : MessageLookupByLibrary.simpleMessage("The email address is already in use by another account."),
     "registrationScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Please enter a valid email address."),
+    "registrationScreenErrorTitle" : MessageLookupByLibrary.simpleMessage("Registration failed"),
     "registrationScreenErrorWeakPassword" : MessageLookupByLibrary.simpleMessage("The password must be at least 6 characters long."),
     "registrationScreenPasswordTextFieldHint" : MessageLookupByLibrary.simpleMessage("Enter your password"),
     "registrationScreenRegistrationButton" : MessageLookupByLibrary.simpleMessage("Register"),

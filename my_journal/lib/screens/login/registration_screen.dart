@@ -99,7 +99,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       if (password == null || email == null) {
                         FocusScope.of(context).unfocus();
                         _alertService.generalAlert(
-                            'Try Again', 'Fields are not filled out', context);
+                            S.of(context).registrationScreenErrorTitle,
+                            S.of(context).registrationScreenErrorInvalidEmail,
+                            context);
                       } else {
                         setState(() {
                           showSpinner = true;

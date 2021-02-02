@@ -135,6 +135,16 @@ class S {
     );
   }
 
+  /// `Login failed`
+  String get loginScreenErrorTitle {
+    return Intl.message(
+      'Login failed',
+      name: 'loginScreenErrorTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Register`
   String get registrationScreenTopLabel {
     return Intl.message(
@@ -220,6 +230,16 @@ class S {
     return Intl.message(
       'Something went wrong. Please try again later.',
       name: 'registrationScreenErrorDefault',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registration failed`
+  String get registrationScreenErrorTitle {
+    return Intl.message(
+      'Registration failed',
+      name: 'registrationScreenErrorTitle',
       desc: '',
       args: [],
     );

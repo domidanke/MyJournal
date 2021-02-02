@@ -95,7 +95,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       if (password == null || email == null) {
                         FocusScope.of(context).unfocus();
                         _alertService.generalAlert(
-                            'Try Again', 'Fields are not filled out', context);
+                            S.of(context).loginScreenErrorTitle,
+                            S.of(context).loginScreenErrorInvalidEmail,
+                            context);
                       } else {
                         setState(() {
                           showSpinner = true;

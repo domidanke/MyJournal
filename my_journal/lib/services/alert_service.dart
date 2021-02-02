@@ -45,7 +45,7 @@ class AlertService {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return CustomAlert(
-          alertTitle: 'Login failed',
+          alertTitle: S.of(context).loginScreenErrorTitle,
           alertMessage: loginAlertMap[error.code],
           onPressed1: () => _navigationService.goBack(),
         );
@@ -69,7 +69,7 @@ class AlertService {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return CustomAlert(
-          alertTitle: 'Registration failed',
+          alertTitle: S.of(context).registrationScreenErrorTitle,
           alertMessage: registrationAlertMap[error.code],
           onPressed1: () => _navigationService.goBack(),
         );
