@@ -94,36 +94,36 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                   RoundedButton(
                     text: S.of(context).registrationScreenRegistrationButton,
-                    //color: Colors.teal[500],
                     onPressed: () async {
                       if (password == null || email == null) {
                         FocusScope.of(context).unfocus();
                         _alertService.generalAlert(
-                            'Try Again', 'Fields are not filled out', context);
+                            S.of(context).registrationScreenErrorTitle,
+                            S.of(context).registrationScreenErrorEmptyFields,
+                            context);
                       } else {
                         setState(() {
                           showSpinner = true;
                         });
 
-                        try {
-                          final newUser =
-                              await _authService.signUp(email, password);
-
-                          if (newUser != null) {
-                            final AppUser createUser = AppUser(
-                              userID: newUser.uid,
-                              email: newUser.email,
-                            );
-                            await _dataAccessService.createUser(createUser);
-                            showSpinner = false;
-                            _navigationService.navigateTo(MainScreen.id);
-                          }
-                        } catch (e) {
+                        await _authService
+                            .signUp(email, password)
+                            .then((userCredentials) async {
+                          final AppUser userToCreate = AppUser(
+                            userID: userCredentials.uid,
+                            email: userCredentials.email,
+                          );
+                          await _dataAccessService.createUser(userToCreate);
+                          showSpinner = false;
+                          _navigationService.navigateTo(MainScreen.id);
+                        }).catchError((Object error) {
                           setState(() {
                             showSpinner = false;
                           });
-                          _alertService.registrationFailed(e.code, context);
-                        }
+                          print(error);
+                          _alertService.registrationFailed(error, context);
+                          return null;
+                        });
                       }
                     },
                   ),

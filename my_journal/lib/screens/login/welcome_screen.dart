@@ -92,10 +92,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   RoundedButton(
                     text: S.of(context).welcomeScreenLoginButton,
                     onPressed: () async {
-                      if (password == null || email == null) {
+                      if (email == null) {
                         FocusScope.of(context).unfocus();
                         _alertService.generalAlert(
-                            'Try Again', 'Fields are not filled out', context);
+                            S.of(context).loginScreenErrorTitle,
+                            S.of(context).loginScreenErrorInvalidEmail,
+                            context);
                       } else {
                         setState(() {
                           showSpinner = true;
@@ -109,6 +111,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           setState(() {
                             showSpinner = false;
                           });
+                          print(error);
                           _alertService.loginFailed(error, context);
                           return null;
                         });
