@@ -244,6 +244,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Please enter a valid email address and password.`
+  String get registrationScreenErrorEmptyFields {
+    return Intl.message(
+      'Please enter a valid email address and password.',
+      name: 'registrationScreenErrorEmptyFields',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

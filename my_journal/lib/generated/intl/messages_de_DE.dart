@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "registrationScreenEmailTextFieldHint" : MessageLookupByLibrary.simpleMessage("E-Mail eingeben"),
     "registrationScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut."),
     "registrationScreenErrorEmailAlreadyInUse" : MessageLookupByLibrary.simpleMessage("Diese E-Mail Adresse ist bereits vergeben."),
+    "registrationScreenErrorEmptyFields" : MessageLookupByLibrary.simpleMessage("Bitte gib eine valide E-Mail Adresse und ein Passwort ein."),
     "registrationScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Bitte gib eine valide E-Mail Adresse ein."),
     "registrationScreenErrorTitle" : MessageLookupByLibrary.simpleMessage("Registrieren fehlgeschlagen"),
     "registrationScreenErrorWeakPassword" : MessageLookupByLibrary.simpleMessage("Das Passwort muss mindestens 6 Zeichen lang sein."),

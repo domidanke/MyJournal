@@ -20,5 +20,6 @@
   "registrationScreenErrorWeakPassword": "The password must be at least 6 characters long.",
   "registrationScreenErrorEmailAlreadyInUse": "The email address is already in use by another account.",
   "registrationScreenErrorDefault": "Something went wrong. Please try again later.",
-  "registrationScreenErrorTitle": "Registration failed"
+  "registrationScreenErrorTitle": "Registration failed",
+  "registrationScreenErrorEmptyFields": "Please enter a valid email address and password."
 }
