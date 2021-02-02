@@ -109,6 +109,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           setState(() {
                             showSpinner = false;
                           });
+                          print(error);
                           _alertService.loginFailed(error, context);
                           return null;
                         });

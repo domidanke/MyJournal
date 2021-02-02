@@ -122,6 +122,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           setState(() {
                             showSpinner = false;
                           });
+                          print(e.code);
                           _alertService.registrationFailed(e.code, context);
                         }
                       }
