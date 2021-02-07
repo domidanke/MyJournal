@@ -225,21 +225,19 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
           title: const Text('Choose Header'),
           isActive: currentStep == 3,
           state: completedMap[3] ? StepState.complete : StepState.indexed,
-          content: Form(
-            key: headerFormKey,
+          content: TextFormField(
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            child: TextFormField(
-              maxLength: 20,
-              controller: headerController,
-              decoration: kTextFieldInputDecoration,
-              validator: (val) {
-                if (val.isEmpty) {
-                  return 'Header cannot be empty';
-                } else {
-                  return null;
-                }
-              },
-            ),
+            maxLength: 20,
+            maxLengthEnforced: true,
+            controller: headerController,
+            decoration: kTextFieldInputDecoration,
+            validator: (val) {
+              if (val.isEmpty) {
+                return 'Header cannot be empty';
+              } else {
+                return null;
+              }
+            },
           )),
     ];
   }
@@ -299,7 +297,8 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
                         onPressed: currentStep < 3
                             ? onStepContinue
                             : () {
-                                if (headerFormKey.currentState.validate()) {
+                                if (headerController.text.isNotEmpty &&
+                                    headerController.text.length <= 20) {
                                   FocusScope.of(context).unfocus();
                                   _navigationService.navigateTo(
                                       WriteEntryScreen.id,
