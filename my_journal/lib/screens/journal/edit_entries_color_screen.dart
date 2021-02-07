@@ -108,15 +108,19 @@ class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
                       _navigationService.goBack(n: 2);
                     },
                   ),
-                  Text(
-                    '${widget.journal.title}',
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
+                  Flexible(
+                    child: FittedBox(
+                      child: Text(
+                        '${widget.journal.title}',
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(right: 32.0),
+                    margin: const EdgeInsets.only(left: 12.0, right: 12.0),
                     child: widget.journal.icon,
                   ),
                 ],

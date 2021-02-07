@@ -37,35 +37,29 @@ class _EntryCardState extends State<EntryCard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 12.0, top: 12.0),
-                    child: Icon(
-                      kFeelingIcons[widget.entry.feeling],
-                      size: widget.isCalendarView ? 56.0 : 36.0,
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0),
+                  child: Icon(
+                    kFeelingIcons[widget.entry.feeling],
+                    size: widget.isCalendarView ? 56.0 : 36.0,
                   ),
                 ),
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 12.0, top: 12.0),
-                    child: Text(
-                      formatDate(widget.entry.eventDate),
-                      style: widget.isCalendarView
-                          ? Theme.of(context).textTheme.headline3
-                          : Theme.of(context).textTheme.headline5,
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 12.0),
+                  child: Text(
+                    formatDate(widget.entry.eventDate),
+                    style: widget.isCalendarView
+                        ? Theme.of(context).textTheme.headline3
+                        : Theme.of(context).textTheme.headline5,
                   ),
                 ),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 2.0),
-              child: Align(
-                alignment: Alignment.topCenter,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: FittedBox(
                 child: Text(
                   widget.entry.header,
                   textAlign: TextAlign.center,

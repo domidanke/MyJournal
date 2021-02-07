@@ -58,10 +58,6 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
         title: initialTitle,
         category: initialCategory,
         image: initialImageFile);
-
-    titleController.addListener(() {
-      journalToEdit.title = titleController.text;
-    });
   }
   //endregion
 
@@ -84,6 +80,8 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                   validator: (val) {
                     if (val.isEmpty) {
                       return 'Title cannot be empty';
+                    } else if (val.length > 20) {
+                      return 'Title too long';
                     } else {
                       return null;
                     }
@@ -228,13 +226,17 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                           _navigationService.goBack(n: 2);
                         },
                       ),
-                      Text(
-                        journalToEdit.title,
-                        style: const TextStyle(
-                            fontSize: 20.0, fontWeight: FontWeight.bold),
+                      Flexible(
+                        child: FittedBox(
+                          child: Text(
+                            journalToEdit.title,
+                            style: const TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(right: 32.0),
+                        margin: const EdgeInsets.only(left: 12.0, right: 12.0),
                         child:
                             Icon(kCategoryIconMapping[journalToEdit.category]),
                       ),
@@ -268,6 +270,8 @@ class _EditJournalScreenState extends State<EditJournalScreen> {
                                       _alertService.generalAlert('Try Again',
                                           'Nothing Changed', context);
                                     } else {
+                                      journalToEdit.title =
+                                          titleController.text;
                                       _navigationService.navigateTo(
                                           JournalPreviewScreen.id,
                                           args: journalToEdit);

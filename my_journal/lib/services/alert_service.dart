@@ -323,7 +323,13 @@ class CustomPopUp extends StatelessWidget {
     } else {
       return AlertDialog(
         title: Text(popUpTitle),
-        content: popUpContent,
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              popUpContent,
+            ],
+          ),
+        ),
       );
     }
   }

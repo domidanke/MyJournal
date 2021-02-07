@@ -113,14 +113,20 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                                     _navigationService.goBack();
                                   },
                                 ),
-                                Text(
-                                  '${widget.entry.header}',
-                                  style: widget.entry.header.length > 15
-                                      ? Theme.of(context).textTheme.headline4
-                                      : Theme.of(context).textTheme.headline3,
+                                Flexible(
+                                  child: FittedBox(
+                                    child: Text(
+                                      '${widget.entry.header}',
+                                      style: const TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.only(right: 32.0),
+                                  margin: const EdgeInsets.only(
+                                      left: 12.0, right: 12.0),
                                   child: widget.entry.journal.icon,
                                 ),
                               ]),
@@ -215,20 +221,30 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                                     'Try Again',
                                     'Header and Content did not change',
                                     context);
-                              } else if (headerController.text == '' ||
+                                return;
+                              }
+                              if (headerController.text == '' ||
                                   contentController.text == '') {
                                 _alertService.generalAlert('Try Again',
                                     'Both fields have to be filled', context);
-                              } else {
-                                if (!loading) {
-                                  setState(() {
-                                    loading = true;
-                                  });
+                                return;
+                              }
+                              if (headerController.text.length > 20) {
+                                _alertService.generalAlert(
+                                    'Try Again',
+                                    'Header cannot exceed 20 characters',
+                                    context);
+                                return;
+                              }
+                              if (!loading) {
+                                setState(() {
+                                  loading = true;
+                                });                                               
                                   await _dataAccessService
                                       .updateEntry(widget.entry)
                                       .then((_) async {
                                     setState(() {
-                                      loading = false;
+                                      editMode = false;
                                     });
                                     await _alertService.popUpSuccess(
                                         context, 'Entry Edited!');

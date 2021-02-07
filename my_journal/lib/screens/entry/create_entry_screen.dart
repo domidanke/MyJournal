@@ -42,7 +42,9 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
     newEntry.feeling = 2;
     newEntry.specialDay = false;
     headerController.addListener(() {
-      newEntry.header = headerController.text;
+      if (headerFormKey.currentState.validate()) {
+        newEntry.header = headerController.text;
+      }
     });
   }
   //endregion
@@ -87,8 +89,8 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
       showDatePicker(
               context: context,
               initialDate: DateTime.now(),
-              firstDate: DateTime(2020),
-              lastDate: DateTime.now())
+              firstDate: DateTime.utc(2000, 1, 1),
+              lastDate: DateTime(2030, 1, 1))
           .then((selectedDate) {
         if (selectedDate != null) {
           setState(() {
@@ -227,14 +229,17 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
           state: completedMap[3] ? StepState.complete : StepState.indexed,
           content: Form(
             key: headerFormKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               maxLength: 20,
+              maxLengthEnforced: true,
               controller: headerController,
               decoration: kTextFieldInputDecoration,
               validator: (val) {
                 if (val.isEmpty) {
                   return 'Header cannot be empty';
+                } else if (val.length > 20) {
+                  return 'Header too long';
                 } else {
                   return null;
                 }

@@ -51,30 +51,33 @@ class _WriteEntryScreenState extends State<WriteEntryScreen> {
                 flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      IconButton(
-                        icon: const Icon(
-                          Icons.chevron_left,
-                          size: 32.0,
+                  child: FittedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        IconButton(
+                          icon: const Icon(
+                            Icons.chevron_left,
+                            size: 32.0,
+                          ),
+                          onPressed: () {
+                            _navigationService.goBack();
+                          },
                         ),
-                        onPressed: () {
-                          _navigationService.goBack();
-                        },
-                      ),
-                      Text(
-                        '${widget.entry.header}',
-                        style: const TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
+                        Text(
+                          '${widget.entry.header}',
+                          style: const TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(right: 32.0),
-                        child: widget.entry.journal.icon,
-                      ),
-                    ],
+                        Container(
+                          margin:
+                              const EdgeInsets.only(left: 12.0, right: 12.0),
+                          child: widget.entry.journal.icon,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
