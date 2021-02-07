@@ -46,7 +46,9 @@ class _CreateJournalScreenState extends State<CreateJournalScreen> {
     journalCategories = kCategoryIconMapping.keys.toList();
     titleController.addListener(() {
       setState(() {
-        newJournal.title = titleController.text;
+        if (titleFormKey.currentState.validate()) {
+          newJournal.title = titleController.text;
+        }
       });
     });
     newJournal.icon = const Icon(Icons.edit);
@@ -72,6 +74,8 @@ class _CreateJournalScreenState extends State<CreateJournalScreen> {
                   validator: (val) {
                     if (val.isEmpty) {
                       return 'Title cannot be empty';
+                    } else if (val.length > 20) {
+                      return 'Title too long';
                     } else {
                       return null;
                     }

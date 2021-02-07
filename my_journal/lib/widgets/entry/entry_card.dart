@@ -59,16 +59,13 @@ class _EntryCardState extends State<EntryCard> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: FittedBox(
-                  child: Text(
-                    widget.entry.header,
-                    textAlign: TextAlign.center,
-                    style: widget.isCalendarView
-                        ? Theme.of(context).textTheme.headline1
-                        : Theme.of(context).textTheme.headline3,
-                  ),
+              child: FittedBox(
+                child: Text(
+                  widget.entry.header,
+                  textAlign: TextAlign.center,
+                  style: widget.isCalendarView
+                      ? Theme.of(context).textTheme.headline1
+                      : Theme.of(context).textTheme.headline3,
                 ),
               ),
             ),

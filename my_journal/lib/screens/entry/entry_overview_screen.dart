@@ -138,24 +138,30 @@ class _EntryOverviewScreenState extends State<EntryOverviewScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  IconButton(
-                    icon: const Icon(
-                      Icons.chevron_left,
-                      size: 32.0,
+                  Container(
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.chevron_left,
+                        size: 32.0,
+                      ),
+                      onPressed: () {
+                        _navigationService.goBack();
+                      },
                     ),
-                    onPressed: () {
-                      _navigationService.goBack();
-                    },
                   ),
-                  Text(
-                    '${widget.journal.title}',
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
+                  Flexible(
+                    child: FittedBox(
+                      child: Text(
+                        '${widget.journal.title}',
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(right: 32.0),
+                    margin: const EdgeInsets.only(left: 12.0, right: 12.0),
                     child: widget.journal.icon,
                   ),
                 ],

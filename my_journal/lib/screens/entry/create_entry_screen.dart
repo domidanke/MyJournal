@@ -42,7 +42,9 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
     newEntry.feeling = 2;
     newEntry.specialDay = false;
     headerController.addListener(() {
-      newEntry.header = headerController.text;
+      if (headerFormKey.currentState.validate()) {
+        newEntry.header = headerController.text;
+      }
     });
   }
   //endregion
@@ -225,19 +227,24 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
           title: const Text('Choose Header'),
           isActive: currentStep == 3,
           state: completedMap[3] ? StepState.complete : StepState.indexed,
-          content: TextFormField(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            maxLength: 20,
-            maxLengthEnforced: true,
-            controller: headerController,
-            decoration: kTextFieldInputDecoration,
-            validator: (val) {
-              if (val.isEmpty) {
-                return 'Header cannot be empty';
-              } else {
-                return null;
-              }
-            },
+          content: Form(
+            key: headerFormKey,
+            child: TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              maxLength: 20,
+              maxLengthEnforced: true,
+              controller: headerController,
+              decoration: kTextFieldInputDecoration,
+              validator: (val) {
+                if (val.isEmpty) {
+                  return 'Header cannot be empty';
+                } else if (val.length > 20) {
+                  return 'Header too long';
+                } else {
+                  return null;
+                }
+              },
+            ),
           )),
     ];
   }
@@ -297,8 +304,7 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
                         onPressed: currentStep < 3
                             ? onStepContinue
                             : () {
-                                if (headerController.text.isNotEmpty &&
-                                    headerController.text.length <= 20) {
+                                if (headerFormKey.currentState.validate()) {
                                   FocusScope.of(context).unfocus();
                                   _navigationService.navigateTo(
                                       WriteEntryScreen.id,

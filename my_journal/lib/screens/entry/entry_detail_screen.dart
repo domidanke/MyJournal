@@ -113,15 +113,20 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                                     _navigationService.goBack();
                                   },
                                 ),
-                                Text(
-                                  '${widget.entry.header}',
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
+                                Flexible(
+                                  child: FittedBox(
+                                    child: Text(
+                                      '${widget.entry.header}',
+                                      style: const TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.only(right: 32.0),
+                                  margin: const EdgeInsets.only(
+                                      left: 12.0, right: 12.0),
                                   child: widget.entry.journal.icon,
                                 ),
                               ]),
@@ -216,34 +221,43 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                                     'Try Again',
                                     'Header and Content did not change',
                                     context);
-                              } else if (headerController.text == '' ||
+                                return;
+                              }
+                              if (headerController.text == '' ||
                                   contentController.text == '') {
                                 _alertService.generalAlert('Try Again',
                                     'Both fields have to be filled', context);
-                              } else {
-                                if (!loading) {
+                                return;
+                              }
+                              if (headerController.text.length > 20) {
+                                _alertService.generalAlert(
+                                    'Try Again',
+                                    'Header cannot exceed 20 characters',
+                                    context);
+                                return;
+                              }
+                              if (!loading) {
+                                setState(() {
+                                  loading = true;
+                                });
+                                await _dataAccessService
+                                    .updateEntry(widget.entry)
+                                    .then((value) async {
                                   setState(() {
-                                    loading = true;
+                                    loading = false;
                                   });
-                                  await _dataAccessService
-                                      .updateEntry(widget.entry)
-                                      .then((value) async {
+                                  if (value) {
+                                    await _alertService.popUpSuccess(
+                                        context, 'Entry Edited!');
                                     setState(() {
-                                      loading = false;
+                                      editMode = false;
                                     });
-                                    if (value) {
-                                      await _alertService.popUpSuccess(
-                                          context, 'Entry Edited!');
-                                      setState(() {
-                                        editMode = false;
-                                      });
-                                      initialHeader = widget.entry.header;
-                                      initialContent = widget.entry.content;
-                                    } else {
-                                      await _alertService.popUpError(context);
-                                    }
-                                  });
-                                }
+                                    initialHeader = widget.entry.header;
+                                    initialContent = widget.entry.content;
+                                  } else {
+                                    await _alertService.popUpError(context);
+                                  }
+                                });
                               }
                             },
                           ),
