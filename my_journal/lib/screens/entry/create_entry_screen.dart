@@ -87,8 +87,8 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
       showDatePicker(
               context: context,
               initialDate: DateTime.now(),
-              firstDate: DateTime(2020),
-              lastDate: DateTime.now())
+              firstDate: DateTime.utc(2000, 1, 1),
+              lastDate: DateTime(2030, 1, 1))
           .then((selectedDate) {
         if (selectedDate != null) {
           setState(() {
