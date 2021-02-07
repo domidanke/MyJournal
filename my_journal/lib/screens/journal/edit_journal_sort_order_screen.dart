@@ -359,7 +359,7 @@ class DragJournal extends StatelessWidget {
                         child: Text(
                           journal.title,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 12.0),
+                          style: const TextStyle(fontSize: 10.0),
                         ),
                       )
                     ],
