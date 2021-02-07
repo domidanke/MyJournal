@@ -133,25 +133,23 @@ class _WriteEntryScreenState extends State<WriteEntryScreen> {
                       });
                       await _dataAccessService
                           .addNewEntry(widget.entry)
-                          .then((value) async {
+                          .then((_) async {
                         setState(() {
                           loading = false;
                         });
-                        if (value) {
-                          await _alertService.popUpSuccess(
-                              context, 'Entry Added!');
-                          if (widget.entry.journal.comingFromHome) {
-                            widget.entry.journal.comingFromHome = false;
-                            _navigationService.navigateHome();
-                            _navigationService.navigateTo(
-                                EntryOverviewScreen.id,
-                                args: widget.entry.journal);
-                          } else {
-                            _navigationService.goBack(n: 2);
-                          }
+
+                        await _alertService.popUpSuccess(
+                            context, 'Entry Added!');
+                        if (widget.entry.journal.comingFromHome) {
+                          widget.entry.journal.comingFromHome = false;
+                          _navigationService.navigateHome();
+                          _navigationService.navigateTo(EntryOverviewScreen.id,
+                              args: widget.entry.journal);
                         } else {
-                          await _alertService.popUpError(context);
+                          _navigationService.goBack(n: 2);
                         }
+                      }).catchError((Object error) async {
+                        await _alertService.popUpError(context);
                       });
                     }
                   }

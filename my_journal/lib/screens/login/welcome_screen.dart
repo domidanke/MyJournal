@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_journal/generated/l10n.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/screens/login/loading_screen.dart';
 import 'package:my_journal/screens/login/registration_screen.dart';
@@ -41,7 +42,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('MyJournal',
+                  Text(S.of(context).welcomeScreenAppName,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline1),
                   const SizedBox(
@@ -57,7 +58,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           prefixIcon: const Icon(
                             Icons.mail,
                           ),
-                          hintText: 'Enter your email',
+                          hintText:
+                              S.of(context).welcomeScreenEmailTextFieldHint,
                           hintStyle: Theme.of(context).textTheme.headline4),
                       onChanged: (String value) {
                         email = value;
@@ -75,7 +77,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       textAlign: TextAlign.center,
                       decoration: kTextFieldInputDecoration.copyWith(
                         prefixIcon: const Icon(Icons.vpn_key),
-                        hintText: 'Enter your password',
+                        hintText:
+                            S.of(context).welcomeScreenPasswordTextFieldHint,
                         hintStyle: Theme.of(context).textTheme.headline4,
                       ),
                       onChanged: (String value) {
@@ -87,32 +90,31 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     height: 18.0,
                   ),
                   RoundedButton(
-                    text: 'Log In',
+                    text: S.of(context).welcomeScreenLoginButton,
                     onPressed: () async {
-                      if (password == null || email == null) {
+                      if (email == null) {
                         FocusScope.of(context).unfocus();
                         _alertService.generalAlert(
-                            'Try Again', 'Fields are not filled out', context);
+                            S.of(context).loginScreenErrorTitle,
+                            S.of(context).loginScreenErrorInvalidEmail,
+                            context);
                       } else {
                         setState(() {
                           showSpinner = true;
                         });
-
-                        try {
-                          final authResult =
-                              await _authService.signIn(email, password);
-                          if (authResult != null) {
-                            setState(() {
-                              showSpinner = false;
-                            });
-                            _navigationService.navigateTo(LoadingScreen.id);
-                          }
-                        } catch (e) {
+                        await _authService.signIn(email, password).then((_) {
                           setState(() {
                             showSpinner = false;
                           });
-                          _alertService.loginFailed(e.code, context);
-                        }
+                          _navigationService.navigateTo(LoadingScreen.id);
+                        }).catchError((Object error) {
+                          setState(() {
+                            showSpinner = false;
+                          });
+                          print(error);
+                          _alertService.loginFailed(error, context);
+                          return null;
+                        });
                       }
                     },
                   ),
@@ -121,7 +123,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       _navigationService.navigateTo(RegistrationScreen.id);
                     },
                     child: Center(
-                        child: Text('Register',
+                        child: Text(
+                            S.of(context).welcomeScreenRegistrationButton,
                             style: Theme.of(context).textTheme.subtitle2)),
                   ),
                   const SizedBox(
@@ -129,10 +132,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      //TODO: Implement Forgot Password functionality
                       print('FORGOT PASSWORD');
                     },
                     child: Center(
-                        child: Text('Forgot Password',
+                        child: Text(
+                            S.of(context).welcomeScreenForgotPasswordButton,
                             style: Theme.of(context).textTheme.subtitle2)),
                   )
                 ],

@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:my_journal/generated/l10n.dart';
 import 'package:my_journal/models/entry.dart';
 import 'package:my_journal/models/journal.dart';
 
@@ -11,16 +13,6 @@ import 'navigation_service.dart';
 
 final NavigationService _navigationService = locator<NavigationService>();
 final DataAccessService _dataAccessService = locator<DataAccessService>();
-
-Map<String, String> kAlertMap = const {
-  'invalid-email': 'Please enter a valid email address.',
-  'user-not-found': 'Sorry, we can\'t find an account with this email address.',
-  'wrong-password': 'Username or password is invalid. Please try again.',
-  'weak-password': 'The password must be at least 6 characters long.',
-  'email-already-in-use':
-      'The email address is already in use by another account.',
-  'operation-not-allowed': 'Something went wrong on the Server'
-};
 
 class AlertService {
   //region General Alert
@@ -40,14 +32,21 @@ class AlertService {
   //endregion
 
   //region Login failed
-  void loginFailed(String alertCode, BuildContext context) {
+  void loginFailed(FirebaseAuthException error, BuildContext context) {
+    Map<String, String> loginAlertMap = {
+      'invalid-email': S.of(context).loginScreenErrorInvalidEmail,
+      'user-not-found': S.of(context).loginScreenErrorUserNotFound,
+      'wrong-password': S.of(context).loginScreenErrorWrongPassword,
+      'operation-not-allowed': S.of(context).loginScreenErrorDefault
+    };
+
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return CustomAlert(
-          alertTitle: 'Login failed',
-          alertMessage: kAlertMap[alertCode],
+          alertTitle: S.of(context).loginScreenErrorTitle,
+          alertMessage: loginAlertMap[error.code],
           onPressed1: () => _navigationService.goBack(),
         );
       },
@@ -56,14 +55,22 @@ class AlertService {
   //endregion
 
   //region Registration failed
-  void registrationFailed(String alertCode, BuildContext context) {
+  void registrationFailed(FirebaseAuthException error, BuildContext context) {
+    Map<String, String> registrationAlertMap = {
+      'invalid-email': S.of(context).registrationScreenErrorInvalidEmail,
+      'weak-password': S.of(context).registrationScreenErrorWeakPassword,
+      'email-already-in-use':
+          S.of(context).registrationScreenErrorEmailAlreadyInUse,
+      'operation-not-allowed': S.of(context).registrationScreenErrorDefault
+    };
+
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return CustomAlert(
-          alertTitle: 'Registration failed',
-          alertMessage: kAlertMap[alertCode],
+          alertTitle: S.of(context).registrationScreenErrorTitle,
+          alertMessage: registrationAlertMap[error.code],
           onPressed1: () => _navigationService.goBack(),
         );
       },
@@ -98,14 +105,12 @@ class AlertService {
           alertMessage:
               "Clicking OK will delete Entry '${entry.header}' permanently.",
           onPressed1: () async {
-            await _dataAccessService.deleteEntry(entry).then((value) async {
+            await _dataAccessService.deleteEntry(entry).then((_) async {
               _navigationService.goBack();
-              if (value) {
-                await popUpSuccess(context, 'Entry Deleted!');
-                _navigationService.goBack();
-              } else {
-                await popUpError(context);
-              }
+              await popUpSuccess(context, 'Entry Deleted!');
+              _navigationService.goBack();
+            }).catchError((Object error) async {
+              await popUpError(context);
             });
           },
           secondOption: 'Cancel',
@@ -129,14 +134,13 @@ class AlertService {
           alertMessage:
               "Clicking OK will delete Journal '${journal.title}' permanently.",
           onPressed1: () async {
-            await _dataAccessService.deleteJournal(journal).then((value) async {
+            await _dataAccessService.deleteJournal(journal).then((_) async {
               _navigationService.goBack();
-              if (value) {
-                await popUpSuccess(context, 'Journal Deleted!');
-                _navigationService.navigateHome();
-              } else {
-                await popUpError(context);
-              }
+
+              await popUpSuccess(context, 'Journal Deleted!');
+              _navigationService.navigateHome();
+            }).catchError((Object error) async {
+              await popUpError(context);
             });
           },
           secondOption: 'Cancel',
@@ -164,14 +168,13 @@ class AlertService {
           onPressed1: () async {
             await _dataAccessService
                 .updateEntriesColor(journal, color)
-                .then((value) async {
+                .then((_) async {
               _navigationService.goBack();
-              if (value) {
-                await popUpSuccess(context, 'Colors changed!');
-                _navigationService.navigateHome();
-              } else {
-                await popUpError(context);
-              }
+
+              await popUpSuccess(context, 'Colors changed!');
+              _navigationService.navigateHome();
+            }).catchError((Object error) async {
+              await popUpError(context);
             });
             _navigationService.navigateHome();
           },

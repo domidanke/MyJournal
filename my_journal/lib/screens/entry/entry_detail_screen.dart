@@ -239,14 +239,13 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                               if (!loading) {
                                 setState(() {
                                   loading = true;
-                                });
-                                await _dataAccessService
-                                    .updateEntry(widget.entry)
-                                    .then((value) async {
-                                  setState(() {
-                                    loading = false;
-                                  });
-                                  if (value) {
+                                });                                               
+                                  await _dataAccessService
+                                      .updateEntry(widget.entry)
+                                      .then((_) async {
+                                    setState(() {
+                                      editMode = false;
+                                    });
                                     await _alertService.popUpSuccess(
                                         context, 'Entry Edited!');
                                     setState(() {
@@ -254,10 +253,10 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                                     });
                                     initialHeader = widget.entry.header;
                                     initialContent = widget.entry.content;
-                                  } else {
+                                  }).catchError((Object error) async {
                                     await _alertService.popUpError(context);
-                                  }
-                                });
+                                  });
+                                }
                               }
                             },
                           ),
