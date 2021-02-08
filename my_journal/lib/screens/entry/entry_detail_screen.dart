@@ -239,24 +239,23 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                               if (!loading) {
                                 setState(() {
                                   loading = true;
-                                });                                               
-                                  await _dataAccessService
-                                      .updateEntry(widget.entry)
-                                      .then((_) async {
-                                    setState(() {
-                                      editMode = false;
-                                    });
-                                    await _alertService.popUpSuccess(
-                                        context, 'Entry Edited!');
-                                    setState(() {
-                                      editMode = false;
-                                    });
-                                    initialHeader = widget.entry.header;
-                                    initialContent = widget.entry.content;
-                                  }).catchError((Object error) async {
-                                    await _alertService.popUpError(context);
+                                });
+                                await _dataAccessService
+                                    .updateEntry(widget.entry)
+                                    .then((_) async {
+                                  setState(() {
+                                    editMode = false;
                                   });
-                                }
+                                  await _alertService.popUpSuccess(
+                                      context, 'Entry Edited!');
+                                  setState(() {
+                                    editMode = false;
+                                  });
+                                  initialHeader = widget.entry.header;
+                                  initialContent = widget.entry.content;
+                                }).catchError((Object error) async {
+                                  await _alertService.popUpError(context);
+                                });
                               }
                             },
                           ),

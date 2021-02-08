@@ -11,6 +11,7 @@
   "loginScreenErrorWrongPassword": "Die E-Mail Adresse oder das Passwort sind nicht korrekt. Bitte versuche es erneut.",
   "loginScreenErrorDefault": "Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut.",
   "loginScreenErrorTitle": "Log-In fehlgeschlagen",
+  "loginScreenErrorEmptyFields": "Bitte gib eine valide E-Mail Adresse und ein Passwort ein.",
   "registrationScreenTopLabel": "Registrieren",
   "registrationScreenEmailTextFieldHint": "E-Mail eingeben",
   "registrationScreenPasswordTextFieldHint": "Passwort eingeben",

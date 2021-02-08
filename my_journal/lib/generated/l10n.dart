@@ -145,6 +145,16 @@ class S {
     );
   }
 
+  /// `Please enter a valid email address and password.`
+  String get loginScreenErrorEmptyFields {
+    return Intl.message(
+      'Please enter a valid email address and password.',
+      name: 'loginScreenErrorEmptyFields',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Register`
   String get registrationScreenTopLabel {
     return Intl.message(

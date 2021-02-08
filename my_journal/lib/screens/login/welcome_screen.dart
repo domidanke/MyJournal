@@ -92,11 +92,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   RoundedButton(
                     text: S.of(context).welcomeScreenLoginButton,
                     onPressed: () async {
-                      if (email == null) {
+                      if (password == null || email == null) {
                         FocusScope.of(context).unfocus();
                         _alertService.generalAlert(
                             S.of(context).loginScreenErrorTitle,
-                            S.of(context).loginScreenErrorInvalidEmail,
+                            S.of(context).loginScreenErrorEmptyFields,
                             context);
                       } else {
                         setState(() {

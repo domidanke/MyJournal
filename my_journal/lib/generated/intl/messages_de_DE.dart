@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "loginScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut."),
+    "loginScreenErrorEmptyFields" : MessageLookupByLibrary.simpleMessage("Bitte gib eine valide E-Mail Adresse und ein Passwort ein."),
     "loginScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Bitte gib eine valide E-Mail Adresse ein."),
     "loginScreenErrorTitle" : MessageLookupByLibrary.simpleMessage("Log-In fehlgeschlagen"),
     "loginScreenErrorUserNotFound" : MessageLookupByLibrary.simpleMessage("Sorry, wir können keinen Account mit dieser E-Mail Adresse finden."),
