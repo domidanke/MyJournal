@@ -21,6 +21,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "forgotPasswordScreenBackToLoginButton" : MessageLookupByLibrary.simpleMessage("Back to Login"),
+    "forgotPasswordScreenEmailTextFieldHint" : MessageLookupByLibrary.simpleMessage("Enter your email"),
+    "forgotPasswordScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Something went wrong. Please try again later."),
+    "forgotPasswordScreenErrorEmptyFields" : MessageLookupByLibrary.simpleMessage("Please enter a valid email address."),
+    "forgotPasswordScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Please enter a valid email address."),
+    "forgotPasswordScreenErrorTitle" : MessageLookupByLibrary.simpleMessage("Password reset failed"),
+    "forgotPasswordScreenErrorUserNotFound" : MessageLookupByLibrary.simpleMessage("No such email address found."),
+    "forgotPasswordScreenRequestResetButton" : MessageLookupByLibrary.simpleMessage("Reset"),
+    "forgotPasswordScreenSuccessMessage" : MessageLookupByLibrary.simpleMessage("We just sent you an email to reset your password."),
+    "forgotPasswordScreenSuccessTitle" : MessageLookupByLibrary.simpleMessage("Success"),
+    "forgotPasswordScreenTopLabel" : MessageLookupByLibrary.simpleMessage("Forgot password"),
     "loginScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Something went wrong. Please try again later."),
     "loginScreenErrorEmptyFields" : MessageLookupByLibrary.simpleMessage("Please enter a valid email address and password."),
     "loginScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Please enter a valid email address."),

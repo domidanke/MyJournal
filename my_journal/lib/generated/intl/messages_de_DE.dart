@@ -21,6 +21,17 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "forgotPasswordScreenBackToLoginButton" : MessageLookupByLibrary.simpleMessage("Zurück zum Log-In"),
+    "forgotPasswordScreenEmailTextFieldHint" : MessageLookupByLibrary.simpleMessage("E-Mail eingeben"),
+    "forgotPasswordScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut."),
+    "forgotPasswordScreenErrorEmptyFields" : MessageLookupByLibrary.simpleMessage("Bitte gib eine valide E-Mail Adresse ein."),
+    "forgotPasswordScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Bitte gib eine valide E-Mail Adresse ein."),
+    "forgotPasswordScreenErrorTitle" : MessageLookupByLibrary.simpleMessage("Passwort zurücksetzen fehlgeschlagen"),
+    "forgotPasswordScreenErrorUserNotFound" : MessageLookupByLibrary.simpleMessage("Diese E-Mail Adresse ist uns nicht bekannt."),
+    "forgotPasswordScreenRequestResetButton" : MessageLookupByLibrary.simpleMessage("Zurücksetzen"),
+    "forgotPasswordScreenSuccessMessage" : MessageLookupByLibrary.simpleMessage("Wir haben dir eine E-Mail zum Zurücksetzen deines Passworts geschickt."),
+    "forgotPasswordScreenSuccessTitle" : MessageLookupByLibrary.simpleMessage("Super!"),
+    "forgotPasswordScreenTopLabel" : MessageLookupByLibrary.simpleMessage("Passwort vergessen"),
     "loginScreenErrorDefault" : MessageLookupByLibrary.simpleMessage("Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut."),
     "loginScreenErrorEmptyFields" : MessageLookupByLibrary.simpleMessage("Bitte gib eine valide E-Mail Adresse und ein Passwort ein."),
     "loginScreenErrorInvalidEmail" : MessageLookupByLibrary.simpleMessage("Bitte gib eine valide E-Mail Adresse ein."),

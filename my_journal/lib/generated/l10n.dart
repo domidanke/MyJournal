@@ -264,6 +264,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Forgot password`
+  String get forgotPasswordScreenTopLabel {
+    return Intl.message(
+      'Forgot password',
+      name: 'forgotPasswordScreenTopLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email`
+  String get forgotPasswordScreenEmailTextFieldHint {
+    return Intl.message(
+      'Enter your email',
+      name: 'forgotPasswordScreenEmailTextFieldHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset`
+  String get forgotPasswordScreenRequestResetButton {
+    return Intl.message(
+      'Reset',
+      name: 'forgotPasswordScreenRequestResetButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password reset failed`
+  String get forgotPasswordScreenErrorTitle {
+    return Intl.message(
+      'Password reset failed',
+      name: 'forgotPasswordScreenErrorTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email address.`
+  String get forgotPasswordScreenErrorEmptyFields {
+    return Intl.message(
+      'Please enter a valid email address.',
+      name: 'forgotPasswordScreenErrorEmptyFields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back to Login`
+  String get forgotPasswordScreenBackToLoginButton {
+    return Intl.message(
+      'Back to Login',
+      name: 'forgotPasswordScreenBackToLoginButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong. Please try again later.`
+  String get forgotPasswordScreenErrorDefault {
+    return Intl.message(
+      'Something went wrong. Please try again later.',
+      name: 'forgotPasswordScreenErrorDefault',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a valid email address.`
+  String get forgotPasswordScreenErrorInvalidEmail {
+    return Intl.message(
+      'Please enter a valid email address.',
+      name: 'forgotPasswordScreenErrorInvalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No such email address found.`
+  String get forgotPasswordScreenErrorUserNotFound {
+    return Intl.message(
+      'No such email address found.',
+      name: 'forgotPasswordScreenErrorUserNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Success`
+  String get forgotPasswordScreenSuccessTitle {
+    return Intl.message(
+      'Success',
+      name: 'forgotPasswordScreenSuccessTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We just sent you an email to reset your password.`
+  String get forgotPasswordScreenSuccessMessage {
+    return Intl.message(
+      'We just sent you an email to reset your password.',
+      name: 'forgotPasswordScreenSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

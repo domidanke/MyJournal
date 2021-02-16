@@ -22,5 +22,16 @@
   "registrationScreenErrorEmailAlreadyInUse": "The email address is already in use by another account.",
   "registrationScreenErrorDefault": "Something went wrong. Please try again later.",
   "registrationScreenErrorTitle": "Registration failed",
-  "registrationScreenErrorEmptyFields": "Please enter a valid email address and password."
+  "registrationScreenErrorEmptyFields": "Please enter a valid email address and password.",
+  "forgotPasswordScreenTopLabel": "Forgot password",
+  "forgotPasswordScreenEmailTextFieldHint": "Enter your email",
+  "forgotPasswordScreenRequestResetButton": "Reset",
+  "forgotPasswordScreenErrorTitle": "Password reset failed",
+  "forgotPasswordScreenErrorEmptyFields": "Please enter a valid email address.",
+  "forgotPasswordScreenBackToLoginButton": "Back to Login",
+  "forgotPasswordScreenErrorDefault": "Something went wrong. Please try again later.",
+  "forgotPasswordScreenErrorInvalidEmail": "Please enter a valid email address.",
+  "forgotPasswordScreenErrorUserNotFound": "No such email address found.",
+  "forgotPasswordScreenSuccessTitle": "Success",
+  "forgotPasswordScreenSuccessMessage": "We just sent you an email to reset your password."
 }

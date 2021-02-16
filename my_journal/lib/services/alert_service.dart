@@ -78,6 +78,44 @@ class AlertService {
   }
   //endregion
 
+  //region Password Reset failed
+  void passwordResetFailed(FirebaseAuthException error, BuildContext context) {
+    Map<String, String> passwordResetAlertMap = {
+      'invalid-email': S.of(context).forgotPasswordScreenErrorInvalidEmail,
+      'user-not-found': S.of(context).forgotPasswordScreenErrorUserNotFound,
+      'operation-not-allowed': S.of(context).forgotPasswordScreenErrorDefault
+    };
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CustomAlert(
+          alertTitle: S.of(context).forgotPasswordScreenErrorTitle,
+          alertMessage: passwordResetAlertMap[error.code],
+          onPressed1: () => _navigationService.goBack(),
+        );
+      },
+    );
+  }
+  //endregion
+
+  //region Password Reset succeeded
+  void passwordResetSucceeded(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CustomAlert(
+          alertTitle: S.of(context).forgotPasswordScreenSuccessTitle,
+          alertMessage: S.of(context).forgotPasswordScreenSuccessMessage,
+          onPressed1: () => _navigationService.goBack(),
+        );
+      },
+    );
+  }
+  //endregion
+
   //region Max Journals Reached
   void maxJournals(BuildContext context) {
     showDialog(
