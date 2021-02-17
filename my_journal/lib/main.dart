@@ -13,6 +13,7 @@ import 'package:my_journal/screens/journal/edit_journal_screen.dart';
 import 'package:my_journal/screens/journal/edit_journal_sort_order_screen.dart';
 import 'package:my_journal/screens/journal/journal_preview_screen.dart';
 import 'package:my_journal/screens/login/auth_screen.dart';
+import 'package:my_journal/screens/login/forgot_password_screen.dart';
 import 'package:my_journal/screens/login/loading_screen.dart';
 import 'package:my_journal/screens/main/home_screen.dart';
 import 'package:my_journal/services/alert_service.dart';
@@ -73,6 +74,7 @@ class MyJournalApp extends StatelessWidget {
                       ModalRoute.of(context).settings.arguments),
               WelcomeScreen.id: (context) => WelcomeScreen(),
               RegistrationScreen.id: (context) => RegistrationScreen(),
+              ForgotPasswordScreen.id: (context) => ForgotPasswordScreen(),
               LoadingScreen.id: (context) => LoadingScreen(),
               CreateEntryScreen.id: (context) =>
                   CreateEntryScreen(ModalRoute.of(context).settings.arguments),

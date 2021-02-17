@@ -2,33 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_journal/generated/l10n.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:my_journal/models/app_user.dart';
 import 'package:my_journal/services/alert_service.dart';
 import 'package:my_journal/services/auth_service.dart';
-import 'package:my_journal/services/data-access_service.dart';
 import 'package:my_journal/services/navigation_service.dart';
 import 'package:my_journal/utils/constants.dart';
 import 'package:my_journal/widgets/buttons/rounded_button.dart';
 
 import '../../services/locator.dart';
-import '../main/main_screen.dart';
 
 final NavigationService _navigationService = locator<NavigationService>();
-final DataAccessService _dataAccessService = locator<DataAccessService>();
 final AlertService _alertService = locator<AlertService>();
 final AuthService _authService = locator<AuthService>();
 
-class RegistrationScreen extends StatefulWidget {
-  static String id = 'registration_screen';
+class ForgotPasswordScreen extends StatefulWidget {
+  static String id = 'forgot_password_screen';
 
   @override
-  _RegistrationScreenState createState() => _RegistrationScreenState();
+  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   bool showSpinner = false;
   String email;
-  String password;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +41,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(S.of(context).registrationScreenTopLabel,
+                  Text(S.of(context).forgotPasswordScreenTopLabel,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headline1),
                   const SizedBox(
@@ -61,7 +56,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       decoration: kTextFieldInputDecoration.copyWith(
                           hintText: S
                               .of(context)
-                              .registrationScreenEmailTextFieldHint,
+                              .forgotPasswordScreenEmailTextFieldHint,
                           hintStyle: Theme.of(context).textTheme.headline4),
                       onChanged: (value) {
                         //Do something with the user input.
@@ -70,36 +65,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 8.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    child: TextField(
-                      key: const Key('password'),
-                      obscureText: true,
-                      textAlign: TextAlign.center,
-                      decoration: kTextFieldInputDecoration.copyWith(
-                          hintText: S
-                              .of(context)
-                              .registrationScreenPasswordTextFieldHint,
-                          hintStyle: Theme.of(context).textTheme.headline4),
-                      onChanged: (value) {
-                        //Do something with the user input.
-                        password = value;
-                      },
-                    ),
-                  ),
-                  const SizedBox(
                     height: 24.0,
                   ),
                   RoundedButton(
-                    text: S.of(context).registrationScreenRegistrationButton,
+                    text: S.of(context).forgotPasswordScreenRequestResetButton,
                     onPressed: () async {
-                      if (password == null || email == null) {
+                      if (email == null) {
                         FocusScope.of(context).unfocus();
                         _alertService.generalAlert(
-                            S.of(context).registrationScreenErrorTitle,
-                            S.of(context).registrationScreenErrorEmptyFields,
+                            S.of(context).forgotPasswordScreenErrorTitle,
+                            S.of(context).forgotPasswordScreenErrorEmptyFields,
                             context);
                       } else {
                         setState(() {
@@ -107,21 +82,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         });
 
                         await _authService
-                            .signUp(email, password)
-                            .then((userCredentials) async {
-                          final AppUser userToCreate = AppUser(
-                            userID: userCredentials.uid,
-                            email: userCredentials.email,
-                          );
-                          await _dataAccessService.createUser(userToCreate);
-                          showSpinner = false;
-                          _navigationService.navigateTo(MainScreen.id);
+                            .requestPasswordReset(email)
+                            .then((_) {
+                          setState(() {
+                            showSpinner = false;
+                          });
+                          _alertService.passwordResetSucceeded(context);
+                          return null;
                         }).catchError((Object error) {
                           setState(() {
                             showSpinner = false;
                           });
                           //print(error);
-                          _alertService.registrationFailed(error, context);
+                          _alertService.passwordResetFailed(error, context);
                           return null;
                         });
                       }
@@ -136,7 +109,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     },
                     child: Center(
                       child: Text(
-                          S.of(context).registrationScreenBackToLoginButton,
+                          S.of(context).forgotPasswordScreenBackToLoginButton,
                           style: Theme.of(context).textTheme.subtitle2),
                     ),
                   )

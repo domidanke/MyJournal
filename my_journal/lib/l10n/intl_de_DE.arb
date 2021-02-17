@@ -22,5 +22,16 @@
   "registrationScreenErrorEmailAlreadyInUse": "Diese E-Mail Adresse ist bereits vergeben.",
   "registrationScreenErrorDefault": "Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut.",
   "registrationScreenErrorTitle": "Registrieren fehlgeschlagen",
-  "registrationScreenErrorEmptyFields": "Bitte gib eine valide E-Mail Adresse und ein Passwort ein."
+  "registrationScreenErrorEmptyFields": "Bitte gib eine valide E-Mail Adresse und ein Passwort ein.",
+  "forgotPasswordScreenTopLabel": "Passwort vergessen",
+  "forgotPasswordScreenEmailTextFieldHint": "E-Mail eingeben",
+  "forgotPasswordScreenRequestResetButton": "Zurücksetzen",
+  "forgotPasswordScreenErrorTitle": "Passwort zurücksetzen fehlgeschlagen",
+  "forgotPasswordScreenErrorEmptyFields": "Bitte gib eine valide E-Mail Adresse ein.",
+  "forgotPasswordScreenBackToLoginButton": "Zurück zum Log-In",
+  "forgotPasswordScreenErrorDefault": "Ups, da ist wohl etwas schief gelaufen. Bitte versuche es erneut.",
+  "forgotPasswordScreenErrorInvalidEmail": "Bitte gib eine valide E-Mail Adresse ein.",
+  "forgotPasswordScreenErrorUserNotFound": "Diese E-Mail Adresse ist uns nicht bekannt.",
+  "forgotPasswordScreenSuccessTitle": "Super!",
+  "forgotPasswordScreenSuccessMessage": "Wir haben dir eine E-Mail zum Zurücksetzen deines Passworts geschickt."
 }

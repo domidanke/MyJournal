@@ -3,6 +3,7 @@ import 'package:my_journal/generated/l10n.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/screens/login/loading_screen.dart';
 import 'package:my_journal/screens/login/registration_screen.dart';
+import 'package:my_journal/screens/login/forgot_password_screen.dart';
 import 'package:my_journal/services/alert_service.dart';
 import 'package:my_journal/services/auth_service.dart';
 import 'package:my_journal/services/locator.dart';
@@ -111,7 +112,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           setState(() {
                             showSpinner = false;
                           });
-                          print(error);
+                          //print(error);
                           _alertService.loginFailed(error, context);
                           return null;
                         });
@@ -132,8 +133,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      //TODO: Implement Forgot Password functionality
-                      print('FORGOT PASSWORD');
+                      _navigationService.navigateTo(ForgotPasswordScreen.id);
                     },
                     child: Center(
                         child: Text(
