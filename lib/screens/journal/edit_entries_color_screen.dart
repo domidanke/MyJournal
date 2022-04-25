@@ -23,7 +23,6 @@ class EditEntriesColorScreen extends StatefulWidget {
 
 class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
   Color selectedColor;
-  bool calendarView = false;
   DateTime now = DateTime.now();
 
   @override
@@ -36,7 +35,6 @@ class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
     final List<Widget> mockEntryCards = [];
     for (int i = 0; i < 6; i++) {
       mockEntryCards.add(EntryCard(
-          isCalendarView: calendarView,
           entry: Entry(
               journal: Journal(entriesColor: selectedColor),
               header: 'Your Title ${i + 1}',
@@ -78,16 +76,6 @@ class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
                   selectedColor = null;
                 });
               }),
-          SpeedDialChild(
-              child: const Icon(Icons.date_range),
-              backgroundColor: Colors.teal[900],
-              label: 'Change View',
-              labelStyle: const TextStyle(color: Colors.black),
-              onTap: () {
-                setState(() {
-                  calendarView = !calendarView;
-                });
-              }),
         ],
       ),
       body: SafeArea(
@@ -127,7 +115,7 @@ class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
                   padding: const EdgeInsets.all(20),
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  crossAxisCount: calendarView ? 1 : 2,
+                  crossAxisCount: 2,
                   children: getEntryCards()),
             ),
             const Padding(

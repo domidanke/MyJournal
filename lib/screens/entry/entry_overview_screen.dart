@@ -9,7 +9,6 @@ import 'package:my_journal/widgets/buttons/custom_fab.dart';
 import 'package:my_journal/widgets/buttons/toggle_button.dart';
 import 'package:my_journal/widgets/entry/entry_card.dart';
 import 'package:my_journal/widgets/journal/journal_info_sheet.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 import '../../services/locator.dart';
 import 'create_entry_screen.dart';
@@ -28,7 +27,6 @@ class EntryOverviewScreen extends StatefulWidget {
 class _EntryOverviewScreenState extends State<EntryOverviewScreen> {
   Stream entryStream;
   bool sortByRecent = true;
-  bool displayCalendarView = false;
   DateTime selectedDay;
   List<dynamic> selectedEvents;
   Map<DateTime, List<dynamic>> entryMap = {};
@@ -44,45 +42,6 @@ class _EntryOverviewScreenState extends State<EntryOverviewScreen> {
 
   Stream getEntryStream() =>
       _dataAccessService.getEntryStream(widget.journal, sortByRecent);
-
-  //region On Date Selected
-  void onDateSelected(DateTime day, List entries, List holidays) {
-    setState(() {
-      selectedDay = DateTime(day.year, day.month, day.day);
-      selectedEvents = entries;
-    });
-  }
-  //endregion
-
-  //region Get Event List
-  Widget getEventList() {
-    final List<Widget> calendarViewEntryCards = [];
-    for (final Entry entry in selectedEvents) {
-      calendarViewEntryCards.add(EntryCard(
-        entry: entry,
-        isCalendarView: true,
-      ));
-    }
-
-    if (calendarViewEntryCards.isNotEmpty) {
-      return Expanded(
-        child: GridView.count(
-            primary: false,
-            padding: const EdgeInsets.all(20),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: 1,
-            children: calendarViewEntryCards),
-      );
-    }
-    return const Padding(
-      padding: EdgeInsets.only(top: 48.0),
-      child: Center(
-        child: Text('No Entries'),
-      ),
-    );
-  }
-  //endregion
 
   @override
   Widget build(BuildContext context) {
@@ -102,16 +61,6 @@ class _EntryOverviewScreenState extends State<EntryOverviewScreen> {
                           journal: widget.journal,
                         );
                       });
-                }),
-            SpeedDialChild(
-                child: const Icon(Icons.date_range),
-                backgroundColor: Colors.teal[700],
-                label: 'Change View',
-                labelStyle: const TextStyle(color: Colors.black),
-                onTap: () {
-                  setState(() {
-                    displayCalendarView = !displayCalendarView;
-                  });
                 }),
             SpeedDialChild(
               child: const Icon(
@@ -205,99 +154,53 @@ class _EntryOverviewScreenState extends State<EntryOverviewScreen> {
                     selectedEvents = [];
                   }
 
-                  return !displayCalendarView
-                      ? Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Row(
-                                    children: <Widget>[
-                                      const Padding(
-                                        padding: EdgeInsets.all(4.0),
-                                        child: Icon(Icons.arrow_downward),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 24.0),
-                                        child: ToggleButton(
-                                          firstText: 'Recent',
-                                          secondText: 'Oldest',
-                                          toggle: sortByRecent,
-                                          color: Colors.teal[500],
-                                          onPressed: () {
-                                            setState(() {
-                                              sortByRecent = !sortByRecent;
-                                            });
-                                            entryStream = getEntryStream();
-                                          },
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8.0,
-                              ),
-                              Expanded(
-                                child: GridView.count(
-                                    primary: false,
-                                    padding: const EdgeInsets.all(20),
-                                    crossAxisSpacing: 10,
-                                    mainAxisSpacing: 10,
-                                    crossAxisCount: 2,
-                                    children: entryCards),
-                              )
-                            ],
-                          ),
-                        )
-                      : Expanded(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(6.0),
-                                    gradient: LinearGradient(colors: [
-                                      Colors.teal[400],
-                                      Colors.teal[700]
-                                    ]),
-                                  ),
-                                  child: TableCalendar(
-                                    headerStyle: const HeaderStyle(
-                                        formatButtonVisible: false,
-                                        leftChevronIcon: Icon(
-                                          Icons.chevron_left,
-                                          color: Colors.white,
-                                          size: 18.0,
-                                        ),
-                                        rightChevronIcon: Icon(
-                                          Icons.chevron_right,
-                                          color: Colors.white,
-                                          size: 18.0,
-                                        ),
-                                        titleTextStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18.0)),
-                                    focusedDay: null,
-                                    lastDay: null,
-                                    firstDay: null,
-                                  ),
+                  return Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                const Padding(
+                                  padding: EdgeInsets.all(4.0),
+                                  child: Icon(Icons.arrow_downward),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 8.0,
-                              ),
-                              getEventList(),
-                            ],
-                          ),
-                        );
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 24.0),
+                                  child: ToggleButton(
+                                    firstText: 'Recent',
+                                    secondText: 'Oldest',
+                                    toggle: sortByRecent,
+                                    color: Colors.teal[500],
+                                    onPressed: () {
+                                      setState(() {
+                                        sortByRecent = !sortByRecent;
+                                      });
+                                      entryStream = getEntryStream();
+                                    },
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8.0,
+                        ),
+                        Expanded(
+                          child: GridView.count(
+                              primary: false,
+                              padding: const EdgeInsets.all(20),
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              crossAxisCount: 2,
+                              children: entryCards),
+                        )
+                      ],
+                    ),
+                  );
                 } else {
                   return const Center(
                     child: Text('Something went wrong'),

@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:my_journal/utils/constants.dart';
 import 'package:my_journal/models/journal.dart';
 import 'package:my_journal/models/journal_info.dart';
 import 'package:my_journal/services/data-access_service.dart';
+import 'package:my_journal/utils/constants.dart';
 
 import '../../services/locator.dart';
 
