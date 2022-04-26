@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:my_journal/models/journal.dart';
 import 'package:my_journal/screens/journal/edit_journal_sort_order_screen.dart';
 import 'package:my_journal/services/alert_service.dart';
-import 'package:my_journal/services/data-access_service.dart';
 import 'package:my_journal/services/locator.dart';
 import 'package:my_journal/services/navigation_service.dart';
 import 'package:my_journal/widgets/journal/mini_journal_card.dart';
 
+import '../../main.dart';
+import '../../services/auth_service.dart';
+
 final NavigationService _navigationService = locator<NavigationService>();
-final DataAccessService _dataAccessService = locator<DataAccessService>();
 final AlertService _alertService = locator<AlertService>();
 
 class SettingsScreen extends StatefulWidget {
@@ -23,10 +24,12 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   List<Widget> miniJournalCards = [];
   bool darkMode = false;
+  final _authService = AuthService();
 
   @override
   void initState() {
     super.initState();
+    darkMode = _authService.isDarkMode();
   }
 
   //region Create Mini Journal Cards
@@ -154,10 +157,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             activeColor: Colors.teal[500],
                             value: darkMode,
                             onChanged: (value) async {
-                              setState(() {
-                                darkMode = !darkMode;
-                              });
-                              await _dataAccessService.toggleDarkMode(darkMode);
+                              darkMode = value;
+                              print(darkMode);
+                              await _authService.toggleDarkMode(darkMode);
+                              MyJournalApp.themeNotifier.value =
+                                  darkMode ? ThemeMode.dark : ThemeMode.light;
                             },
                           ),
                         ),
@@ -182,10 +186,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             activeColor: Colors.teal[500],
                             value: darkMode,
                             onChanged: (value) async {
-                              setState(() {
-                                darkMode = !darkMode;
-                              });
-                              await _dataAccessService.toggleDarkMode(darkMode);
+                              darkMode = value;
+                              print(darkMode);
+                              await _authService.toggleDarkMode(darkMode);
+                              MyJournalApp.themeNotifier.value =
+                                  darkMode ? ThemeMode.dark : ThemeMode.light;
                             },
                           ),
                         ),

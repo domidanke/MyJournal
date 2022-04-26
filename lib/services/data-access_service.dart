@@ -53,31 +53,6 @@ class DataAccessService {
   }
   //endregion
 
-  //region Is Dark Mode
-  Future<bool> isDarkMode() async {
-    final userLoaded = await _fireStore
-        .collection('users')
-        .where('userID', isEqualTo: _auth.currentUser.uid)
-        .get();
-    final userData = userLoaded.docs[0].data();
-    return userData['darkMode'];
-  }
-  //endregion
-
-  //region Toggle Dark Mode
-  Future<void> toggleDarkMode(bool darkMode) async {
-    final userLoaded = await _fireStore
-        .collection('users')
-        .where('userID', isEqualTo: _auth.currentUser.uid)
-        .get();
-    final userData = userLoaded.docs[0];
-    await _fireStore
-        .collection('users')
-        .doc(userData.id)
-        .update({'darkMode': darkMode});
-  }
-  //endregion
-
   Future<void> signOut() => _auth.signOut();
   //endregion
 

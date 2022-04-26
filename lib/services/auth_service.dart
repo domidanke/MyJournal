@@ -1,9 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  factory AuthService() {
+    return _singleton;
+  }
+  AuthService._internal();
+  static final AuthService _singleton = AuthService._internal();
 
-  Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final _fireStore = FirebaseFirestore.instance;
+  var _darkMode = false;
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
@@ -22,6 +29,34 @@ class AuthService {
   User getCurrentFirebaseUser() {
     return _firebaseAuth.currentUser;
   }
+
+  Future<bool> getIsDarkMode() async {
+    final userLoaded = await _fireStore
+        .collection('users')
+        .where('userID', isEqualTo: _firebaseAuth.currentUser.uid)
+        .get();
+    _darkMode = userLoaded.docs[0].data()['darkMode'];
+    return _darkMode;
+  }
+
+  bool isDarkMode() {
+    return _darkMode;
+  }
+
+  //region Toggle Dark Mode
+  Future<void> toggleDarkMode(bool darkMode) async {
+    final userLoaded = await _fireStore
+        .collection('users')
+        .where('userID', isEqualTo: _firebaseAuth.currentUser.uid)
+        .get();
+    final userData = userLoaded.docs[0];
+    await _fireStore
+        .collection('users')
+        .doc(userData.id)
+        .update({'darkMode': darkMode});
+    _darkMode = darkMode;
+  }
+  //endregion
 
   Future<User> signUp(String email, String password) async {
     try {
