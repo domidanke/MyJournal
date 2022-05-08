@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:my_journal/screens/login/registration_screen.dart';
@@ -25,6 +26,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   bool showSpinner = false;
   String email;
   String password;
+  String emailHint = 'Enter your email';
+  FocusNode emailFocusNode = FocusNode();
+  String passwordHint = 'Enter your password';
+  FocusNode passwordFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    emailFocusNode.addListener(() {
+      setState(() {});
+    });
+    passwordFocusNode.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +74,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: TextField(
-                      key: const Key('email'),
+                      key: const Key('login_email'),
                       keyboardType: TextInputType.emailAddress,
                       textAlign: TextAlign.center,
+                      focusNode: emailFocusNode,
                       decoration: kTextFieldInputDecoration.copyWith(
                           prefixIcon: const Icon(
                             Icons.mail,
                           ),
-                          hintText: 'Enter your email',
+                          hintText: emailFocusNode.hasFocus ? '' : emailHint,
                           hintStyle: Theme.of(context).textTheme.headline6),
                       onChanged: (String value) {
                         email = value;
@@ -71,12 +95,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: TextField(
-                      key: const Key('password'),
+                      key: const Key('login_password'),
                       obscureText: true,
+                      focusNode: passwordFocusNode,
                       textAlign: TextAlign.center,
                       decoration: kTextFieldInputDecoration.copyWith(
                         prefixIcon: const Icon(Icons.vpn_key),
-                        hintText: 'Enter your password',
+                        hintText:
+                            passwordFocusNode.hasFocus ? '' : passwordHint,
                         hintStyle: Theme.of(context).textTheme.headline6,
                       ),
                       onChanged: (String value) {
@@ -100,19 +126,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         });
 
                         try {
-                          final authResult =
-                              await _authService.signIn(email, password);
-                          if (authResult != null) {
-                            setState(() {
-                              showSpinner = false;
-                            });
-                            final isDarkMode =
-                                await _authService.getIsDarkMode();
-                            MyJournalApp.themeNotifier.value =
-                                isDarkMode ? ThemeMode.dark : ThemeMode.light;
-                            _navigationService.navigateHome();
-                          }
-                        } catch (e) {
+                          await _authService.signIn(email, password);
+                          setState(() {
+                            showSpinner = false;
+                          });
+                          final isDarkMode = await _authService.getIsDarkMode();
+                          MyJournalApp.themeNotifier.value =
+                              isDarkMode ? ThemeMode.dark : ThemeMode.light;
+                          _navigationService.navigateHome();
+                        } on FirebaseAuthException catch (e) {
                           setState(() {
                             showSpinner = false;
                           });
@@ -132,14 +154,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   const SizedBox(
                     height: 8.0,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      print('FORGOT PASSWORD');
-                    },
-                    child: Center(
-                        child: Text('Forgot Password',
-                            style: Theme.of(context).textTheme.subtitle2)),
-                  )
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     print('FORGOT PASSWORD');
+                  //   },
+                  //   child: Center(
+                  //       child: Text('Forgot Password',
+                  //           style: Theme.of(context).textTheme.subtitle2)),
+                  // )
                 ],
               ),
             ),

@@ -27,6 +27,28 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool showSpinner = false;
   String email;
   String password;
+  String emailHint = 'Enter your email';
+  FocusNode emailFocusNode = FocusNode();
+  String passwordHint = 'Enter your password';
+  FocusNode passwordFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    emailFocusNode.addListener(() {
+      setState(() {});
+    });
+    passwordFocusNode.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +75,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: TextField(
-                      key: const Key('email'),
+                      key: const Key('registration_email'),
                       keyboardType: TextInputType.emailAddress,
                       textAlign: TextAlign.center,
+                      focusNode: emailFocusNode,
                       decoration: kTextFieldInputDecoration.copyWith(
-                          hintText: 'Enter your email',
+                          prefixIcon: const Icon(
+                            Icons.mail,
+                          ),
+                          hintText: emailFocusNode.hasFocus ? '' : emailHint,
                           hintStyle: Theme.of(context).textTheme.headline6),
                       onChanged: (value) {
                         //Do something with the user input.
@@ -71,11 +97,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                     child: TextField(
-                      key: const Key('password'),
+                      key: const Key('registration_password'),
                       obscureText: true,
                       textAlign: TextAlign.center,
+                      focusNode: passwordFocusNode,
                       decoration: kTextFieldInputDecoration.copyWith(
-                          hintText: 'Enter your password',
+                          prefixIcon: const Icon(Icons.vpn_key),
+                          hintText:
+                              passwordFocusNode.hasFocus ? '' : passwordHint,
                           hintStyle: Theme.of(context).textTheme.headline6),
                       onChanged: (value) {
                         //Do something with the user input.

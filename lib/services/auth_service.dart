@@ -16,14 +16,9 @@ class AuthService {
     await _firebaseAuth.signOut();
   }
 
-  Future<String> signIn(String email, String password) async {
-    try {
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      return 'Signed in';
-    } on FirebaseAuthException catch (e) {
-      return e.message;
-    }
+  Future<void> signIn(String email, String password) async {
+    await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
   }
 
   User getCurrentFirebaseUser() {
