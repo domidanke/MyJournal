@@ -110,13 +110,8 @@ class _EditEntriesColorScreenState extends State<EditEntriesColorScreen> {
               ),
             ),
             Expanded(
-              child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: getEntryCards()),
+              child: ListView(
+                  padding: const EdgeInsets.all(8), children: getEntryCards()),
             ),
             const Padding(
               padding: EdgeInsets.only(top: 8.0),

@@ -135,7 +135,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   shape: CircleBorder(),
                                                 ),
                                                 child: IconButton(
-                                                    icon: const Icon(Icons.add),
+                                                    icon: const Icon(
+                                                      Icons.add,
+                                                      size: 32.0,
+                                                    ),
                                                     //color: Colors.white,
                                                     onPressed: () async {
                                                       final image =

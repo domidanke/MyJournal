@@ -27,16 +27,10 @@ class EntryOverviewScreen extends StatefulWidget {
 class _EntryOverviewScreenState extends State<EntryOverviewScreen> {
   Stream entryStream;
   bool sortByRecent = true;
-  DateTime selectedDay;
-  List<dynamic> selectedEvents;
-  Map<DateTime, List<dynamic>> entryMap = {};
 
   @override
   void initState() {
     super.initState();
-    final now = DateTime.now();
-    selectedDay = DateTime(now.year, now.month, now.day);
-    selectedEvents = [];
     entryStream = getEntryStream();
   }
 
@@ -121,7 +115,6 @@ class _EntryOverviewScreenState extends State<EntryOverviewScreen> {
                     ),
                   );
                 } else if (snapshot.connectionState == ConnectionState.active) {
-                  entryMap = {};
                   final List<EntryCard> entryCards = [];
                   final entryDocs = snapshot.data.docs;
                   for (final QueryDocumentSnapshot entryData in entryDocs) {
@@ -135,71 +128,49 @@ class _EntryOverviewScreenState extends State<EntryOverviewScreen> {
                       content: entryData['content'],
                       journal: widget.journal,
                     );
-                    final DateTime eventDate = DateTime(entry.eventDate.year,
-                        entry.eventDate.month, entry.eventDate.day);
-                    if (entryMap.containsKey(eventDate)) {
-                      final List<dynamic> tmp = entryMap[eventDate];
-                      tmp.add(entry);
-                      entryMap[eventDate] = tmp;
-                    } else {
-                      entryMap[eventDate] = [entry];
-                    }
                     entryCards.add(EntryCard(entry: entry));
-                  }
-
-                  /// On Change
-                  if (entryMap.containsKey(selectedDay)) {
-                    selectedEvents = entryMap[selectedDay];
-                  } else {
-                    selectedEvents = [];
                   }
 
                   return Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                const Padding(
-                                  padding: EdgeInsets.all(4.0),
-                                  child: Icon(Icons.arrow_downward),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 24.0),
-                                  child: ToggleButton(
-                                    firstText: 'Recent',
-                                    secondText: 'Oldest',
-                                    toggle: sortByRecent,
-                                    color: Colors.teal[500],
-                                    onPressed: () {
-                                      setState(() {
-                                        sortByRecent = !sortByRecent;
-                                      });
-                                      entryStream = getEntryStream();
-                                    },
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  const Padding(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: Icon(Icons.arrow_downward),
                                   ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 8.0,
-                        ),
-                        Expanded(
-                          child: GridView.count(
-                              primary: false,
-                              padding: const EdgeInsets.all(20),
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              crossAxisCount: 2,
-                              children: entryCards),
-                        )
-                      ],
-                    ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 24.0),
+                                    child: ToggleButton(
+                                      firstText: 'Recent',
+                                      secondText: 'Oldest',
+                                      toggle: sortByRecent,
+                                      color: Colors.teal[500],
+                                      onPressed: () {
+                                        setState(() {
+                                          sortByRecent = !sortByRecent;
+                                        });
+                                        entryStream = getEntryStream();
+                                      },
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8.0,
+                          ),
+                          Expanded(
+                              child: ListView(
+                                  padding: const EdgeInsets.all(8),
+                                  children: entryCards))
+                        ]),
                   );
                 } else {
                   return const Center(
