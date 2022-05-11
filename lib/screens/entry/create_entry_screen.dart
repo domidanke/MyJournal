@@ -59,7 +59,7 @@ class _CreateEntryScreenState extends State<CreateEntryScreen> {
           isDismissible: false,
           context: context,
           builder: (BuildContext bc) {
-            return Container(
+            return SizedBox(
               height: 350.0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

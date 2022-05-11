@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:615739146215:android:3d05f69f7ae6e47cfe4742",
+        "mobilesdk_app_id": "1:615739146215:android:33241220a9fee802fe4742",
         "android_client_info": {
-          "package_name": "de.lukastajak.my_journal"
+          "package_name": "de.dominiktajak.my_journal"
         }
       },
       "oauth_client": [
